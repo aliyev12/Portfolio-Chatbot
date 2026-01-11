@@ -207,7 +207,8 @@ The project follows a phased implementation plan (see `EXECUTION_PLAN.md`):
 - ✅ Phase 6: Integration
 - ✅ Phase 7: Docker Setup
 - ✅ Phase 8: Testing
-- ⏳ Phase 9-11: In Progress
+- ✅ Phase 9: CI/CD
+- ⏳ Phase 10-11: In Progress
 
 ### Phase 4 Implementation Notes
 
@@ -284,6 +285,153 @@ Key areas not yet implemented:
 - Deployment configuration (Render.com setup)
 - System prompt management
 - Production deployment testing
+
+### Implemented Phase 9: CI/CD
+
+Continuous Integration and Continuous Deployment workflows for automated testing and deployment.
+
+**Files Created:**
+
+1. `.github/workflows/ci.yml` - GitHub Actions CI workflow
+2. `.github/workflows/deploy.yml` - GitHub Actions deployment workflow
+
+**CI Workflow** (`.github/workflows/ci.yml`):
+
+The CI workflow runs on every push to `main` or `develop` and on all pull requests to `main`. It contains the following jobs:
+
+1. **Lint & Type Check** (`lint-and-typecheck`):
+   - Sets up Bun runtime
+   - Runs ESLint on all files
+   - Type checks backend with TypeScript compiler
+   - Type checks frontend with TypeScript compiler
+   - Runs on every push and PR
+
+2. **Backend Tests** (`test-backend`):
+   - Depends on: lint-and-typecheck
+   - Runs Bun test suite for backend
+   - Provides test environment variables (OPENAI_API_KEY, UPSTASH_REDIS_URL, etc.)
+   - Uploads test results
+
+3. **Frontend Tests** (`test-frontend`):
+   - Depends on: lint-and-typecheck
+   - Runs Vitest suite for frontend components and hooks
+   - Includes React component and hook testing
+
+4. **E2E Tests** (`e2e-tests`):
+   - Depends on: test-backend, test-frontend
+   - Installs Playwright browsers (chromium)
+   - Builds frontend widget with `bun run build:frontend`
+   - Starts backend server in background
+   - Waits 5 seconds for server initialization
+   - Runs Playwright E2E test suite
+   - Uploads Playwright HTML report on failure (7-day retention)
+
+5. **Docker Build** (`build`):
+   - Depends on: test-backend, test-frontend
+   - Sets up Docker Buildx for multi-platform builds
+   - Builds backend Docker image with caching
+   - Uses GitHub Actions cache layer caching for faster rebuilds
+   - Verifies Dockerfile.backend is valid and builds successfully
+   - Does NOT push to registry (push happens only on deploy)
+
+**Deploy Workflow** (`.github/workflows/deploy.yml`):
+
+The deploy workflow runs automatically on every push to `main` branch and can be manually triggered via workflow_dispatch.
+
+Configuration:
+- Trigger: Push to `main` branch or manual workflow dispatch button
+- Action: Uses `johnbeynon/render-deploy-action@v0.0.8`
+- Waits for deployment success before completing
+- Requires `RENDER_SERVICE_ID` and `RENDER_API_KEY` secrets
+
+**GitHub Secrets Required:**
+
+Before workflows can run, add these secrets to your GitHub repository (Settings > Secrets and variables > Actions):
+
+| Secret Name | Purpose | Where to Get It |
+|-------------|---------|-----------------|
+| `OPENAI_API_KEY` | OpenAI API key for tests | https://platform.openai.com/api-keys |
+| `OPENAI_API_KEY_TEST` | (Optional) Separate key for tests | Same as above |
+| `UPSTASH_REDIS_URL` | Redis REST URL for tests | Upstash Console |
+| `UPSTASH_REDIS_TOKEN` | Redis REST Token for tests | Upstash Console |
+| `RENDER_SERVICE_ID` | Render service ID for deployments | Render Dashboard (service URL) |
+| `RENDER_API_KEY` | Render API key for CI/CD | Render Account Settings |
+
+**Workflow Execution Flow:**
+
+```
+Push to main/develop
+         ↓
+┌─────────────────────────────────┐
+│ lint-and-typecheck              │ (runs immediately)
+│ ├─ ESLint                       │
+│ ├─ TypeScript Backend           │
+│ └─ TypeScript Frontend          │
+└─────────────────────────────────┘
+         ↓
+┌─────────────────────────────────┐
+│ test-backend                    │ (parallel with frontend tests)
+│ ├─ Install deps                 │
+│ └─ Run Bun tests               │
+└─────────────────────────────────┘
+         ↓
+┌─────────────────────────────────┐
+│ test-frontend                   │
+│ ├─ Install deps                 │
+│ └─ Run Vitest                  │
+└─────────────────────────────────┘
+         ↓
+┌─────────────────────────────────┐
+│ e2e-tests                       │ (parallel with docker build)
+│ ├─ Install Playwright           │
+│ ├─ Build frontend widget        │
+│ ├─ Start backend                │
+│ ├─ Wait for server              │
+│ ├─ Run Playwright tests         │
+│ └─ Upload report on failure     │
+└─────────────────────────────────┘
+         ↓
+┌─────────────────────────────────┐
+│ build                           │
+│ ├─ Docker setup                 │
+│ └─ Build Docker image           │
+└─────────────────────────────────┘
+
+If push to main branch:
+         ↓
+┌─────────────────────────────────┐
+│ deploy                          │
+│ ├─ Render API call              │
+│ ├─ Wait for success             │
+│ └─ Notify                       │
+└─────────────────────────────────┘
+```
+
+**Local Testing of Workflows:**
+
+You can test GitHub Actions workflows locally using `act` (https://github.com/nektos/act):
+
+```bash
+# Install act (macOS)
+brew install act
+
+# Run CI workflow locally
+act -j lint-and-typecheck
+
+# Run all jobs
+act
+
+# Run with specific GitHub secrets
+act -s OPENAI_API_KEY=sk-test-key
+```
+
+**Troubleshooting CI/CD:**
+
+1. **Tests failing locally but passing in CI**: Ensure environment variables match between local and CI
+2. **Docker build failing**: Check Dockerfile syntax and ensure base image is accessible
+3. **E2E tests timing out**: May need to increase wait time in workflow or improve backend startup time
+4. **Playwright report not uploading**: Check that failure condition is properly set (`if: failure()`)
+5. **Deploy not triggering**: Verify you're pushing to `main` branch and Render secrets are set correctly
 
 ### Implemented Phase 5: Frontend Widget
 
