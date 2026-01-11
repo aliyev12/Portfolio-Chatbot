@@ -91,7 +91,7 @@ Reasons:
 - User already has $5 invested in OpenAI API
 - gpt-4o-mini is cost-effective (~$0.15 per 1M input tokens, ~$0.60 per 1M output tokens)
 - Well-documented and widely supported
-- Easy to switch providers later via TanStack AI's unified interface
+- OpenAI SDK provides native streaming support
 
 Cost estimation for $0.25/month:
 - Assuming average conversation: 500 input tokens + 300 output tokens
@@ -139,7 +139,7 @@ Reasons:
 |-----------|------------|--------|
 | Runtime | Bun | Fast, TypeScript-native, modern |
 | Framework | Hono | Lightweight, fast, built for Bun |
-| AI SDK | TanStack AI (`@tanstack/ai`) | Unified interface, provider-agnostic |
+| AI SDK | OpenAI SDK (`openai`) | Direct integration, streaming support, Bun compatible |
 | LLM | OpenAI gpt-4o-mini | Cost-effective, user has API key |
 | Cache/Storage | Upstash Redis | Free tier, serverless, no maintenance |
 | Streaming | Server-Sent Events (SSE) | Native browser support, simpler than WebSockets |
@@ -149,7 +149,7 @@ Reasons:
 |-----------|------------|--------|
 | Build Tool | Vite | Fast, modern, excellent DX |
 | Framework | React 18+ | User expertise, component-based |
-| AI Client | TanStack AI React (`@tanstack/ai-react`) | Matches backend, streaming support |
+| AI Client | Native Fetch API | Direct SSE handling, no extra dependencies |
 | Styling | Vanilla CSS (modular) | No dependencies, full control |
 | Bundling | Vite library mode | Single JS file output for widget |
 
@@ -181,7 +181,7 @@ portfolio-chatbot/
 │   │   │   │   ├── health.ts      # Health check
 │   │   │   │   └── status.ts      # Chatbot availability status
 │   │   │   ├── services/
-│   │   │   │   ├── ai.ts          # TanStack AI setup
+│   │   │   │   ├── ai.ts          # OpenAI API integration
 │   │   │   │   ├── cache.ts       # Redis caching logic
 │   │   │   │   └── usage.ts       # Usage tracking
 │   │   │   ├── middleware/
@@ -217,7 +217,7 @@ portfolio-chatbot/
 │       │   │       ├── Button/
 │       │   │       └── Card/
 │       │   ├── hooks/
-│       │   │   ├── useChat.ts     # TanStack AI hook wrapper
+│       │   │   ├── useChat.ts     # Custom chat hook with SSE
 │       │   │   └── useChatStatus.ts
 │       │   ├── services/
 │       │   │   └── api.ts         # API client
@@ -357,34 +357,34 @@ chatRoutes.post('/', async (c) => {
 });
 ```
 
-### 5.3 AI Service with TanStack AI (src/services/ai.ts)
+### 5.3 AI Service with OpenAI SDK (src/services/ai.ts)
 
 ```typescript
-import { createOpenAI } from '@tanstack/ai-openai';
+import OpenAI from 'openai';
 import { config } from '../config';
+import { SYSTEM_PROMPT } from '../config/prompt';
 
-const openai = createOpenAI({
+const openai = new OpenAI({
   apiKey: config.OPENAI_API_KEY,
 });
 
-const SYSTEM_PROMPT = config.SYSTEM_PROMPT; // Loaded from env or secret file
-
 export const aiService = {
   async *chat(messages: Array<{ role: string; content: string }>) {
-    const response = await openai.chat({
+    const stream = await openai.chat.completions.create({
       model: 'gpt-4o-mini',
       messages: [
         { role: 'system', content: SYSTEM_PROMPT },
         ...messages,
       ],
       stream: true,
-      maxTokens: 500, // Limit response length to control costs
+      max_tokens: 500, // Limit response length to control costs
       temperature: 0.7,
     });
 
-    for await (const chunk of response) {
-      if (chunk.choices[0]?.delta?.content) {
-        yield chunk.choices[0].delta.content;
+    for await (const chunk of stream) {
+      const content = chunk.choices[0]?.delta?.content;
+      if (content) {
+        yield content;
       }
     }
   },
@@ -1778,7 +1778,7 @@ Follow this order for implementing the project. Each step should be a separate b
 
 ### Phase 4: AI Integration (Branch: `feat/ai-integration`)
 
-1. Set up TanStack AI with OpenAI
+1. Set up OpenAI SDK
 2. Implement chat route with SSE
 3. Connect caching and usage tracking
 4. Test with curl/Postman
@@ -2169,7 +2169,7 @@ docker compose logs -f backend
 This execution plan provides everything needed to build the portfolio chatbot:
 
 1. **Monorepo architecture** with backend (Bun/Hono) and frontend (Vite/React)
-2. **TanStack AI** for LLM integration with OpenAI
+2. **OpenAI SDK** for direct LLM integration with OpenAI
 3. **Upstash Redis** for usage tracking and caching (free tier)
 4. **Docker** setup for local development and deployment
 5. **GitHub Actions** for CI/CD

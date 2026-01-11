@@ -3,6 +3,7 @@ import { cors } from 'hono/cors';
 import { logger } from 'hono/logger';
 import { healthRoutes } from './routes/health';
 import { statusRoutes } from './routes/status';
+import { chatRoutes } from './routes/chat';
 import { config } from './config';
 
 const app = new Hono();
@@ -18,6 +19,7 @@ app.use('*', cors({
 // Routes
 app.route('/api/health', healthRoutes);
 app.route('/api/status', statusRoutes);
+app.route('/api/chat', chatRoutes);
 
 // Serve frontend widget (placeholder for now)
 app.get('/widget.js', async (c) => {
@@ -56,6 +58,7 @@ app.get('/', (c) => {
     endpoints: {
       health: '/api/health',
       status: '/api/status',
+      chat: '/api/chat',
       usage: '/api/status/usage (protected)',
       clearCache: '/api/status/clear-cache (protected)',
       widget: '/widget.js',

@@ -8,7 +8,11 @@
       "Bash(bun run format:check:*)",
       "Bash(bun run lint:*)",
       "Bash(timeout 5 bun run:*)",
-      "Bash(bun add:*)"
+      "Bash(bun add:*)",
+      "Bash(curl:*)",
+      "Bash(lsof:*)",
+      "Bash(xargs kill -9:*)",
+      "Bash(bun remove:*)"
     ]
   }
 }

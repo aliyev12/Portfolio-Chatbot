@@ -11,7 +11,9 @@
   },
   "dependencies": {
     "@upstash/redis": "^1.36.1",
-    "hono": "^4.6.14"
+    "hono": "^4.6.14",
+    "openai": "^6.16.0",
+    "zod": "^4.3.5"
   },
   "devDependencies": {
     "@types/bun": "^1.1.13"

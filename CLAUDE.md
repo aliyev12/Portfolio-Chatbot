@@ -9,7 +9,7 @@ Portfolio Chatbot is a monorepo containing an embeddable AI chatbot widget for a
 **Key Technologies:**
 - Runtime: Bun (required for all commands)
 - Backend: Hono framework with Upstash Redis
-- AI: TanStack AI with OpenAI (gpt-4o-mini)
+- AI: OpenAI SDK with gpt-4o-mini (direct integration, not TanStack AI due to Bun compatibility)
 - Frontend: React 18+ with Vite (not yet implemented)
 - Testing: Vitest + Playwright
 - Deployment: Render.com free tier
@@ -98,6 +98,7 @@ bun run format:check
 The backend is a Hono application (`apps/backend/src/index.ts`) with a modular route structure:
 
 - `/api/health` - Health check endpoint
+- `/api/chat` - POST: Chat with AI via Server-Sent Events (SSE)
 - `/api/status` - Public: Check chatbot availability (respects usage limits)
 - `/api/status/usage` - Protected: Get detailed usage statistics
 - `/api/status/clear-cache` - Protected: Clear Redis cache
@@ -129,6 +130,12 @@ The backend uses a service-oriented architecture:
 - Question normalization: lowercase, trim, remove punctuation, collapse spaces
 - 7-day TTL on cached responses
 - Redis key pattern: `chatbot:cache:{hash}`
+
+**AI Service** (`services/ai.ts`):
+- Integrates with OpenAI API (gpt-4o-mini)
+- Streams responses using async generators
+- Injects system prompt from `config/prompt.ts`
+- Limits responses to 500 tokens for cost control
 
 Both services share a single Upstash Redis instance initialized with REST credentials.
 
@@ -184,13 +191,23 @@ When adding new types, consider if they should be shared or app-specific.
 
 The project follows a phased implementation plan (see `EXECUTION_PLAN.md`):
 
-- ✅ Phase 1
-- ✅ Phase 2
-- ✅ Phase 3
-- ⏳ Phase 4-11: In Progress
+- ✅ Phase 1: Project Setup
+- ✅ Phase 2: Backend Core
+- ✅ Phase 3: Redis Integration
+- ✅ Phase 4: AI Integration & Streaming
+- ⏳ Phase 5-11: In Progress
+
+### Phase 4 Implementation Notes
+
+The AI integration uses the **OpenAI SDK directly** instead of TanStack AI due to Bun runtime compatibility issues (TextDecoderStream not available in Bun). The implementation in `routes/chat.ts`:
+- Validates requests with Zod schema
+- Checks Redis cache before calling OpenAI API
+- Streams responses via Server-Sent Events (SSE)
+- Enforces monthly usage limits (returns 429 when exceeded)
+- Caches successful responses for 7 days
+- Increments usage counter after successful completion
 
 Key areas not yet implemented:
-- AI chat endpoint with streaming SSE responses
 - Frontend React widget
 - Docker configuration
 - CI/CD workflows
