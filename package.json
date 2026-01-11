@@ -1,0 +1,40 @@
+{
+  "name": "portfolio-chatbot",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:backend": "bun --watch apps/backend/src/index.ts",
+    "dev:frontend": "bun --cwd apps/frontend run dev",
+    "build:backend": "bun build apps/backend/src/index.ts --outdir apps/backend/dist --target bun",
+    "build:frontend": "bun --cwd apps/frontend run build",
+    "build": "bun run build:frontend && bun run build:backend",
+    "start:backend": "bun run apps/backend/dist/index.js",
+    "test": "bun test",
+    "test:backend": "bun test apps/backend",
+    "test:frontend": "bun --cwd apps/frontend run test",
+    "test:e2e": "bun --cwd apps/frontend run test:e2e",
+    "typecheck": "bun run typecheck:backend && bun run typecheck:frontend",
+    "typecheck:backend": "tsc --noEmit -p apps/backend/tsconfig.json",
+    "typecheck:frontend": "tsc --noEmit -p apps/frontend/tsconfig.json",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md,css}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md,css}\""
+  },
+  "devDependencies": {
+    "@types/bun": "^1.1.13",
+    "@typescript-eslint/eslint-plugin": "^8.18.2",
+    "@typescript-eslint/parser": "^8.18.2",
+    "eslint": "^9.17.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-react": "^7.37.2",
+    "eslint-plugin-react-hooks": "^5.1.0",
+    "prettier": "^3.4.2",
+    "typescript": "^5.7.2"
+  }
+}

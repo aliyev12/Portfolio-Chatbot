@@ -1,0 +1,12 @@
+node_modules
+dist
+build
+.next
+.cache
+coverage
+*.lock
+*.lockb
+.env*
+!.env.example
+apps/backend/public
+playwright-report
