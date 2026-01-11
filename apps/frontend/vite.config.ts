@@ -4,6 +4,11 @@ import { resolve } from 'path';
 
 export default defineConfig({
   plugins: [react()],
+  server: {
+    // Listen on all interfaces in dev mode (required for Docker)
+    host: '0.0.0.0',
+    port: 5173,
+  },
   build: {
     lib: {
       entry: resolve(__dirname, 'src/main.tsx'),
@@ -22,8 +27,5 @@ export default defineConfig({
     // Output to backend's public folder
     outDir: '../backend/public',
     emptyOutDir: false,
-  },
-  define: {
-    'process.env.NODE_ENV': JSON.stringify('production'),
   },
 });

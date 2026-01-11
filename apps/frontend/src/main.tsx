@@ -18,13 +18,17 @@ function initChatWidget() {
   container.id = 'portfolio-chatbot-root';
   document.body.appendChild(container);
 
-  // Get configuration from window global or default to localhost for development
-  const apiUrl = window.CHATBOT_API_URL || (() => {
-    // Default to localhost for development
-    const protocol = window.location.protocol;
-    const hostname = window.location.hostname;
-    return `${protocol}//${hostname}:3000`;
-  })();
+  // Get configuration from:
+  // 1. Window global (set by script tag on portfolio site)
+  // 2. Environment variable (VITE_API_URL - Docker or build-time)
+  // 3. Default to localhost:3000 (local development)
+  const apiUrl = window.CHATBOT_API_URL ||
+    import.meta.env.VITE_API_URL ||
+    (() => {
+      const protocol = window.location.protocol;
+      const hostname = window.location.hostname;
+      return `${protocol}//${hostname}:3000`;
+    })();
 
   const config = {
     apiUrl,

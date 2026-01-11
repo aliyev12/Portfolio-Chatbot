@@ -10,7 +10,8 @@ Portfolio Chatbot is a monorepo containing an embeddable AI chatbot widget for a
 - Runtime: Bun (required for all commands)
 - Backend: Hono framework with Upstash Redis
 - AI: OpenAI SDK with gpt-4o-mini (direct integration, not TanStack AI due to Bun compatibility)
-- Frontend: React 18+ with Vite (not yet implemented)
+- Frontend: React 18+ with Vite (embeddable widget)
+- Containerization: Docker with docker-compose for local development and production
 - Testing: Vitest + Playwright
 - Deployment: Render.com free tier
 
@@ -19,8 +20,15 @@ Portfolio Chatbot is a monorepo containing an embeddable AI chatbot widget for a
 This is a Bun workspace monorepo with three main packages:
 
 - `apps/backend/` - Hono API server with OpenAI integration and Redis caching
-- `apps/frontend/` - React widget (planned, not yet implemented)
+- `apps/frontend/` - React embeddable widget built with Vite
 - `packages/shared/` - Shared TypeScript types used by both frontend and backend
+
+Additionally, a `docker/` directory contains containerization configuration:
+- `docker/Dockerfile.backend` - Production backend image (optimized, compiled)
+- `docker/Dockerfile.backend-dev` - Development backend (with hot-reload)
+- `docker/Dockerfile.frontend` - Widget build artifact container
+- `docker/Dockerfile.frontend-dev` - Development frontend server
+- `docker/nginx.conf` - Optional Nginx reverse proxy config
 
 The shared types package is imported directly via workspace protocol. Type changes in `packages/shared/src/types.ts` are immediately available to both apps.
 
@@ -197,7 +205,8 @@ The project follows a phased implementation plan (see `EXECUTION_PLAN.md`):
 - ✅ Phase 4: AI Integration & Streaming
 - ✅ Phase 5: Frontend Widget
 - ✅ Phase 6: Integration
-- ⏳ Phase 7-11: In Progress
+- ✅ Phase 7: Docker Setup
+- ⏳ Phase 8-11: In Progress
 
 ### Phase 4 Implementation Notes
 
@@ -210,10 +219,10 @@ The AI integration uses the **OpenAI SDK directly** instead of TanStack AI due t
 - Increments usage counter after successful completion
 
 Key areas not yet implemented:
-- Frontend React widget
-- Docker configuration
 - CI/CD workflows
 - Playwright E2E tests
+- Deployment configuration
+- System prompt management
 
 ### Implemented Phase 5: Frontend Widget
 
@@ -259,5 +268,206 @@ The integration phase connects the frontend widget to the backend API and verifi
 - CORS headers validated for correct origin handling
 - SSE streaming confirmed with proper event formatting
 - Widget file serving verified with correct MIME types
+
+### Phase 7: Docker Setup Implementation Summary
+
+Docker setup enables portable, containerized deployment of the entire application stack.
+
+**Directory Structure:**
+```
+docker/
+├── Dockerfile.backend      # Multi-stage production backend build
+├── Dockerfile.backend-dev  # Development backend with hot-reload
+├── Dockerfile.frontend     # Widget build-only container (outputs widget.js)
+├── Dockerfile.frontend-dev # Vite dev server for frontend development
+└── nginx.conf              # Optional reverse proxy configuration
+```
+
+**Dockerfiles Created:**
+
+1. **docker/Dockerfile.backend** (Production):
+   - Multi-stage build: compile TypeScript in builder stage, run lean production stage
+   - Uses `oven/bun:1-slim` for minimal runtime image
+   - Layer optimization: dependencies installed before source code for better caching
+   - Includes health check endpoint
+   - Runs compiled app with: `bun ./dist/index.js`
+
+2. **docker/Dockerfile.backend-dev** (Development):
+   - Full Bun runtime for development with hot-reload
+   - Installs dependencies, source mounted via volumes
+   - Runs with: `bun --watch apps/backend/src/index.ts`
+   - Used by docker-compose.yml for development environment
+
+3. **docker/Dockerfile.frontend** (Build-only):
+   - Build-only container that outputs widget.js to scratch image
+   - Compiles widget via `bun run build:frontend`
+   - Output artifact: widget.js copied to `apps/backend/public/widget.js`
+   - Used in CI/CD pipeline to build widget separately
+
+4. **docker/Dockerfile.frontend-dev** (Development):
+   - Development-focused, runs Vite dev server
+   - Watches source files for hot-reload via volume mounts
+   - Exposed on port 5173
+   - Runs with: `bun run dev:frontend`
+
+5. **docker/nginx.conf**:
+   - Reverse proxy configuration for optional Nginx setup
+   - Handles CORS headers, caching, compression, and rate limiting
+   - Security headers included
+   - SSE streaming support with proxy buffering disabled
+
+**Docker Compose Files:**
+
+1. **docker-compose.yml** (Development):
+   - Starts both backend and frontend services
+   - Backend mounts source code for live reloading via `bun --watch`
+   - Frontend runs Vite dev server with live reload
+   - Environment: development with relaxed CORS
+   - Services automatically restart on failure
+
+2. **docker-compose.prod.yml** (Production-like):
+   - Backend service only (no frontend service)
+   - Runs compiled backend from built image
+   - Environment: production mode
+   - Restart policy: unless-stopped
+
+**Optimization Strategies:**
+
+1. **Build Caching**: Separate dependency installation from source code copying to leverage Docker's layer caching. Unchanged dependencies = faster builds.
+
+2. **Multi-stage Builds**: Builder stage includes compilation tools; production stage only includes runtime (reduces final image size by ~50%).
+
+3. **.dockerignore**: Excludes unnecessary files from build context:
+   - Git artifacts, node_modules, build artifacts
+   - IDE files, logs, documentation
+   - Environment files, CI/CD configs
+   - Reduces build context size and improves build speed
+
+4. **Minimal Base Images**: Uses `oven/bun:1-slim` instead of full `oven/bun:1` in production stage.
+
+5. **Layer Cleanup**: Source files removed after compilation in builder stage.
+
+**Building Locally:**
+
+```bash
+# Build backend image
+docker build -f docker/Dockerfile.backend -t portfolio-chatbot:backend .
+
+# Build frontend widget
+docker build -f docker/Dockerfile.frontend -t portfolio-chatbot:frontend .
+
+# Or use docker-compose
+docker compose build         # Development
+docker compose -f docker-compose.prod.yml build  # Production
+```
+
+**Running Locally:**
+
+```bash
+# Development (both backend and frontend)
+docker compose up
+
+# Production-like testing
+docker compose -f docker-compose.prod.yml up
+
+# Detached mode (background)
+docker compose up -d
+
+# View logs
+docker compose logs -f backend    # Backend logs
+docker compose logs -f frontend   # Frontend logs
+docker compose logs              # All services
+```
+
+**Estimated Image Sizes:**
+
+- Backend production: ~200-250 MB (Bun runtime + dependencies)
+- Frontend widget artifact: ~150-200 KB (React app gzipped)
+- Development images slightly larger due to dev dependencies
+
+**Volume Mount Configuration:**
+
+The docker-compose.yml uses volume mounts for development:
+- Backend: Mounts source code for `bun --watch` hot-reload
+  - `./apps/backend/src:/app/apps/backend/src`
+  - `./packages/shared:/app/packages/shared`
+
+- Frontend: Mounts source code and config files
+  - `./apps/frontend/src:/app/apps/frontend/src`
+  - `./apps/frontend/vite.config.ts:/app/apps/frontend/vite.config.ts`
+  - `./apps/frontend/tsconfig.json:/app/apps/frontend/tsconfig.json`
+  - `./packages/shared:/app/packages/shared`
+  - `./tsconfig.base.json:/app/tsconfig.base.json` (critical for TypeScript extends)
+
+**Important Notes:**
+
+1. **Development vs Production**:
+   - Development uses `docker-compose.yml` with dev Dockerfiles (hot-reload enabled)
+   - Production uses `docker-compose.prod.yml` with production Dockerfile.backend (compiled, optimized)
+
+2. **Known Issues & Fixes Applied**:
+   1. **Vite Not Listening on All Interfaces**:
+      - Issue: Vite by default listens on localhost only, making it inaccessible from host or other containers
+      - Fix: Added `server: { host: '0.0.0.0', port: 5173 }` to vite.config.ts
+
+   2. **Frontend-Backend Communication**:
+      - Issue: Frontend was trying to connect to `http://localhost:3000` from inside container, but localhost refers to the container itself
+      - Fix: Changed `VITE_API_URL=http://backend:3000` in docker-compose.yml (uses Docker service name for inter-container communication)
+      - Fix: Updated main.tsx to use `import.meta.env.VITE_API_URL` environment variable
+
+   3. **Frontend Health Check**:
+      - Issue: Vite dev server doesn't respond well to simple HTTP health checks
+      - Fix: Removed health check from Dockerfile.frontend-dev
+
+   4. **TypeScript Configuration**:
+      - Issue: tsconfig.base.json must be mounted for frontend to resolve extends directive
+      - Fix: Added `./tsconfig.base.json:/app/tsconfig.base.json` volume mount
+
+   5. **Dependency Conditions**:
+      - Issue: `depends_on: { condition: service_healthy }` causes timeouts with health checks
+      - Fix: Use `depends_on: [backend]` (simple dependency without health condition) for development
+
+3. **CI/CD Integration Notes:**
+   - Dockerfile.frontend builds widget artifact for CI/CD pipelines
+   - Can build widget in isolation: `docker build -f docker/Dockerfile.frontend -t widget-builder .`
+   - Extract artifact via Docker COPY from built container
+
+**Development Quick Start:**
+
+```bash
+# Start both containers with hot-reload
+docker compose up
+
+# Open browser and view application
+# Frontend: http://localhost:5173
+# Backend API: http://localhost:3000
+
+# Rebuild images if needed
+docker compose build
+
+# View logs (all services)
+docker compose logs -f
+
+# View specific service logs
+docker compose logs -f backend
+docker compose logs -f frontend
+
+# Stop containers
+docker compose down
+```
+
+**What You'll See:**
+
+When you open http://localhost:5173 in your browser:
+1. Title: "Portfolio Chatbot Widget - Development Mode"
+2. Chat bubble in bottom-right corner
+3. Click bubble to open chat window
+4. Ask questions and chat with the AI-powered chatbot
+
+**Hot-Reload in Action:**
+
+- Edit `apps/frontend/src/` files → Changes appear instantly in browser
+- Edit `apps/backend/src/` files → Backend restarts automatically
+- No need to rebuild or restart containers
 
 When implementing new phases, follow the patterns established in existing code (service layer, route structure, type safety).

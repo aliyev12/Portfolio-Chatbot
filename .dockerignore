@@ -1,0 +1,56 @@
+# Git
+.git
+.gitignore
+.github
+
+# Node/Bun
+node_modules
+bun.lockb
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Testing
+coverage
+.nyc_output
+playwright-report
+test-results
+
+# Build artifacts
+dist
+build
+out
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Documentation
+README.md
+EXECUTION_PLAN.md
+CLAUDE.md
+*.md
+
+# CI/CD
+.github/workflows
+
+# Development files
+apps/*/node_modules
+apps/*/dist
+packages/*/node_modules
+docker/nginx.conf
+
+# OS
+Thumbs.db
+*.DS_Store
