@@ -18,10 +18,16 @@ function initChatWidget() {
   container.id = 'portfolio-chatbot-root';
   document.body.appendChild(container);
 
-  // Get configuration from script tag data attributes or global config
+  // Get configuration from window global or default to localhost for development
+  const apiUrl = window.CHATBOT_API_URL || (() => {
+    // Default to localhost for development
+    const protocol = window.location.protocol;
+    const hostname = window.location.hostname;
+    return `${protocol}//${hostname}:3000`;
+  })();
+
   const config = {
-    // apiUrl: window.CHATBOT_API_URL || 'https://chatbot.aaliyev.com',
-    apiUrl: 'http://localhost:3000',
+    apiUrl,
     contactUrl: 'https://www.aaliyev.com/contact',
   };
 

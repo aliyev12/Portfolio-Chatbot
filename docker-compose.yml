@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  # Backend API server
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    container_name: portfolio-chatbot-backend
+    ports:
+      - '3000:3000'
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - UPSTASH_REDIS_URL=${UPSTASH_REDIS_URL}
+      - UPSTASH_REDIS_TOKEN=${UPSTASH_REDIS_TOKEN}
+      - SYSTEM_PROMPT=${SYSTEM_PROMPT}
+      - MAX_MONTHLY_CONVERSATIONS=${MAX_MONTHLY_CONVERSATIONS:-500}
+      - ADMIN_SECRET=${ADMIN_SECRET:-dev-secret}
+      - ALLOWED_ORIGINS=http://localhost:3000,http://localhost:5173,http://127.0.0.1:3000,http://127.0.0.1:5173
+    volumes:
+      # Mount source code for development with hot-reload
+      - ./apps/backend/src:/app/src:ro
+      - ./apps/backend/public:/app/public:ro
+      - ./packages/shared:/app/packages/shared:ro
+    healthcheck:
+      test: ['CMD', 'curl', '-f', 'http://localhost:3000/api/health']
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    command: bun --watch src/index.ts
+
+  # Frontend development server (optional - for development)
+  frontend:
+    build:
+      context: ./apps/frontend
+      dockerfile: ../../Dockerfile.frontend-dev
+    container_name: portfolio-chatbot-frontend
+    ports:
+      - '5173:5173'
+    environment:
+      - VITE_API_URL=http://localhost:3000
+    volumes:
+      - ./apps/frontend/src:/app/src
+      - ./apps/frontend/vite.config.ts:/app/vite.config.ts
+      - ./packages/shared:/app/packages/shared:ro
+    depends_on:
+      backend:
+        condition: service_healthy
+    command: vite --host
+
+volumes:
+  backend-node-modules:

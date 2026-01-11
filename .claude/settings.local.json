@@ -14,7 +14,8 @@
       "Bash(xargs kill -9:*)",
       "Bash(bun remove:*)",
       "Bash(bun run:*)",
-      "Bash(bun --cwd apps/frontend run build)"
+      "Bash(bun --cwd apps/frontend run build)",
+      "Bash(timeout 10 bun run:*)"
     ]
   }
 }

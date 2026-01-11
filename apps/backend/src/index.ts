@@ -10,11 +10,16 @@ const app = new Hono();
 
 // Middleware
 app.use('*', logger());
+
+// Determine CORS origins based on environment
+const corsOrigins = process.env.NODE_ENV === 'development'
+  ? ['http://localhost:3000', 'http://localhost:5173', 'http://127.0.0.1:3000', 'http://127.0.0.1:5173']
+  : config.ALLOWED_ORIGINS;
+
 app.use(
   '*',
   cors({
-    // origin: config.ALLOWED_ORIGINS,
-    origin: ['http://localhost:5173'],
+    origin: corsOrigins,
     allowMethods: ['GET', 'POST', 'OPTIONS'],
     allowHeaders: ['Content-Type', 'Authorization'],
   }),

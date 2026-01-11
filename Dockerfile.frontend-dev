@@ -1,0 +1,18 @@
+# Frontend development Docker image
+FROM oven/bun:1
+
+WORKDIR /app
+
+# Copy package files
+COPY package.json bun.lockb* ./
+COPY apps/frontend/package.json ./apps/frontend/
+COPY packages/shared/package.json ./packages/shared/
+
+# Install dependencies
+RUN bun install --frozen-lockfile
+
+# Expose Vite dev server port
+EXPOSE 5173
+
+# Run Vite dev server with host binding
+CMD ["bun", "run", "dev:frontend"]
