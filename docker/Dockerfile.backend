@@ -18,6 +18,9 @@ COPY . .
 # Build frontend and backend
 RUN bun run build
 
+# List the output to debug
+RUN ls -R /app/apps/backend/public
+
 # Production stage for a lean final image
 FROM oven/bun:1-slim
 
@@ -27,7 +30,7 @@ WORKDIR /app
 COPY --from=builder /app/apps/backend/dist ./dist
 
 # Copy built frontend (widget) from builder stage
-COPY --from=builder /app/apps/frontend/dist/ ./public/
+COPY --from=builder /app/apps/backend/public/ ./public/
 
 # Copy production node_modules from builder stage
 COPY --from=builder /app/node_modules ./node_modules
