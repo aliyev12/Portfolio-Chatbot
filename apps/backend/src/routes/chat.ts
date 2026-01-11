@@ -38,7 +38,7 @@ chatRoutes.post('/', async (c) => {
       return c.json(
         {
           error: 'Invalid request',
-          details: validation.error.errors,
+          details: validation.error.issues,
         },
         400,
       );

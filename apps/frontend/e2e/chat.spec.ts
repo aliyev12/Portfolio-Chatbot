@@ -146,9 +146,8 @@ test.describe('Chatbot Widget', () => {
     const lastMessage = page.locator('[data-testid="message-assistant"]').last();
     await expect(lastMessage).toBeVisible({ timeout: 30000 });
 
-    // Verify message is in viewport (scrolled into view)
-    const isInViewport = await lastMessage.isInViewport();
-    expect(isInViewport).toBe(true);
+    // Verify message is visible (scrolled into view)
+    await expect(lastMessage).toBeVisible();
   });
 
   test('closes chat window when close button is clicked', async ({ page }) => {

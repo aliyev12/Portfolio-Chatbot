@@ -89,7 +89,7 @@ describe('useChat', () => {
 
       await waitFor(() => {
         expect(result.current.messages.length).toBe(2);
-        expect(result.current.messages[1].role).toBe('assistant');
+        expect(result.current.messages[1]?.role).toBe('assistant');
       });
     });
   });
@@ -109,8 +109,8 @@ describe('useChat', () => {
 
       await waitFor(() => {
         const assistantMessage = result.current.messages[1];
-        expect(assistantMessage.content).toContain('Hello');
-        expect(assistantMessage.content).toContain('world');
+        expect(assistantMessage?.content).toContain('Hello');
+        expect(assistantMessage?.content).toContain('world');
       });
     });
 
@@ -128,8 +128,8 @@ describe('useChat', () => {
 
       await waitFor(() => {
         const assistantMessage = result.current.messages[1];
-        expect(assistantMessage.content).toBe('Hello');
-        expect(assistantMessage.content).not.toContain('[DONE]');
+        expect(assistantMessage?.content).toBe('Hello');
+        expect(assistantMessage?.content).not.toContain('[DONE]');
       });
     });
 
@@ -146,7 +146,7 @@ describe('useChat', () => {
       });
 
       await waitFor(() => {
-        expect(result.current.messages[1].content).toBe('Hello world!');
+        expect(result.current.messages[1]?.content).toBe('Hello world!');
       });
     });
   });

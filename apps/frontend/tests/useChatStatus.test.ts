@@ -173,8 +173,8 @@ describe('useChatStatus', () => {
       rerender({ apiUrl: 'http://test2.api' });
 
       await waitFor(() => {
-        const calls = (global.fetch as any).mock.calls;
-        expect(calls.some((call) => call[0] === 'http://test2.api/api/status')).toBe(true);
+        const calls = (global.fetch as any).mock.calls as Array<Array<unknown>>;
+        expect(calls.some((call: Array<unknown>) => call[0] === 'http://test2.api/api/status')).toBe(true);
       });
     });
   });
