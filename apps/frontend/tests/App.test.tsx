@@ -1,14 +1,15 @@
 import { describe, test, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import App from '../src/App';
+import * as useChatStatusModule from '../src/hooks/useChatStatus';
 
 // Mock the useChatStatus hook
 vi.mock('../src/hooks/useChatStatus', () => ({
-  useChatStatus: () => ({
+  useChatStatus: vi.fn(() => ({
     isAvailable: true,
     isLoading: false,
     error: null,
-  }),
+  })),
 }));
 
 // Mock the ChatBubble component
@@ -40,8 +41,7 @@ describe('App Component', () => {
 
   describe('Loading State', () => {
     test('returns null while loading', () => {
-      const { useChatStatus } = require('../src/hooks/useChatStatus');
-      useChatStatus.mockReturnValue({
+      vi.mocked(useChatStatusModule.useChatStatus).mockReturnValue({
         isAvailable: true,
         isLoading: true,
         error: null,
@@ -56,8 +56,7 @@ describe('App Component', () => {
 
   describe('Unavailable State', () => {
     test('returns null when unavailable', () => {
-      const { useChatStatus } = require('../src/hooks/useChatStatus');
-      useChatStatus.mockReturnValue({
+      vi.mocked(useChatStatusModule.useChatStatus).mockReturnValue({
         isAvailable: false,
         isLoading: false,
         error: null,
@@ -72,8 +71,7 @@ describe('App Component', () => {
 
   describe('Available State', () => {
     test('renders ChatBubble when available', () => {
-      const { useChatStatus } = require('../src/hooks/useChatStatus');
-      useChatStatus.mockReturnValue({
+      vi.mocked(useChatStatusModule.useChatStatus).mockReturnValue({
         isAvailable: true,
         isLoading: false,
         error: null,
@@ -85,8 +83,7 @@ describe('App Component', () => {
     });
 
     test('does not render ChatWindow initially', () => {
-      const { useChatStatus } = require('../src/hooks/useChatStatus');
-      useChatStatus.mockReturnValue({
+      vi.mocked(useChatStatusModule.useChatStatus).mockReturnValue({
         isAvailable: true,
         isLoading: false,
         error: null,
@@ -100,8 +97,7 @@ describe('App Component', () => {
 
   describe('Open/Close Behavior', () => {
     test('clicking bubble opens ChatWindow', async () => {
-      const { useChatStatus } = require('../src/hooks/useChatStatus');
-      useChatStatus.mockReturnValue({
+      vi.mocked(useChatStatusModule.useChatStatus).mockReturnValue({
         isAvailable: true,
         isLoading: false,
         error: null,
@@ -118,8 +114,7 @@ describe('App Component', () => {
     });
 
     test('ChatBubble hidden when window is open', async () => {
-      const { useChatStatus } = require('../src/hooks/useChatStatus');
-      useChatStatus.mockReturnValue({
+      vi.mocked(useChatStatusModule.useChatStatus).mockReturnValue({
         isAvailable: true,
         isLoading: false,
         error: null,
@@ -137,8 +132,7 @@ describe('App Component', () => {
     });
 
     test('closing window shows ChatBubble again', async () => {
-      const { useChatStatus } = require('../src/hooks/useChatStatus');
-      useChatStatus.mockReturnValue({
+      vi.mocked(useChatStatusModule.useChatStatus).mockReturnValue({
         isAvailable: true,
         isLoading: false,
         error: null,
@@ -168,8 +162,7 @@ describe('App Component', () => {
 
   describe('Props Passing', () => {
     test('passes apiUrl to ChatWindow', () => {
-      const { useChatStatus } = require('../src/hooks/useChatStatus');
-      useChatStatus.mockReturnValue({
+      vi.mocked(useChatStatusModule.useChatStatus).mockReturnValue({
         isAvailable: true,
         isLoading: false,
         error: null,
@@ -190,8 +183,7 @@ describe('App Component', () => {
     });
 
     test('passes contactUrl to ChatWindow', () => {
-      const { useChatStatus } = require('../src/hooks/useChatStatus');
-      useChatStatus.mockReturnValue({
+      vi.mocked(useChatStatusModule.useChatStatus).mockReturnValue({
         isAvailable: true,
         isLoading: false,
         error: null,
@@ -211,8 +203,7 @@ describe('App Component', () => {
     });
 
     test('passes apiUrl to useChatStatus hook', () => {
-      const { useChatStatus } = require('../src/hooks/useChatStatus');
-      useChatStatus.mockReturnValue({
+      vi.mocked(useChatStatusModule.useChatStatus).mockReturnValue({
         isAvailable: true,
         isLoading: false,
         error: null,
@@ -221,14 +212,13 @@ describe('App Component', () => {
       render(<App config={mockConfig} />);
 
       // Hook is called with apiUrl
-      expect(useChatStatus).toHaveBeenCalled();
+      expect(vi.mocked(useChatStatusModule.useChatStatus)).toHaveBeenCalled();
     });
   });
 
   describe('Integration', () => {
     test('full open/close cycle works', async () => {
-      const { useChatStatus } = require('../src/hooks/useChatStatus');
-      useChatStatus.mockReturnValue({
+      vi.mocked(useChatStatusModule.useChatStatus).mockReturnValue({
         isAvailable: true,
         isLoading: false,
         error: null,

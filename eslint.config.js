@@ -4,7 +4,7 @@ import tsparser from '@typescript-eslint/parser';
 import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 import prettierConfig from 'eslint-config-prettier';
-import bun from 'eslint-config-bun';
+import globals from 'globals';
 
 export default [
   eslint.configs.recommended,
@@ -13,7 +13,10 @@ export default [
     languageOptions: {
       parser: tsparser,
       globals: {
-        ...bun.globals,
+        ...globals.browser,
+        ...globals.node,
+        Bun: 'readonly',
+        bunFile: 'readonly',
       },
       parserOptions: {
         ecmaVersion: 'latest',
@@ -56,10 +59,25 @@ export default [
     },
   },
   {
+    files: ['apps/backend/**/*.{ts,tsx}', 'apps/backend/**/*.test.ts'],
+    languageOptions: {
+      globals: {
+        ...globals.node,
+        File: 'readonly',
+        Response: 'readonly',
+        Request: 'readonly',
+        Headers: 'readonly',
+        URL: 'readonly',
+        addEventListener: 'readonly',
+        console: 'readonly',
+      },
+    },
+  },
+  {
     ignores: [
       'node_modules',
-      'dist',
-      'build',
+      '**/dist',
+      '**/build',
       '*.config.js',
       '.github',
       'apps/backend/public',

@@ -75,7 +75,7 @@ app.get('/', (c) => {
   });
 });
 
-console.log(`Server starting on port ${config.PORT}...`);
+console.warn(`Server starting on port ${config.PORT}...`);
 
 export default {
   port: config.PORT,

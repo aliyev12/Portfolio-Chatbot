@@ -36,7 +36,7 @@ describe('AI Service', () => {
       let chunkCount = 0;
 
       try {
-        for await (const chunk of generator) {
+        for await (const _chunk of generator) {
           chunkCount++;
           if (chunkCount > 10) break; // Safety limit for production API calls
         }
