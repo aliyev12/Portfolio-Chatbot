@@ -24,7 +24,9 @@
       "Bash(docker start:*)",
       "Bash(docker logs:*)",
       "Bash(docker inspect:*)",
-      "Bash(ls:*)"
+      "Bash(ls:*)",
+      "Bash(find:*)",
+      "Bash(bun test:*)"
     ]
   }
 }

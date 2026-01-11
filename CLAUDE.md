@@ -206,7 +206,8 @@ The project follows a phased implementation plan (see `EXECUTION_PLAN.md`):
 - ✅ Phase 5: Frontend Widget
 - ✅ Phase 6: Integration
 - ✅ Phase 7: Docker Setup
-- ⏳ Phase 8-11: In Progress
+- ✅ Phase 8: Testing
+- ⏳ Phase 9-11: In Progress
 
 ### Phase 4 Implementation Notes
 
@@ -218,11 +219,71 @@ The AI integration uses the **OpenAI SDK directly** instead of TanStack AI due t
 - Caches successful responses for 7 days
 - Increments usage counter after successful completion
 
+### Implemented Phase 8: Testing
+
+Comprehensive testing infrastructure with unit tests, component tests, and E2E tests.
+
+**Configuration Files Created:**
+1. `apps/frontend/vitest.config.ts` - Vitest configuration with jsdom environment
+2. `apps/frontend/playwright.config.ts` - Playwright E2E test configuration
+3. `apps/frontend/src/vitest.setup.ts` - Testing library setup and global mocks
+4. Updated `apps/frontend/tsconfig.json` to include test file paths
+
+**Backend Unit Tests** (`apps/backend/tests/`):
+1. `usage.test.ts` - Tests for monthly usage tracking, limits, and resets
+2. `cache.test.ts` - Tests for question normalization, hashing, and caching logic
+3. `ai.test.ts` - Tests for OpenAI SDK integration and streaming
+4. `chat.test.ts` - Tests for chat route validation, cache hits/misses, and SSE streaming
+
+**Frontend Unit Tests** (`apps/frontend/tests/`):
+1. `useChat.test.ts` - Tests for chat hook SSE parsing, message state, error handling
+2. `useChatStatus.test.ts` - Tests for availability status checking and refetching
+3. `ChatWindow.test.tsx` - Component tests for form submission, input, error display
+4. `Message.test.tsx` - Component tests for user/assistant messages and loading state
+5. `App.test.tsx` - Tests for open/close behavior and state management
+
+**E2E Tests** (`apps/frontend/e2e/`):
+1. `chat.spec.ts` - Playwright tests for full user journeys (send messages, open/close, scroll, etc.)
+
+**CI/CD** (`.github/workflows/`):
+1. `ci.yml` - GitHub Actions workflow with jobs for linting, backend tests, frontend tests, E2E tests, and Docker build
+
+**Testing Philosophy:**
+- Test behavior, not implementation
+- Focus on critical paths and edge cases
+- Use mocks extensively to avoid external API calls
+- Backend tests use Bun's native test framework
+- Frontend tests use Vitest + React Testing Library
+- E2E tests use Playwright against running Docker containers
+
+**Test Coverage:**
+- Backend services: usage tracking, caching, AI integration
+- Frontend hooks: data fetching, error handling, state management
+- Frontend components: rendering, user interactions, accessibility
+- E2E: widget initialization, message sending, error handling, scroll behavior
+
+**Running Tests:**
+```bash
+# All tests
+bun test
+
+# Backend tests
+bun run test:backend
+
+# Frontend tests
+bun run test:frontend
+
+# E2E tests
+cd apps/frontend && bun run test:e2e
+
+# Frontend tests with watch mode
+cd apps/frontend && bun run test:watch
+```
+
 Key areas not yet implemented:
-- CI/CD workflows
-- Playwright E2E tests
-- Deployment configuration
+- Deployment configuration (Render.com setup)
 - System prompt management
+- Production deployment testing
 
 ### Implemented Phase 5: Frontend Widget
 

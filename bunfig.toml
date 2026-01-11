@@ -1,0 +1,3 @@
+[test]
+# Exclude Vitest files from Bun's test runner since they use Vitest-specific APIs
+root = "apps/backend/tests"
