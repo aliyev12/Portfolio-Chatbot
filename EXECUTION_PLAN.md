@@ -1454,7 +1454,7 @@ Render.com supports secret files that are injected at runtime. This is ideal bec
 1. In Render dashboard, go to your service
 2. Click "Environment" > "Secret Files"
 3. Add a new secret file:
-   - Filename: `/etc/secrets/portfolio-chatbot-system-prompt.md`
+   - Filename: `/etc/secrets/system-prompt.txt`
    - Content: Your full system prompt
 
 **Backend reads it:**
@@ -1463,7 +1463,7 @@ Render.com supports secret files that are injected at runtime. This is ideal bec
 import { readFileSync, existsSync } from 'fs';
 
 function loadSystemPrompt(): string {
-  const secretFilePath = '/etc/secrets/portfolio-chatbot-system-prompt.md';
+  const secretFilePath = '/etc/secrets/system-prompt.txt';
 
   // Try secret file first (production)
   if (existsSync(secretFilePath)) {
@@ -1978,7 +1978,7 @@ Note: Secrets are encrypted and never shown in logs. Reference them in workflows
    - **Option A**: Add as environment variable (for shorter prompts)
    - **Option B**: Use Secret Files (recommended for long prompts)
      - Click "Add Secret File"
-     - Filename: `/etc/secrets/portfolio-chatbot-system-prompt.md`
+     - Filename: `/etc/secrets/system-prompt.txt`
      - Contents: Your full system prompt
 
 6. **Deploy**
