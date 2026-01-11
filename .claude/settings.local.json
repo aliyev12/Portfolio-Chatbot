@@ -12,7 +12,9 @@
       "Bash(curl:*)",
       "Bash(lsof:*)",
       "Bash(xargs kill -9:*)",
-      "Bash(bun remove:*)"
+      "Bash(bun remove:*)",
+      "Bash(bun run:*)",
+      "Bash(bun --cwd apps/frontend run build)"
     ]
   }
 }

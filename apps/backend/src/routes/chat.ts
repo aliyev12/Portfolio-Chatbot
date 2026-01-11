@@ -40,7 +40,7 @@ chatRoutes.post('/', async (c) => {
           error: 'Invalid request',
           details: validation.error.errors,
         },
-        400
+        400,
       );
     }
 
@@ -60,7 +60,7 @@ chatRoutes.post('/', async (c) => {
             event: 'message',
           });
           // Small delay to simulate streaming (optional)
-          await new Promise(resolve => setTimeout(resolve, 20));
+          await new Promise((resolve) => setTimeout(resolve, 20));
         }
 
         await stream.writeSSE({
@@ -79,7 +79,7 @@ chatRoutes.post('/', async (c) => {
           error: 'Chatbot is currently unavailable due to usage limits',
           code: 'LIMIT_EXCEEDED',
         },
-        429
+        429,
       );
     }
 
@@ -89,9 +89,7 @@ chatRoutes.post('/', async (c) => {
 
       try {
         // Create a simple message array (stateless - only current message)
-        const messages: ChatMessage[] = [
-          { role: 'user', content: message },
-        ];
+        const messages: ChatMessage[] = [{ role: 'user', content: message }];
 
         const aiStream = await aiService.chat(messages);
 
@@ -131,7 +129,7 @@ chatRoutes.post('/', async (c) => {
       {
         error: 'Internal server error',
       },
-      500
+      500,
     );
   }
 });

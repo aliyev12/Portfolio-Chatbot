@@ -10,11 +10,15 @@ const app = new Hono();
 
 // Middleware
 app.use('*', logger());
-app.use('*', cors({
-  origin: config.ALLOWED_ORIGINS,
-  allowMethods: ['GET', 'POST', 'OPTIONS'],
-  allowHeaders: ['Content-Type', 'Authorization'],
-}));
+app.use(
+  '*',
+  cors({
+    // origin: config.ALLOWED_ORIGINS,
+    origin: ['http://localhost:5173'],
+    allowMethods: ['GET', 'POST', 'OPTIONS'],
+    allowHeaders: ['Content-Type', 'Authorization'],
+  }),
+);
 
 // Routes
 app.route('/api/health', healthRoutes);
@@ -25,9 +29,9 @@ app.route('/api/chat', chatRoutes);
 app.get('/widget.js', async (c) => {
   // Try multiple possible paths for the widget file
   const possiblePaths = [
-    './apps/backend/public/widget.js',  // When run from root
-    './public/widget.js',                // When run from backend dir
-    '../backend/public/widget.js',       // Alternative
+    './apps/backend/public/widget.js', // When run from root
+    './public/widget.js', // When run from backend dir
+    '../backend/public/widget.js', // Alternative
   ];
 
   let file;

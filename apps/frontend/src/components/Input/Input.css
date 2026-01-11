@@ -1,0 +1,24 @@
+.chatbot-input {
+  flex: 1;
+  padding: var(--chatbot-spacing-sm) var(--chatbot-spacing-md);
+  border: 1px solid var(--chatbot-color-border);
+  border-radius: var(--chatbot-radius-md);
+  background-color: var(--chatbot-color-bg);
+  color: var(--chatbot-color-text);
+  font-size: var(--chatbot-font-size-sm);
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.chatbot-input:focus {
+  border-color: var(--chatbot-color-primary);
+}
+
+.chatbot-input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.chatbot-input::placeholder {
+  color: var(--chatbot-color-text-secondary);
+}

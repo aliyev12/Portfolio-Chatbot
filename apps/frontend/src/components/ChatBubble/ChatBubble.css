@@ -1,0 +1,38 @@
+.chatbot-bubble {
+  position: fixed;
+  bottom: var(--chatbot-spacing-lg);
+  right: var(--chatbot-spacing-lg);
+  width: var(--chatbot-bubble-size);
+  height: var(--chatbot-bubble-size);
+  border-radius: var(--chatbot-radius-full);
+  background-color: var(--chatbot-color-primary);
+  color: white;
+  box-shadow: var(--chatbot-shadow-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: none;
+  z-index: 999999;
+}
+
+.chatbot-bubble:hover {
+  background-color: var(--chatbot-color-primary-hover);
+  transform: scale(1.05);
+}
+
+.chatbot-bubble:active {
+  transform: scale(0.95);
+}
+
+.chatbot-bubble__icon {
+  width: 60%;
+  height: 60%;
+}
+
+/* Accessibility: Focus visible */
+.chatbot-bubble:focus-visible {
+  outline: 2px solid var(--chatbot-color-primary);
+  outline-offset: 2px;
+}

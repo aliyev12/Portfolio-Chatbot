@@ -4,6 +4,7 @@ import tsparser from '@typescript-eslint/parser';
 import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 import prettierConfig from 'eslint-config-prettier';
+import bun from 'eslint-config-bun';
 
 export default [
   eslint.configs.recommended,
@@ -11,6 +12,9 @@ export default [
     files: ['**/*.{ts,tsx}'],
     languageOptions: {
       parser: tsparser,
+      globals: {
+        ...bun.globals,
+      },
       parserOptions: {
         ecmaVersion: 'latest',
         sourceType: 'module',

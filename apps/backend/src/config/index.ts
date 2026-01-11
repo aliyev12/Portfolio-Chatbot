@@ -12,7 +12,12 @@ export const config = {
 // Validate required environment variables
 // For Phase 2, we're only validating what we need for the skeleton
 // Later phases will require OPENAI_API_KEY, UPSTASH_REDIS_URL, etc.
-const requiredForProduction = ['OPENAI_API_KEY', 'UPSTASH_REDIS_URL', 'UPSTASH_REDIS_TOKEN', 'ADMIN_SECRET'];
+const requiredForProduction = [
+  'OPENAI_API_KEY',
+  'UPSTASH_REDIS_URL',
+  'UPSTASH_REDIS_TOKEN',
+  'ADMIN_SECRET',
+];
 
 // Only validate in production or if NODE_ENV is set
 if (process.env.NODE_ENV === 'production') {
