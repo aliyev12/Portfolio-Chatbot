@@ -46,7 +46,7 @@ Thumbs.db
 *~
 
 # Bun
-bun.lockb
+# bun.lockb - lockfile should be committed (commented out)
 
 # Misc
 .cache
