@@ -17,18 +17,8 @@ export default defineConfig({
       use: { ...devices['Desktop Chrome'] },
     },
   ],
-  webServer: {
-    command: 'bun --cwd ../.. run start:backend',
-    url: 'http://localhost:3000/api/health',
-    reuseExistingServer: true,
-    timeout: 120000,
-    env: {
-      OPENAI_API_KEY: 'sk-test-key',
-      UPSTASH_REDIS_URL: 'https://test.upstash.io',
-      UPSTASH_REDIS_TOKEN: 'test-token',
-      MAX_MONTHLY_CONVERSATIONS: '500',
-      ADMIN_SECRET: 'test-secret',
-      ALLOWED_ORIGINS: 'http://localhost:3000,http://localhost:5173',
-    },
-  },
 });
+
+// Note: webServer is NOT configured here when running in CI
+// The CI workflow starts the backend separately with proper environment variables
+// and health checking. For local development, use `bun run dev:backend` in another terminal.

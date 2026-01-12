@@ -101,8 +101,8 @@ jobs:
       - name: Build
         run: bun run build
 
-      - name: Run E2E tests
-        run: cd apps/frontend && bun run test:e2e
+      - name: Start backend server
+        run: bun run start:backend &
         env:
           OPENAI_API_KEY: sk-test-key
           UPSTASH_REDIS_URL: https://test.upstash.io
@@ -110,6 +110,22 @@ jobs:
           MAX_MONTHLY_CONVERSATIONS: 500
           ADMIN_SECRET: test-secret
           ALLOWED_ORIGINS: http://localhost:3000,http://localhost:5173
+
+      - name: Wait for backend to be ready
+        run: |
+          for i in {1..60}; do
+            if curl -s http://localhost:3000/api/health > /dev/null 2>&1; then
+              echo "Backend is ready"
+              exit 0
+            fi
+            echo "Waiting for backend... ($i/60)"
+            sleep 1
+          done
+          echo "Backend failed to start"
+          exit 1
+
+      - name: Run E2E tests
+        run: cd apps/frontend && bun run test:e2e
 
       - name: Upload Playwright report
         uses: actions/upload-artifact@v4
