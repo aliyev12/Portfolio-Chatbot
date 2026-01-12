@@ -28,7 +28,9 @@
       "Bash(find:*)",
       "Bash(bun test:*)",
       "Bash(git add:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(brew install:*)",
+      "Bash(act:*)"
     ]
   }
 }
