@@ -6,15 +6,28 @@ import { config } from '../config';
 export const statusRoutes = new Hono();
 
 /**
+ * Helper to create a timeout promise
+ */
+function withTimeout<T>(promise: Promise<T>, timeoutMs: number): Promise<T> {
+  return Promise.race([
+    promise,
+    new Promise<T>((_, reject) =>
+      setTimeout(() => reject(new Error('Operation timed out')), timeoutMs)
+    ),
+  ]);
+}
+
+/**
  * Public endpoint - check if chatbot is available
  * GET /api/status
  */
 statusRoutes.get('/', async (c) => {
   try {
-    const isAvailable = await usageService.isWithinLimit();
+    // Add 3 second timeout to prevent hanging on slow/invalid Redis connections
+    const isAvailable = await withTimeout(usageService.isWithinLimit(), 3000);
     return c.json({ available: isAvailable });
   } catch {
-    // In case of Redis error (e.g., invalid credentials, offline),
+    // In case of Redis error (e.g., invalid credentials, offline, timeout),
     // assume chatbot is available in development/test, or unavailable in production
     const isProduction = process.env.NODE_ENV === 'production';
     return c.json({ available: !isProduction });
