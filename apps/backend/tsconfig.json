@@ -1,11 +1,13 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "baseUrl": "../../",
+    "baseUrl": ".",
     "outDir": "./dist",
-    "rootDir": "./src",
-    "types": ["bun", "node"]
+    "types": ["bun", "node"],
+    "paths": {
+      "@portfolio-chatbot/shared": ["../../packages/shared/src"]
+    }
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "../../packages/shared/src/**/*"],
   "exclude": ["node_modules", "dist", "tests"]
 }
