@@ -4,7 +4,11 @@
     "baseUrl": "../../",
     "outDir": "./dist",
     "types": ["bun", "node"],
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "paths": {
+      "@portfolio-chatbot/shared": ["packages/shared/src/types.ts"],
+      "@portfolio-chatbot/shared/*": ["packages/shared/src/*"]
+    }
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist", "tests"]
