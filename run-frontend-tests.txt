@@ -1,0 +1,937 @@
+Run bun run test:frontend
+$ cd apps/frontend && bun run test
+$ vitest run
+
+ RUN  v1.6.1 /home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/apps/frontend
+
+ ❯ tests/ChatWindow.test.tsx  (17 tests | 17 failed) 172ms
+   ❯ tests/ChatWindow.test.tsx > ChatWindow Component > Rendering > renders chat window element
+     → messagesEndRef.current?.scrollIntoView is not a function
+   ❯ tests/ChatWindow.test.tsx > ChatWindow Component > Rendering > renders greeting message on load
+     → messagesEndRef.current?.scrollIntoView is not a function
+   ❯ tests/ChatWindow.test.tsx > ChatWindow Component > Message Display > displays messages from hook
+     → messagesEndRef.current?.scrollIntoView is not a function
+   ❯ tests/ChatWindow.test.tsx > ChatWindow Component > Message Display > shows loading indicator when isLoading is true
+     → messagesEndRef.current?.scrollIntoView is not a function
+   ❯ tests/ChatWindow.test.tsx > ChatWindow Component > Message Display > displays error message when error exists
+     → messagesEndRef.current?.scrollIntoView is not a function
+   ❯ tests/ChatWindow.test.tsx > ChatWindow Component > Message Display > error message includes contact link
+     → messagesEndRef.current?.scrollIntoView is not a function
+   ❯ tests/ChatWindow.test.tsx > ChatWindow Component > Form Submission > sends message on form submit
+     → messagesEndRef.current?.scrollIntoView is not a function
+   ❯ tests/ChatWindow.test.tsx > ChatWindow Component > Form Submission > does not send if input is empty
+     → messagesEndRef.current?.scrollIntoView is not a function
+   ❯ tests/ChatWindow.test.tsx > ChatWindow Component > Form Submission > does not send if loading
+     → messagesEndRef.current?.scrollIntoView is not a function
+   ❯ tests/ChatWindow.test.tsx > ChatWindow Component > Form Submission > clears input after sending
+     → messagesEndRef.current?.scrollIntoView is not a function
+   ❯ tests/ChatWindow.test.tsx > ChatWindow Component > Input Handling > syncs input with hook state
+     → messagesEndRef.current?.scrollIntoView is not a function
+   ❯ tests/ChatWindow.test.tsx > ChatWindow Component > Input Handling > input disabled when loading
+     → messagesEndRef.current?.scrollIntoView is not a function
+   ❯ tests/ChatWindow.test.tsx > ChatWindow Component > Send Button > send button disabled when input empty
+     → messagesEndRef.current?.scrollIntoView is not a function
+   ❯ tests/ChatWindow.test.tsx > ChatWindow Component > Send Button > send button disabled when loading
+     → messagesEndRef.current?.scrollIntoView is not a function
+   ❯ tests/ChatWindow.test.tsx > ChatWindow Component > Send Button > send button enabled when input has content and not loading
+     → messagesEndRef.current?.scrollIntoView is not a function
+   ❯ tests/ChatWindow.test.tsx > ChatWindow Component > Close Button > close button calls onClose
+     → messagesEndRef.current?.scrollIntoView is not a function
+   ❯ tests/ChatWindow.test.tsx > ChatWindow Component > Close Button > close button has aria-label
+     → messagesEndRef.current?.scrollIntoView is not a function
+stderr | tests/ChatWindow.test.tsx > ChatWindow Component > Rendering > renders chat window element
+TypeError: messagesEndRef.current?.scrollIntoView is not a function
+    at /home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/apps/frontend/src/components/ChatWindow/ChatWindow.tsx:19:29
+    at commitHookEffectListMount (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:23189:26)
+    at commitPassiveMountOnFiber (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24970:11)
+    at commitPassiveMountEffects_complete (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24930:9)
+    at commitPassiveMountEffects_begin (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24917:7)
+    at commitPassiveMountEffects (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24905:3)
+    at flushPassiveEffectsImpl (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:27078:3)
+    at flushPassiveEffects (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:27023:14)
+    at /home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:26808:9
+    at flushActQueue (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react@18.3.1/node_modules/react/cjs/react.development.js:2667:24)
+The above error occurred in the <ChatWindow> component:
+
+    at ChatWindow (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/apps/frontend/src/components/ChatWindow/ChatWindow.tsx:13:23)
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://reactjs.org/link/error-boundaries to learn more about error boundaries.
+
+stderr | tests/ChatWindow.test.tsx > ChatWindow Component > Rendering > renders greeting message on load
+TypeError: messagesEndRef.current?.scrollIntoView is not a function
+    at /home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/apps/frontend/src/components/ChatWindow/ChatWindow.tsx:19:29
+    at commitHookEffectListMount (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:23189:26)
+    at commitPassiveMountOnFiber (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24970:11)
+    at commitPassiveMountEffects_complete (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24930:9)
+    at commitPassiveMountEffects_begin (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24917:7)
+    at commitPassiveMountEffects (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24905:3)
+    at flushPassiveEffectsImpl (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:27078:3)
+    at flushPassiveEffects (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:27023:14)
+    at /home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:26808:9
+    at flushActQueue (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react@18.3.1/node_modules/react/cjs/react.development.js:2667:24)
+The above error occurred in the <ChatWindow> component:
+
+    at ChatWindow (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/apps/frontend/src/components/ChatWindow/ChatWindow.tsx:13:23)
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://reactjs.org/link/error-boundaries to learn more about error boundaries.
+
+stderr | tests/ChatWindow.test.tsx > ChatWindow Component > Message Display > displays messages from hook
+TypeError: messagesEndRef.current?.scrollIntoView is not a function
+    at /home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/apps/frontend/src/components/ChatWindow/ChatWindow.tsx:19:29
+    at commitHookEffectListMount (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:23189:26)
+    at commitPassiveMountOnFiber (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24970:11)
+    at commitPassiveMountEffects_complete (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24930:9)
+    at commitPassiveMountEffects_begin (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24917:7)
+    at commitPassiveMountEffects (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24905:3)
+    at flushPassiveEffectsImpl (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:27078:3)
+    at flushPassiveEffects (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:27023:14)
+    at /home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:26808:9
+    at flushActQueue (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react@18.3.1/node_modules/react/cjs/react.development.js:2667:24)
+The above error occurred in the <ChatWindow> component:
+
+    at ChatWindow (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/apps/frontend/src/components/ChatWindow/ChatWindow.tsx:13:23)
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://reactjs.org/link/error-boundaries to learn more about error boundaries.
+
+stderr | tests/ChatWindow.test.tsx > ChatWindow Component > Message Display > shows loading indicator when isLoading is true
+TypeError: messagesEndRef.current?.scrollIntoView is not a function
+    at /home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/apps/frontend/src/components/ChatWindow/ChatWindow.tsx:19:29
+    at commitHookEffectListMount (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:23189:26)
+    at commitPassiveMountOnFiber (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24970:11)
+    at commitPassiveMountEffects_complete (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24930:9)
+    at commitPassiveMountEffects_begin (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24917:7)
+    at commitPassiveMountEffects (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24905:3)
+    at flushPassiveEffectsImpl (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:27078:3)
+    at flushPassiveEffects (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:27023:14)
+    at /home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:26808:9
+    at flushActQueue (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react@18.3.1/node_modules/react/cjs/react.development.js:2667:24)
+The above error occurred in the <ChatWindow> component:
+
+    at ChatWindow (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/apps/frontend/src/components/ChatWindow/ChatWindow.tsx:13:23)
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://reactjs.org/link/error-boundaries to learn more about error boundaries.
+
+stderr | tests/ChatWindow.test.tsx > ChatWindow Component > Message Display > displays error message when error exists
+TypeError: messagesEndRef.current?.scrollIntoView is not a function
+    at /home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/apps/frontend/src/components/ChatWindow/ChatWindow.tsx:19:29
+    at commitHookEffectListMount (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:23189:26)
+    at commitPassiveMountOnFiber (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24970:11)
+    at commitPassiveMountEffects_complete (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24930:9)
+    at commitPassiveMountEffects_begin (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24917:7)
+    at commitPassiveMountEffects (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24905:3)
+    at flushPassiveEffectsImpl (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:27078:3)
+    at flushPassiveEffects (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:27023:14)
+    at /home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:26808:9
+    at flushActQueue (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react@18.3.1/node_modules/react/cjs/react.development.js:2667:24)
+The above error occurred in the <ChatWindow> component:
+
+    at ChatWindow (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/apps/frontend/src/components/ChatWindow/ChatWindow.tsx:13:23)
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://reactjs.org/link/error-boundaries to learn more about error boundaries.
+
+stderr | tests/ChatWindow.test.tsx > ChatWindow Component > Message Display > error message includes contact link
+TypeError: messagesEndRef.current?.scrollIntoView is not a function
+    at /home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/apps/frontend/src/components/ChatWindow/ChatWindow.tsx:19:29
+    at commitHookEffectListMount (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:23189:26)
+    at commitPassiveMountOnFiber (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24970:11)
+    at commitPassiveMountEffects_complete (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24930:9)
+    at commitPassiveMountEffects_begin (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24917:7)
+    at commitPassiveMountEffects (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24905:3)
+    at flushPassiveEffectsImpl (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:27078:3)
+    at flushPassiveEffects (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:27023:14)
+    at /home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:26808:9
+    at flushActQueue (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react@18.3.1/node_modules/react/cjs/react.development.js:2667:24)
+The above error occurred in the <ChatWindow> component:
+
+    at ChatWindow (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/apps/frontend/src/components/ChatWindow/ChatWindow.tsx:13:23)
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://reactjs.org/link/error-boundaries to learn more about error boundaries.
+
+stderr | tests/ChatWindow.test.tsx > ChatWindow Component > Form Submission > sends message on form submit
+TypeError: messagesEndRef.current?.scrollIntoView is not a function
+    at /home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/apps/frontend/src/components/ChatWindow/ChatWindow.tsx:19:29
+    at commitHookEffectListMount (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:23189:26)
+    at commitPassiveMountOnFiber (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24970:11)
+    at commitPassiveMountEffects_complete (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24930:9)
+    at commitPassiveMountEffects_begin (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24917:7)
+    at commitPassiveMountEffects (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24905:3)
+    at flushPassiveEffectsImpl (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:27078:3)
+    at flushPassiveEffects (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:27023:14)
+    at /home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:26808:9
+    at flushActQueue (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react@18.3.1/node_modules/react/cjs/react.development.js:2667:24)
+The above error occurred in the <ChatWindow> component:
+
+    at ChatWindow (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/apps/frontend/src/components/ChatWindow/ChatWindow.tsx:13:23)
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://reactjs.org/link/error-boundaries to learn more about error boundaries.
+
+stderr | tests/ChatWindow.test.tsx > ChatWindow Component > Form Submission > does not send if input is empty
+TypeError: messagesEndRef.current?.scrollIntoView is not a function
+    at /home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/apps/frontend/src/components/ChatWindow/ChatWindow.tsx:19:29
+    at commitHookEffectListMount (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:23189:26)
+    at commitPassiveMountOnFiber (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24970:11)
+    at commitPassiveMountEffects_complete (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24930:9)
+    at commitPassiveMountEffects_begin (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24917:7)
+    at commitPassiveMountEffects (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24905:3)
+    at flushPassiveEffectsImpl (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:27078:3)
+    at flushPassiveEffects (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:27023:14)
+    at /home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:26808:9
+    at flushActQueue (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react@18.3.1/node_modules/react/cjs/react.development.js:2667:24)
+The above error occurred in the <ChatWindow> component:
+
+    at ChatWindow (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/apps/frontend/src/components/ChatWindow/ChatWindow.tsx:13:23)
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://reactjs.org/link/error-boundaries to learn more about error boundaries.
+
+stderr | tests/ChatWindow.test.tsx > ChatWindow Component > Form Submission > does not send if loading
+TypeError: messagesEndRef.current?.scrollIntoView is not a function
+    at /home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/apps/frontend/src/components/ChatWindow/ChatWindow.tsx:19:29
+    at commitHookEffectListMount (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:23189:26)
+    at commitPassiveMountOnFiber (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24970:11)
+    at commitPassiveMountEffects_complete (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24930:9)
+    at commitPassiveMountEffects_begin (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24917:7)
+    at commitPassiveMountEffects (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24905:3)
+    at flushPassiveEffectsImpl (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:27078:3)
+    at flushPassiveEffects (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:27023:14)
+    at /home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:26808:9
+    at flushActQueue (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react@18.3.1/node_modules/react/cjs/react.development.js:2667:24)
+The above error occurred in the <ChatWindow> component:
+
+    at ChatWindow (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/apps/frontend/src/components/ChatWindow/ChatWindow.tsx:13:23)
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://reactjs.org/link/error-boundaries to learn more about error boundaries.
+
+stderr | tests/ChatWindow.test.tsx > ChatWindow Component > Form Submission > clears input after sending
+TypeError: messagesEndRef.current?.scrollIntoView is not a function
+    at /home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/apps/frontend/src/components/ChatWindow/ChatWindow.tsx:19:29
+    at commitHookEffectListMount (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:23189:26)
+    at commitPassiveMountOnFiber (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24970:11)
+    at commitPassiveMountEffects_complete (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24930:9)
+    at commitPassiveMountEffects_begin (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24917:7)
+    at commitPassiveMountEffects (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24905:3)
+    at flushPassiveEffectsImpl (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:27078:3)
+    at flushPassiveEffects (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:27023:14)
+    at /home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:26808:9
+    at flushActQueue (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react@18.3.1/node_modules/react/cjs/react.development.js:2667:24)
+The above error occurred in the <ChatWindow> component:
+
+    at ChatWindow (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/apps/frontend/src/components/ChatWindow/ChatWindow.tsx:13:23)
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://reactjs.org/link/error-boundaries to learn more about error boundaries.
+
+stderr | tests/ChatWindow.test.tsx > ChatWindow Component > Input Handling > syncs input with hook state
+TypeError: messagesEndRef.current?.scrollIntoView is not a function
+    at /home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/apps/frontend/src/components/ChatWindow/ChatWindow.tsx:19:29
+    at commitHookEffectListMount (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:23189:26)
+    at commitPassiveMountOnFiber (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24970:11)
+    at commitPassiveMountEffects_complete (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24930:9)
+    at commitPassiveMountEffects_begin (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24917:7)
+    at commitPassiveMountEffects (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24905:3)
+    at flushPassiveEffectsImpl (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:27078:3)
+    at flushPassiveEffects (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:27023:14)
+    at /home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:26808:9
+    at flushActQueue (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react@18.3.1/node_modules/react/cjs/react.development.js:2667:24)
+The above error occurred in the <ChatWindow> component:
+
+    at ChatWindow (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/apps/frontend/src/components/ChatWindow/ChatWindow.tsx:13:23)
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://reactjs.org/link/error-boundaries to learn more about error boundaries.
+
+stderr | tests/ChatWindow.test.tsx > ChatWindow Component > Input Handling > input disabled when loading
+TypeError: messagesEndRef.current?.scrollIntoView is not a function
+    at /home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/apps/frontend/src/components/ChatWindow/ChatWindow.tsx:19:29
+    at commitHookEffectListMount (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:23189:26)
+    at commitPassiveMountOnFiber (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24970:11)
+    at commitPassiveMountEffects_complete (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24930:9)
+    at commitPassiveMountEffects_begin (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24917:7)
+    at commitPassiveMountEffects (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24905:3)
+    at flushPassiveEffectsImpl (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:27078:3)
+    at flushPassiveEffects (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:27023:14)
+    at /home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:26808:9
+    at flushActQueue (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react@18.3.1/node_modules/react/cjs/react.development.js:2667:24)
+The above error occurred in the <ChatWindow> component:
+
+    at ChatWindow (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/apps/frontend/src/components/ChatWindow/ChatWindow.tsx:13:23)
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://reactjs.org/link/error-boundaries to learn more about error boundaries.
+
+stderr | tests/ChatWindow.test.tsx > ChatWindow Component > Send Button > send button disabled when input empty
+TypeError: messagesEndRef.current?.scrollIntoView is not a function
+    at /home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/apps/frontend/src/components/ChatWindow/ChatWindow.tsx:19:29
+    at commitHookEffectListMount (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:23189:26)
+    at commitPassiveMountOnFiber (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24970:11)
+    at commitPassiveMountEffects_complete (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24930:9)
+    at commitPassiveMountEffects_begin (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24917:7)
+    at commitPassiveMountEffects (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24905:3)
+    at flushPassiveEffectsImpl (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:27078:3)
+    at flushPassiveEffects (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:27023:14)
+    at /home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:26808:9
+    at flushActQueue (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react@18.3.1/node_modules/react/cjs/react.development.js:2667:24)
+The above error occurred in the <ChatWindow> component:
+
+    at ChatWindow (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/apps/frontend/src/components/ChatWindow/ChatWindow.tsx:13:23)
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://reactjs.org/link/error-boundaries to learn more about error boundaries.
+
+stderr | tests/ChatWindow.test.tsx > ChatWindow Component > Send Button > send button disabled when loading
+TypeError: messagesEndRef.current?.scrollIntoView is not a function
+    at /home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/apps/frontend/src/components/ChatWindow/ChatWindow.tsx:19:29
+    at commitHookEffectListMount (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:23189:26)
+    at commitPassiveMountOnFiber (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24970:11)
+    at commitPassiveMountEffects_complete (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24930:9)
+    at commitPassiveMountEffects_begin (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24917:7)
+    at commitPassiveMountEffects (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24905:3)
+    at flushPassiveEffectsImpl (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:27078:3)
+    at flushPassiveEffects (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:27023:14)
+    at /home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:26808:9
+    at flushActQueue (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react@18.3.1/node_modules/react/cjs/react.development.js:2667:24)
+The above error occurred in the <ChatWindow> component:
+
+    at ChatWindow (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/apps/frontend/src/components/ChatWindow/ChatWindow.tsx:13:23)
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://reactjs.org/link/error-boundaries to learn more about error boundaries.
+
+stderr | tests/ChatWindow.test.tsx > ChatWindow Component > Send Button > send button enabled when input has content and not loading
+TypeError: messagesEndRef.current?.scrollIntoView is not a function
+    at /home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/apps/frontend/src/components/ChatWindow/ChatWindow.tsx:19:29
+    at commitHookEffectListMount (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:23189:26)
+    at commitPassiveMountOnFiber (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24970:11)
+    at commitPassiveMountEffects_complete (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24930:9)
+    at commitPassiveMountEffects_begin (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24917:7)
+    at commitPassiveMountEffects (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24905:3)
+    at flushPassiveEffectsImpl (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:27078:3)
+    at flushPassiveEffects (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:27023:14)
+    at /home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:26808:9
+    at flushActQueue (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react@18.3.1/node_modules/react/cjs/react.development.js:2667:24)
+The above error occurred in the <ChatWindow> component:
+
+    at ChatWindow (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/apps/frontend/src/components/ChatWindow/ChatWindow.tsx:13:23)
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://reactjs.org/link/error-boundaries to learn more about error boundaries.
+
+stderr | tests/ChatWindow.test.tsx > ChatWindow Component > Close Button > close button calls onClose
+TypeError: messagesEndRef.current?.scrollIntoView is not a function
+    at /home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/apps/frontend/src/components/ChatWindow/ChatWindow.tsx:19:29
+    at commitHookEffectListMount (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:23189:26)
+    at commitPassiveMountOnFiber (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24970:11)
+    at commitPassiveMountEffects_complete (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24930:9)
+    at commitPassiveMountEffects_begin (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24917:7)
+    at commitPassiveMountEffects (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24905:3)
+    at flushPassiveEffectsImpl (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:27078:3)
+    at flushPassiveEffects (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:27023:14)
+    at /home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:26808:9
+    at flushActQueue (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react@18.3.1/node_modules/react/cjs/react.development.js:2667:24)
+The above error occurred in the <ChatWindow> component:
+
+    at ChatWindow (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/apps/frontend/src/components/ChatWindow/ChatWindow.tsx:13:23)
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://reactjs.org/link/error-boundaries to learn more about error boundaries.
+
+stderr | tests/ChatWindow.test.tsx > ChatWindow Component > Close Button > close button has aria-label
+TypeError: messagesEndRef.current?.scrollIntoView is not a function
+    at /home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/apps/frontend/src/components/ChatWindow/ChatWindow.tsx:19:29
+    at commitHookEffectListMount (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:23189:26)
+    at commitPassiveMountOnFiber (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24970:11)
+    at commitPassiveMountEffects_complete (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24930:9)
+    at commitPassiveMountEffects_begin (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24917:7)
+    at commitPassiveMountEffects (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24905:3)
+    at flushPassiveEffectsImpl (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:27078:3)
+    at flushPassiveEffects (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:27023:14)
+    at /home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:26808:9
+    at flushActQueue (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/react@18.3.1/node_modules/react/cjs/react.development.js:2667:24)
+The above error occurred in the <ChatWindow> component:
+
+    at ChatWindow (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/apps/frontend/src/components/ChatWindow/ChatWindow.tsx:13:23)
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://reactjs.org/link/error-boundaries to learn more about error boundaries.
+
+ ✓ tests/useChat.test.ts  (22 tests) 423ms
+ ❯ e2e/chat.spec.ts  (0 test)
+ ❯ tests/App.test.tsx  (11 tests | 2 failed) 112ms
+   ❯ tests/App.test.tsx > App Component > Loading State > returns null while loading
+     → expected undefined to be +0 // Object.is equality
+   ❯ tests/App.test.tsx > App Component > Unavailable State > returns null when unavailable
+     → expected undefined to be +0 // Object.is equality
+stderr | tests/useChatStatus.test.ts > useChatStatus > Initial State > starts with isAvailable false
+Warning: An update to TestComponent inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://reactjs.org/link/wrap-tests-with-act
+    at TestComponent (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/@testing-library+react@14.3.1+95d60cde8d9343f0/node_modules/@testing-library/react/dist/pure.js:307:5)
+Warning: An update to TestComponent inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://reactjs.org/link/wrap-tests-with-act
+    at TestComponent (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/@testing-library+react@14.3.1+95d60cde8d9343f0/node_modules/@testing-library/react/dist/pure.js:307:5)
+
+stderr | tests/useChatStatus.test.ts > useChatStatus > Initial State > starts with isLoading true
+Warning: An update to TestComponent inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://reactjs.org/link/wrap-tests-with-act
+    at TestComponent (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/@testing-library+react@14.3.1+95d60cde8d9343f0/node_modules/@testing-library/react/dist/pure.js:307:5)
+Warning: An update to TestComponent inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://reactjs.org/link/wrap-tests-with-act
+    at TestComponent (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/@testing-library+react@14.3.1+95d60cde8d9343f0/node_modules/@testing-library/react/dist/pure.js:307:5)
+
+stderr | tests/useChatStatus.test.ts > useChatStatus > Initial State > starts with no error
+Warning: An update to TestComponent inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://reactjs.org/link/wrap-tests-with-act
+    at TestComponent (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/@testing-library+react@14.3.1+95d60cde8d9343f0/node_modules/@testing-library/react/dist/pure.js:307:5)
+Warning: An update to TestComponent inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://reactjs.org/link/wrap-tests-with-act
+    at TestComponent (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/@testing-library+react@14.3.1+95d60cde8d9343f0/node_modules/@testing-library/react/dist/pure.js:307:5)
+
+ ❯ tests/useChatStatus.test.ts  (13 tests | 1 failed) 368ms
+stderr | tests/useChatStatus.test.ts > useChatStatus > Dependencies > refetches when apiUrl changes
+Warning: An update to TestComponent inside a test was not wrapped in act(...).
+
+   ❯ tests/useChatStatus.test.ts > useChatStatus > Dependencies > refetches when apiUrl changes
+     → expected "spy" to be called with arguments: [ 'http://test1.api/api/status' ]
+
+Received: 
+
+
+
+Number of calls: 0
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://reactjs.org/link/wrap-tests-with-act
+    at TestComponent (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/@testing-library+react@14.3.1+95d60cde8d9343f0/node_modules/@testing-library/react/dist/pure.js:307:5)
+Warning: An update to TestComponent inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://reactjs.org/link/wrap-tests-with-act
+    at TestComponent (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/@testing-library+react@14.3.1+95d60cde8d9343f0/node_modules/@testing-library/react/dist/pure.js:307:5)
+Warning: An update to TestComponent inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://reactjs.org/link/wrap-tests-with-act
+    at TestComponent (/home/runner/work/Portfolio-Chatbot/Portfolio-Chatbot/node_modules/.bun/@testing-library+react@14.3.1+95d60cde8d9343f0/node_modules/@testing-library/react/dist/pure.js:307:5)
+
+ ❯ tests/Message.test.tsx  (14 tests | 1 failed) 167ms
+   ❯ tests/Message.test.tsx > Message Component > Loading State > hides content when loading
+     → expect(element).not.toBeVisible()
+
+Received element is visible:
+  <div
+  class="message__content"
+/>
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  e2e/chat.spec.ts [ e2e/chat.spec.ts ]
+Error: Playwright Test did not expect test.describe() to be called here.
+Most common reasons include:
+- You are calling test.describe() in a configuration file.
+- You are calling test.describe() in a file that is imported by the configuration file.
+- You have two different versions of @playwright/test. This usually happens
+  when one of the dependencies in your package.json depends on @playwright/test.
+ ❯ TestTypeImpl._currentSuite ../../node_modules/.bun/playwright@1.57.0/node_modules/playwright/lib/common/testType.js:75:13
+ ❯ TestTypeImpl._describe ../../node_modules/.bun/playwright@1.57.0/node_modules/playwright/lib/common/testType.js:115:24
+ ❯ Function.describe ../../node_modules/.bun/playwright@1.57.0/node_modules/playwright/lib/transform/transform.js:275:12
+ ❯ e2e/chat.spec.ts:3:6
+      1| import { test, expect } from '@playwright/test';
+      2| 
+
+Error: Error: Playwright Test did not expect test.describe() to be called here.
+Most common reasons include:
+- You are calling test.describe() in a configuration file.
+- You are calling test.describe() in a file that is imported by the configuration file.
+- You have two different versions of @playwright/test. This usually happens
+  when one of the dependencies in your package.json depends on @playwright/test.
+ ❯ TestTypeImpl._currentSuite ../../node_modules/.bun/playwright@1.57.0/node_modules/playwright/lib/common/testType.js:75:13
+ ❯ TestTypeImpl._describe ../../node_modules/.bun/playwright@1.57.0/node_modules/playwright/lib/common/testType.js:115:24
+ ❯ Function.describe ../../node_modules/.bun/playwright@1.57.0/node_modules/playwright/lib/transform/transform.js:275:12
+ ❯ e2e/chat.spec.ts:3:6
+
+
+      3| test.describe('Chatbot Widget', () => {
+       |      ^
+      4|   test.beforeEach(async ({ page }) => {
+      5|     // Load a test page that includes the widget
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/22]⎯
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 21 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/App.test.tsx > App Component > Loading State > returns null while loading
+AssertionError: expected undefined to be +0 // Object.is equality
+
+- Expected: 
+0
+
++ Received: 
+undefined
+
+ ❯ tests/App.test.tsx:53:55
+
+Error: AssertionError: expected undefined to be +0 // Object.is equality
+
+- Expected: 
+0
+
++ Received: 
+undefined
+
+ ❯ tests/App.test.tsx:53:55
+
+
+     51| 
+     52|       // When loading, App returns null
+     53|       expect(container.firstChild?.childNodes.length).toBe(0);
+       |                                                       ^
+     54|     });
+     55|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/22]⎯
+
+ FAIL  tests/App.test.tsx > App Component > Unavailable State > returns null when unavailable
+AssertionError: expected undefined to be +0 // Object.is equality
+
+- Expected: 
+0
+
++ Received: 
+undefined
+
+
+Error: AssertionError: expected undefined to be +0 // Object.is equality
+
+- Expected: 
+0
+
++ Received: 
+undefined
+
+ ❯ tests/App.test.tsx:68:55
+
+
+
+Error: TypeError: messagesEndRef.current?.scrollIntoView is not a function
+ ❯ src/components/ChatWindow/ChatWindow.tsx:19:29
+ ❯ commitHookEffectListMount ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:23189:26
+ ❯ commitPassiveMountOnFiber ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24970:11
+ ❯ commitPassiveMountEffects_complete ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24930:9
+ ❯ commitPassiveMountEffects_begin ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24917:7
+ ❯ commitPassiveMountEffects ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24905:3
+ ❯ flushPassiveEffectsImpl ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:27078:3
+ ❯ flushPassiveEffects ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:27023:14
+ ❯ ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:26808:9
+ ❯ flushActQueue ../../node_modules/.bun/react@18.3.1/node_modules/react/cjs/react.development.js:2667:24
+
+
+ ❯ tests/App.test.tsx:68:55
+     66| 
+     67|       // When unavailable, App returns null
+     68|       expect(container.firstChild?.childNodes.length).toBe(0);
+       |                                                       ^
+     69|     });
+     70|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/22]⎯
+
+ FAIL  tests/ChatWindow.test.tsx > ChatWindow Component > Rendering > renders chat window element
+ FAIL  tests/ChatWindow.test.tsx > ChatWindow Component > Rendering > renders greeting message on load
+ FAIL  tests/ChatWindow.test.tsx > ChatWindow Component > Message Display > displays messages from hook
+ FAIL  tests/ChatWindow.test.tsx > ChatWindow Component > Message Display > shows loading indicator when isLoading is true
+ FAIL  tests/ChatWindow.test.tsx > ChatWindow Component > Message Display > displays error message when error exists
+ FAIL  tests/ChatWindow.test.tsx > ChatWindow Component > Message Display > error message includes contact link
+ FAIL  tests/ChatWindow.test.tsx > ChatWindow Component > Form Submission > sends message on form submit
+ FAIL  tests/ChatWindow.test.tsx > ChatWindow Component > Form Submission > does not send if input is empty
+ FAIL  tests/ChatWindow.test.tsx > ChatWindow Component > Form Submission > does not send if loading
+ FAIL  tests/ChatWindow.test.tsx > ChatWindow Component > Form Submission > clears input after sending
+ FAIL  tests/ChatWindow.test.tsx > ChatWindow Component > Input Handling > syncs input with hook state
+ FAIL  tests/ChatWindow.test.tsx > ChatWindow Component > Input Handling > input disabled when loading
+ FAIL  tests/ChatWindow.test.tsx > ChatWindow Component > Send Button > send button disabled when input empty
+ FAIL  tests/ChatWindow.test.tsx > ChatWindow Component > Send Button > send button disabled when loading
+ FAIL  tests/ChatWindow.test.tsx > ChatWindow Component > Send Button > send button enabled when input has content and not loading
+ FAIL  tests/ChatWindow.test.tsx > ChatWindow Component > Close Button > close button calls onClose
+ FAIL  tests/ChatWindow.test.tsx > ChatWindow Component > Close Button > close button has aria-label
+TypeError: messagesEndRef.current?.scrollIntoView is not a function
+ ❯ src/components/ChatWindow/ChatWindow.tsx:19:29
+     17| 
+     18|   useEffect(() => {
+     19|     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+       |                             ^
+     20|   }, [messages]);
+     21| 
+ ❯ commitHookEffectListMount ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:23189:26
+ ❯ commitPassiveMountOnFiber ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24970:11
+ ❯ commitPassiveMountEffects_complete ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24930:9
+ ❯ commitPassiveMountEffects_begin ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24917:7
+ ❯ commitPassiveMountEffects ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24905:3
+ ❯ flushPassiveEffectsImpl ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:27078:3
+ ❯ flushPassiveEffects ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:27023:14
+ ❯ ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:26808:9
+ ❯ flushActQueue ../../node_modules/.bun/react@18.3.1/node_modules/react/cjs/react.development.js:2667:24
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/22]⎯
+
+ FAIL  tests/Message.test.tsx > Message Component > Loading State > hides content when loading
+Error: expect(element).not.toBeVisible()
+
+Received element is visible:
+  <div
+  class="message__content"
+/>
+ ❯ tests/Message.test.tsx:51:36
+
+Error: TypeError: messagesEndRef.current?.scrollIntoView is not a function
+ ❯ src/components/ChatWindow/ChatWindow.tsx:19:29
+ ❯ commitHookEffectListMount ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:23189:26
+ ❯ commitPassiveMountOnFiber ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24970:11
+ ❯ commitPassiveMountEffects_complete ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24930:9
+ ❯ commitPassiveMountEffects_begin ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24917:7
+ ❯ commitPassiveMountEffects ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24905:3
+ ❯ flushPassiveEffectsImpl ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:27078:3
+ ❯ flushPassiveEffects ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:27023:14
+ ❯ ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:26808:9
+ ❯ flushActQueue ../../node_modules/.bun/react@18.3.1/node_modules/react/cjs/react.development.js:2667:24
+
+
+
+Error: TypeError: messagesEndRef.current?.scrollIntoView is not a function
+ ❯ src/components/ChatWindow/ChatWindow.tsx:19:29
+ ❯ commitHookEffectListMount ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:23189:26
+ ❯ commitPassiveMountOnFiber ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24970:11
+ ❯ commitPassiveMountEffects_complete ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24930:9
+ ❯ commitPassiveMountEffects_begin ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24917:7
+ ❯ commitPassiveMountEffects ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24905:3
+ ❯ flushPassiveEffectsImpl ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:27078:3
+ ❯ flushPassiveEffects ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:27023:14
+ ❯ ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:26808:9
+ ❯ flushActQueue ../../node_modules/.bun/react@18.3.1/node_modules/react/cjs/react.development.js:2667:24
+
+
+
+Error: TypeError: messagesEndRef.current?.scrollIntoView is not a function
+ ❯ src/components/ChatWindow/ChatWindow.tsx:19:29
+ ❯ commitHookEffectListMount ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:23189:26
+ ❯ commitPassiveMountOnFiber ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24970:11
+ ❯ commitPassiveMountEffects_complete ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24930:9
+ ❯ commitPassiveMountEffects_begin ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24917:7
+ ❯ commitPassiveMountEffects ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24905:3
+ ❯ flushPassiveEffectsImpl ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:27078:3
+ ❯ flushPassiveEffects ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:27023:14
+ ❯ ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:26808:9
+ ❯ flushActQueue ../../node_modules/.bun/react@18.3.1/node_modules/react/cjs/react.development.js:2667:24
+
+
+     49|       const contentElement = container.querySelector('.message__conten…
+     50|       if (contentElement) {
+     51|         expect(contentElement).not.toBeVisible();
+       |                                    ^
+     52|       }
+     53|     });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/22]⎯
+
+ FAIL  tests/useChatStatus.test.ts > useChatStatus > Dependencies > refetches when apiUrl changes
+AssertionError: expected "spy" to be called with arguments: [ 'http://test1.api/api/status' ]
+
+Received: 
+
+
+
+Number of calls: 0
+
+ ❯ tests/useChatStatus.test.ts:171:28
+    169|       });
+    170| 
+    171|       expect(global.fetch).toHaveBeenCalledWith('http://test1.api/api/…
+       |                            ^
+    172| 
+    173|       rerender({ apiUrl: 'http://test2.api' });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/22]⎯
+
+
+Error: TypeError: messagesEndRef.current?.scrollIntoView is not a function
+ ❯ src/components/ChatWindow/ChatWindow.tsx:19:29
+ ❯ commitHookEffectListMount ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:23189:26
+ ❯ commitPassiveMountOnFiber ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24970:11
+ ❯ commitPassiveMountEffects_complete ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24930:9
+ ❯ commitPassiveMountEffects_begin ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24917:7
+ ❯ commitPassiveMountEffects ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24905:3
+ ❯ flushPassiveEffectsImpl ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:27078:3
+ ❯ flushPassiveEffects ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:27023:14
+ ❯ ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:26808:9
+ ❯ flushActQueue ../../node_modules/.bun/react@18.3.1/node_modules/react/cjs/react.development.js:2667:24
+
+
+
+Error: TypeError: messagesEndRef.current?.scrollIntoView is not a function
+ ❯ src/components/ChatWindow/ChatWindow.tsx:19:29
+ ❯ commitHookEffectListMount ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:23189:26
+ ❯ commitPassiveMountOnFiber ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24970:11
+ ❯ commitPassiveMountEffects_complete ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24930:9
+ ❯ commitPassiveMountEffects_begin ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24917:7
+ ❯ commitPassiveMountEffects ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24905:3
+ ❯ flushPassiveEffectsImpl ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:27078:3
+ ❯ flushPassiveEffects ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:27023:14
+ ❯ ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:26808:9
+ ❯ flushActQueue ../../node_modules/.bun/react@18.3.1/node_modules/react/cjs/react.development.js:2667:24
+
+
+
+Error: TypeError: messagesEndRef.current?.scrollIntoView is not a function
+ ❯ src/components/ChatWindow/ChatWindow.tsx:19:29
+ ❯ commitHookEffectListMount ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:23189:26
+ ❯ commitPassiveMountOnFiber ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24970:11
+ ❯ commitPassiveMountEffects_complete ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24930:9
+ ❯ commitPassiveMountEffects_begin ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24917:7
+ ❯ commitPassiveMountEffects ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24905:3
+ ❯ flushPassiveEffectsImpl ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:27078:3
+ ❯ flushPassiveEffects ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:27023:14
+ ❯ ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:26808:9
+ ❯ flushActQueue ../../node_modules/.bun/react@18.3.1/node_modules/react/cjs/react.development.js:2667:24
+
+
+
+Error: TypeError: messagesEndRef.current?.scrollIntoView is not a function
+ ❯ src/components/ChatWindow/ChatWindow.tsx:19:29
+ ❯ commitHookEffectListMount ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:23189:26
+ ❯ commitPassiveMountOnFiber ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24970:11
+ ❯ commitPassiveMountEffects_complete ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24930:9
+ ❯ commitPassiveMountEffects_begin ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24917:7
+ ❯ commitPassiveMountEffects ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24905:3
+ ❯ flushPassiveEffectsImpl ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:27078:3
+ ❯ flushPassiveEffects ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:27023:14
+ ❯ ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:26808:9
+ ❯ flushActQueue ../../node_modules/.bun/react@18.3.1/node_modules/react/cjs/react.development.js:2667:24
+
+
+ Test Files  5 failed | 1 passed (6)
+      Tests  21 failed | 56 passed (77)
+   Start at  02:07:33
+   Duration  4.73s (transform 441ms, setup 573ms, collect 1.60s, tests 1.24s, environment 4.30s, prepare 900ms)
+
+
+Error: TypeError: messagesEndRef.current?.scrollIntoView is not a function
+ ❯ src/components/ChatWindow/ChatWindow.tsx:19:29
+ ❯ commitHookEffectListMount ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:23189:26
+ ❯ commitPassiveMountOnFiber ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24970:11
+ ❯ commitPassiveMountEffects_complete ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24930:9
+ ❯ commitPassiveMountEffects_begin ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24917:7
+ ❯ commitPassiveMountEffects ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24905:3
+ ❯ flushPassiveEffectsImpl ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:27078:3
+ ❯ flushPassiveEffects ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:27023:14
+ ❯ ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:26808:9
+ ❯ flushActQueue ../../node_modules/.bun/react@18.3.1/node_modules/react/cjs/react.development.js:2667:24
+
+
+
+Error: TypeError: messagesEndRef.current?.scrollIntoView is not a function
+ ❯ src/components/ChatWindow/ChatWindow.tsx:19:29
+ ❯ commitHookEffectListMount ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:23189:26
+ ❯ commitPassiveMountOnFiber ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24970:11
+ ❯ commitPassiveMountEffects_complete ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24930:9
+ ❯ commitPassiveMountEffects_begin ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24917:7
+ ❯ commitPassiveMountEffects ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24905:3
+ ❯ flushPassiveEffectsImpl ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:27078:3
+ ❯ flushPassiveEffects ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:27023:14
+ ❯ ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:26808:9
+ ❯ flushActQueue ../../node_modules/.bun/react@18.3.1/node_modules/react/cjs/react.development.js:2667:24
+
+
+
+Error: TypeError: messagesEndRef.current?.scrollIntoView is not a function
+ ❯ src/components/ChatWindow/ChatWindow.tsx:19:29
+ ❯ commitHookEffectListMount ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:23189:26
+ ❯ commitPassiveMountOnFiber ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24970:11
+ ❯ commitPassiveMountEffects_complete ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24930:9
+ ❯ commitPassiveMountEffects_begin ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24917:7
+ ❯ commitPassiveMountEffects ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24905:3
+ ❯ flushPassiveEffectsImpl ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:27078:3
+ ❯ flushPassiveEffects ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:27023:14
+ ❯ ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:26808:9
+ ❯ flushActQueue ../../node_modules/.bun/react@18.3.1/node_modules/react/cjs/react.development.js:2667:24
+
+
+
+Error: TypeError: messagesEndRef.current?.scrollIntoView is not a function
+ ❯ src/components/ChatWindow/ChatWindow.tsx:19:29
+ ❯ commitHookEffectListMount ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:23189:26
+ ❯ commitPassiveMountOnFiber ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24970:11
+ ❯ commitPassiveMountEffects_complete ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24930:9
+ ❯ commitPassiveMountEffects_begin ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24917:7
+ ❯ commitPassiveMountEffects ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24905:3
+ ❯ flushPassiveEffectsImpl ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:27078:3
+ ❯ flushPassiveEffects ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:27023:14
+ ❯ ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:26808:9
+ ❯ flushActQueue ../../node_modules/.bun/react@18.3.1/node_modules/react/cjs/react.development.js:2667:24
+
+
+
+Error: TypeError: messagesEndRef.current?.scrollIntoView is not a function
+ ❯ src/components/ChatWindow/ChatWindow.tsx:19:29
+ ❯ commitHookEffectListMount ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:23189:26
+ ❯ commitPassiveMountOnFiber ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24970:11
+ ❯ commitPassiveMountEffects_complete ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24930:9
+ ❯ commitPassiveMountEffects_begin ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24917:7
+ ❯ commitPassiveMountEffects ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24905:3
+ ❯ flushPassiveEffectsImpl ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:27078:3
+ ❯ flushPassiveEffects ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:27023:14
+ ❯ ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:26808:9
+ ❯ flushActQueue ../../node_modules/.bun/react@18.3.1/node_modules/react/cjs/react.development.js:2667:24
+
+
+
+Error: TypeError: messagesEndRef.current?.scrollIntoView is not a function
+ ❯ src/components/ChatWindow/ChatWindow.tsx:19:29
+ ❯ commitHookEffectListMount ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:23189:26
+ ❯ commitPassiveMountOnFiber ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24970:11
+ ❯ commitPassiveMountEffects_complete ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24930:9
+ ❯ commitPassiveMountEffects_begin ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24917:7
+ ❯ commitPassiveMountEffects ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24905:3
+ ❯ flushPassiveEffectsImpl ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:27078:3
+ ❯ flushPassiveEffects ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:27023:14
+ ❯ ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:26808:9
+ ❯ flushActQueue ../../node_modules/.bun/react@18.3.1/node_modules/react/cjs/react.development.js:2667:24
+
+
+
+Error: TypeError: messagesEndRef.current?.scrollIntoView is not a function
+ ❯ src/components/ChatWindow/ChatWindow.tsx:19:29
+ ❯ commitHookEffectListMount ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:23189:26
+ ❯ commitPassiveMountOnFiber ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24970:11
+ ❯ commitPassiveMountEffects_complete ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24930:9
+ ❯ commitPassiveMountEffects_begin ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24917:7
+ ❯ commitPassiveMountEffects ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24905:3
+ ❯ flushPassiveEffectsImpl ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:27078:3
+ ❯ flushPassiveEffects ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:27023:14
+ ❯ ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:26808:9
+ ❯ flushActQueue ../../node_modules/.bun/react@18.3.1/node_modules/react/cjs/react.development.js:2667:24
+
+
+
+Error: TypeError: messagesEndRef.current?.scrollIntoView is not a function
+ ❯ src/components/ChatWindow/ChatWindow.tsx:19:29
+ ❯ commitHookEffectListMount ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:23189:26
+ ❯ commitPassiveMountOnFiber ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24970:11
+ ❯ commitPassiveMountEffects_complete ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24930:9
+ ❯ commitPassiveMountEffects_begin ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24917:7
+ ❯ commitPassiveMountEffects ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24905:3
+ ❯ flushPassiveEffectsImpl ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:27078:3
+ ❯ flushPassiveEffects ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:27023:14
+ ❯ ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:26808:9
+ ❯ flushActQueue ../../node_modules/.bun/react@18.3.1/node_modules/react/cjs/react.development.js:2667:24
+
+
+
+Error: TypeError: messagesEndRef.current?.scrollIntoView is not a function
+ ❯ src/components/ChatWindow/ChatWindow.tsx:19:29
+ ❯ commitHookEffectListMount ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:23189:26
+ ❯ commitPassiveMountOnFiber ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24970:11
+ ❯ commitPassiveMountEffects_complete ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24930:9
+ ❯ commitPassiveMountEffects_begin ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24917:7
+ ❯ commitPassiveMountEffects ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:24905:3
+ ❯ flushPassiveEffectsImpl ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:27078:3
+ ❯ flushPassiveEffects ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:27023:14
+ ❯ ../../node_modules/.bun/react-dom@18.3.1+f4eacebf2041cd4f/node_modules/react-dom/cjs/react-dom.development.js:26808:9
+ ❯ flushActQueue ../../node_modules/.bun/react@18.3.1/node_modules/react/cjs/react.development.js:2667:24
+
+
+
+Error: Error: expect(element).not.toBeVisible()
+
+Received element is visible:
+  <div
+  class="message__content"
+/>
+ ❯ tests/Message.test.tsx:51:36
+
+
+
+Error: AssertionError: expected "spy" to be called with arguments: [ 'http://test1.api/api/status' ]
+
+Received: 
+
+
+
+Number of calls: 0
+
+ ❯ tests/useChatStatus.test.ts:171:28
+
+
+error: script "test" exited with code 1
+error: script "test:frontend" exited with code 1
+Error: Process completed with exit code 1.

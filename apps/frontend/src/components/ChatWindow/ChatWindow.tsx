@@ -62,7 +62,7 @@ export function ChatWindow({ onClose, apiUrl, contactUrl }: ChatWindowProps) {
         <div ref={messagesEndRef} />
       </div>
 
-      <form onSubmit={handleSubmit} className="chat-window__form">
+      <form onSubmit={handleSubmit} className="chat-window__form" data-testid="chat-form">
         <Input
           value={input}
           onChange={(e) => setInput(e.target.value)}

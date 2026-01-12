@@ -49,8 +49,8 @@ describe('App Component', () => {
 
       const { container } = render(<App config={mockConfig} />);
 
-      // When loading, App returns null
-      expect(container.firstChild?.childNodes.length).toBe(0);
+      // When loading, App returns null - container should be empty
+      expect(container.innerHTML).toBe('');
     });
   });
 
@@ -64,8 +64,8 @@ describe('App Component', () => {
 
       const { container } = render(<App config={mockConfig} />);
 
-      // When unavailable, App returns null
-      expect(container.firstChild?.childNodes.length).toBe(0);
+      // When unavailable, App returns null - container should be empty
+      expect(container.innerHTML).toBe('');
     });
   });
 

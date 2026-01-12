@@ -156,6 +156,11 @@ describe('useChatStatus', () => {
 
   describe('Dependencies', () => {
     test('refetches when apiUrl changes', async () => {
+      global.fetch = vi.fn().mockResolvedValue({
+        ok: true,
+        json: async () => ({ available: true }),
+      });
+
       const { rerender } = renderHook(
         ({ apiUrl }: { apiUrl: string }) => useChatStatus(apiUrl),
         {
@@ -163,12 +168,9 @@ describe('useChatStatus', () => {
         },
       );
 
-      global.fetch = vi.fn().mockResolvedValue({
-        ok: true,
-        json: async () => ({ available: true }),
+      await waitFor(() => {
+        expect(global.fetch).toHaveBeenCalledWith('http://test1.api/api/status');
       });
-
-      expect(global.fetch).toHaveBeenCalledWith('http://test1.api/api/status');
 
       rerender({ apiUrl: 'http://test2.api' });
 

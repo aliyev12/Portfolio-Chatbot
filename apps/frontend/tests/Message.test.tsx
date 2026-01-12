@@ -44,12 +44,13 @@ describe('Message Component', () => {
     test('hides content when loading', () => {
       const { container } = render(<Message role="assistant" content="test" isLoading={true} />);
 
-      // When loading, the content should not be displayed
+      // When loading, the text content should not be displayed
       // Instead, loading dots are shown
-      const contentElement = container.querySelector('.message__content');
-      if (contentElement) {
-        expect(contentElement).not.toBeVisible();
-      }
+      expect(screen.queryByText('test')).not.toBeInTheDocument();
+
+      // Loading dots should be visible
+      const dots = container.querySelectorAll('.message__loading-dot');
+      expect(dots.length).toBeGreaterThan(0);
     });
 
     test('shows content when not loading', () => {

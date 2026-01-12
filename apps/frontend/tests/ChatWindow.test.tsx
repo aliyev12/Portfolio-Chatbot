@@ -180,7 +180,7 @@ describe('ChatWindow Component', () => {
         />,
       );
 
-      const form = screen.getByRole('form', { hidden: true });
+      const form = screen.getByTestId('chat-form');
       fireEvent.submit(form);
 
       expect(mockSendMessage).toHaveBeenCalledWith('test message');
@@ -205,7 +205,7 @@ describe('ChatWindow Component', () => {
         />,
       );
 
-      const form = screen.getByRole('form', { hidden: true });
+      const form = screen.getByTestId('chat-form');
       fireEvent.submit(form);
 
       expect(mockSendMessage).not.toHaveBeenCalled();
@@ -230,7 +230,7 @@ describe('ChatWindow Component', () => {
         />,
       );
 
-      const form = screen.getByRole('form', { hidden: true });
+      const form = screen.getByTestId('chat-form');
       fireEvent.submit(form);
 
       expect(mockSendMessage).not.toHaveBeenCalled();
@@ -255,7 +255,7 @@ describe('ChatWindow Component', () => {
         />,
       );
 
-      const form = screen.getByRole('form', { hidden: true });
+      const form = screen.getByTestId('chat-form');
       fireEvent.submit(form);
 
       expect(mockSetInput).toHaveBeenCalledWith('');
