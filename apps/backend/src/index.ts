@@ -59,20 +59,68 @@ app.get('/widget.js', async (c) => {
   });
 });
 
-// Root endpoint
+// Root endpoint - serve demo page with widget
 app.get('/', (c) => {
-  return c.json({
-    message: 'Portfolio Chatbot API',
-    version: '0.1.0',
-    endpoints: {
-      health: '/api/health',
-      status: '/api/status',
-      chat: '/api/chat',
-      usage: '/api/status/usage (protected)',
-      clearCache: '/api/status/clear-cache (protected)',
-      widget: '/widget.js',
-    },
-  });
+  const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio Chatbot Demo</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+        sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .container {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      padding: 40px;
+      max-width: 600px;
+      text-align: center;
+    }
+    h1 {
+      color: #333;
+      margin-top: 0;
+    }
+    p {
+      color: #666;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Portfolio Chatbot</h1>
+    <p>Chat with an AI assistant about my experience and projects.</p>
+    <p>Click the chat bubble in the bottom right corner to start!</p>
+  </div>
+  <script>
+    // Polyfill process global for the widget script
+    if (typeof process === 'undefined') {
+      window.process = {
+        env: {
+          NODE_ENV: 'production'
+        }
+      };
+    }
+  </script>
+  <script src="/widget.js"></script>
+</body>
+</html>`;
+
+  return c.html(html);
 });
 
 console.warn(`Server starting on port ${config.PORT}...`);

@@ -10,8 +10,15 @@ export const statusRoutes = new Hono();
  * GET /api/status
  */
 statusRoutes.get('/', async (c) => {
-  const isAvailable = await usageService.isWithinLimit();
-  return c.json({ available: isAvailable });
+  try {
+    const isAvailable = await usageService.isWithinLimit();
+    return c.json({ available: isAvailable });
+  } catch (_err) {
+    // In case of Redis error (e.g., invalid credentials, offline),
+    // assume chatbot is available in development/test, or unavailable in production
+    const isProduction = process.env.NODE_ENV === 'production';
+    return c.json({ available: !isProduction });
+  }
 });
 
 /**
