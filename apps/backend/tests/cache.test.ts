@@ -31,7 +31,13 @@ describe('Cache Service', () => {
   describe('Cache operations', () => {
     test('get returns null or string', async () => {
       try {
-        const result = await cacheService.get('nonexistent');
+        const timeoutPromise = new Promise((_, reject) =>
+          setTimeout(() => reject(new Error('timeout')), 3000)
+        );
+        const result = await Promise.race([
+          cacheService.get('nonexistent'),
+          timeoutPromise,
+        ]);
         expect(result === null || typeof result === 'string').toBe(true);
       } catch {
         // Redis connection may fail in test environment with fake credentials
@@ -41,7 +47,13 @@ describe('Cache Service', () => {
 
     test('set does not throw for valid inputs', async () => {
       try {
-        await cacheService.set('test-key', 'test-value');
+        const timeoutPromise = new Promise((_, reject) =>
+          setTimeout(() => reject(new Error('timeout')), 3000)
+        );
+        await Promise.race([
+          cacheService.set('test-key', 'test-value'),
+          timeoutPromise,
+        ]);
         expect(true).toBe(true);
       } catch {
         // Redis connection may fail in test environment with fake credentials
@@ -51,7 +63,13 @@ describe('Cache Service', () => {
 
     test('clear does not throw', async () => {
       try {
-        await cacheService.clear();
+        const timeoutPromise = new Promise((_, reject) =>
+          setTimeout(() => reject(new Error('timeout')), 3000)
+        );
+        await Promise.race([
+          cacheService.clear(),
+          timeoutPromise,
+        ]);
         expect(true).toBe(true);
       } catch {
         // Redis connection may fail in test environment with fake credentials

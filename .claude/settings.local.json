@@ -34,7 +34,8 @@
       "Bash(tsc)",
       "Bash(tsc:*)",
       "Bash(./node_modules/.bin/tsc:*)",
-      "Bash(bun install:*)"
+      "Bash(bun install:*)",
+      "Bash(timeout 120 bun test:*)"
     ]
   }
 }
