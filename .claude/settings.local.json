@@ -35,7 +35,11 @@
       "Bash(tsc:*)",
       "Bash(./node_modules/.bin/tsc:*)",
       "Bash(bun install:*)",
-      "Bash(timeout 120 bun test:*)"
+      "Bash(timeout 120 bun test:*)",
+      "Bash(pkill:*)",
+      "Bash(bunx playwright install:*)",
+      "Bash(timeout 90 bun run test:e2e:*)",
+      "Bash(git reset:*)"
     ]
   }
 }
