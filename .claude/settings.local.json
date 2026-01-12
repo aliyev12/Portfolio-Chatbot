@@ -33,7 +33,8 @@
       "Bash(act:*)",
       "Bash(tsc)",
       "Bash(tsc:*)",
-      "Bash(./node_modules/.bin/tsc:*)"
+      "Bash(./node_modules/.bin/tsc:*)",
+      "Bash(bun install:*)"
     ]
   }
 }
