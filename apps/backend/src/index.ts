@@ -16,15 +16,25 @@ const allowedOrigins = process.env.NODE_ENV === 'development'
   ? ['http://localhost:3000', 'http://localhost:5173', 'http://127.0.0.1:3000', 'http://127.0.0.1:5173']
   : config.ALLOWED_ORIGINS;
 
+// Log allowed origins on startup for debugging
+console.warn('CORS allowed origins:', allowedOrigins);
+
 app.use(
   '*',
   cors({
     origin: (origin) => {
       // Allow requests with no origin (e.g., mobile apps, curl)
-      if (!origin) return true;
+      if (!origin) return '*';
 
-      // Check if origin is in allowed list
-      return allowedOrigins.includes(origin);
+      // Check if origin is in allowed list and return it if allowed
+      if (allowedOrigins.includes(origin)) {
+        console.warn(`CORS: Allowing origin: ${origin}`);
+        return origin;
+      }
+
+      // Deny other origins
+      console.warn(`CORS: Denying origin: ${origin}`);
+      return '';
     },
     allowMethods: ['GET', 'POST', 'OPTIONS'],
     allowHeaders: ['Content-Type', 'Authorization'],
