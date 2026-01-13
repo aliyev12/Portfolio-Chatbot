@@ -26,14 +26,23 @@ app.use(
       // Allow requests with no origin (e.g., mobile apps, curl)
       if (!origin) return '*';
 
+      // Debug: log the comparison
+      console.warn(`CORS check - Incoming: "${origin}", Allowed list:`, allowedOrigins);
+      console.warn(`CORS check - Exact match test:`, allowedOrigins.map(allowed => ({
+        allowed,
+        matches: allowed === origin,
+        allowedLength: allowed.length,
+        originLength: origin.length,
+      })));
+
       // Check if origin is in allowed list and return it if allowed
       if (allowedOrigins.includes(origin)) {
-        console.warn(`CORS: Allowing origin: ${origin}`);
+        console.warn(`CORS: ✓ Allowing origin: ${origin}`);
         return origin;
       }
 
       // Deny other origins
-      console.warn(`CORS: Denying origin: ${origin}`);
+      console.warn(`CORS: ✗ Denying origin: ${origin}`);
       return '';
     },
     allowMethods: ['GET', 'POST', 'OPTIONS'],

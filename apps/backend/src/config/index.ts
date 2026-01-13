@@ -1,3 +1,6 @@
+// Log environment variable for debugging
+console.warn('Raw ALLOWED_ORIGINS env var:', process.env.ALLOWED_ORIGINS);
+
 export const config = {
   PORT: parseInt(process.env.PORT || '3000'),
   OPENAI_API_KEY: process.env.OPENAI_API_KEY || '',
@@ -10,6 +13,9 @@ export const config = {
     .split(',')
     .map(origin => origin.trim().replace(/\/$/, '')),
 };
+
+// Log parsed origins for debugging
+console.warn('Parsed ALLOWED_ORIGINS:', config.ALLOWED_ORIGINS);
 
 // Validate required environment variables
 // For Phase 2, we're only validating what we need for the skeleton
