@@ -82,6 +82,7 @@ jobs:
     name: E2E Tests
     runs-on: ubuntu-latest
     needs: [test-backend, test-frontend]
+    if: false  # Disabled: requires real API credentials (OPENAI_API_KEY, Redis)
 
     steps:
       - name: Checkout code
