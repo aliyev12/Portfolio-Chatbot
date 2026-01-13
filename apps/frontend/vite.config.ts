@@ -9,6 +9,10 @@ export default defineConfig({
     host: '0.0.0.0',
     port: 5173,
   },
+  define: {
+    // Replace process.env.NODE_ENV with string literal for browser compatibility
+    'process.env.NODE_ENV': JSON.stringify('production'),
+  },
   build: {
     lib: {
       entry: resolve(__dirname, 'src/main.tsx'),
