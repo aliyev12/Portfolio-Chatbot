@@ -6,7 +6,9 @@ export const config = {
   SYSTEM_PROMPT: process.env.SYSTEM_PROMPT || '',
   MAX_MONTHLY_CONVERSATIONS: parseInt(process.env.MAX_MONTHLY_CONVERSATIONS || '500'),
   ADMIN_SECRET: process.env.ADMIN_SECRET || '',
-  ALLOWED_ORIGINS: (process.env.ALLOWED_ORIGINS || 'http://localhost:4321').split(','),
+  ALLOWED_ORIGINS: (process.env.ALLOWED_ORIGINS || 'http://localhost:4321')
+    .split(',')
+    .map(origin => origin.trim().replace(/\/$/, '')),
 };
 
 // Validate required environment variables
