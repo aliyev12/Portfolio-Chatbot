@@ -105,7 +105,7 @@ jobs:
         run: docker build -f docker/Dockerfile.backend -t portfolio-chatbot:backend-ci .
 
       - name: Start services with docker-compose
-        run: docker-compose -f docker-compose.ci.yml up -d
+        run: docker compose -f docker-compose.ci.yml up -d
 
       - name: Wait for services to be ready
         run: |
@@ -119,7 +119,7 @@ jobs:
             sleep 1
           done
           echo "Backend failed to start"
-          docker-compose logs
+          docker compose -f docker-compose.ci.yml logs
           exit 1
 
       - name: Run E2E tests
@@ -127,7 +127,7 @@ jobs:
 
       - name: Collect docker logs on failure
         if: failure()
-        run: docker-compose -f docker-compose.ci.yml logs > docker-logs.txt
+        run: docker compose -f docker-compose.ci.yml logs > docker-logs.txt
 
       - name: Upload Playwright report
         uses: actions/upload-artifact@v4
@@ -147,7 +147,7 @@ jobs:
 
       - name: Cleanup
         if: always()
-        run: docker-compose -f docker-compose.ci.yml down
+        run: docker compose -f docker-compose.ci.yml down
 
   build:
     name: Build Docker Image
