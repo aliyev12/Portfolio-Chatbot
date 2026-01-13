@@ -12,9 +12,15 @@ const app = new Hono();
 app.use('*', logger());
 
 // Determine CORS origins based on environment
-const allowedOrigins = process.env.NODE_ENV === 'development'
-  ? ['http://localhost:3000', 'http://localhost:5173', 'http://127.0.0.1:3000', 'http://127.0.0.1:5173']
-  : config.ALLOWED_ORIGINS;
+const allowedOrigins =
+  process.env.NODE_ENV === 'development'
+    ? [
+        'http://localhost:3000',
+        'http://localhost:5173',
+        'http://127.0.0.1:3000',
+        'http://127.0.0.1:5173',
+      ]
+    : config.ALLOWED_ORIGINS;
 
 // Log allowed origins on startup for debugging
 console.warn('CORS allowed origins:', allowedOrigins);
@@ -28,12 +34,15 @@ app.use(
 
       // Debug: log the comparison
       console.warn(`CORS check - Incoming: "${origin}", Allowed list:`, allowedOrigins);
-      console.warn(`CORS check - Exact match test:`, allowedOrigins.map(allowed => ({
-        allowed,
-        matches: allowed === origin,
-        allowedLength: allowed.length,
-        originLength: origin.length,
-      })));
+      console.warn(
+        `CORS check - Exact match test:`,
+        allowedOrigins.map((allowed) => ({
+          allowed,
+          matches: allowed === origin,
+          allowedLength: allowed.length,
+          originLength: origin.length,
+        })),
+      );
 
       // Check if origin is in allowed list and return it if allowed
       if (allowedOrigins.includes(origin)) {
@@ -121,7 +130,7 @@ app.get('/', (c) => {
       margin-top: 0;
     }
     p {
-      color: #666;
+      color: #333333;
       line-height: 1.6;
     }
   </style>
