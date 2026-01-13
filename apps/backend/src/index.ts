@@ -12,16 +12,23 @@ const app = new Hono();
 app.use('*', logger());
 
 // Determine CORS origins based on environment
-const corsOrigins = process.env.NODE_ENV === 'development'
+const allowedOrigins = process.env.NODE_ENV === 'development'
   ? ['http://localhost:3000', 'http://localhost:5173', 'http://127.0.0.1:3000', 'http://127.0.0.1:5173']
   : config.ALLOWED_ORIGINS;
 
 app.use(
   '*',
   cors({
-    origin: corsOrigins,
+    origin: (origin) => {
+      // Allow requests with no origin (e.g., mobile apps, curl)
+      if (!origin) return true;
+
+      // Check if origin is in allowed list
+      return allowedOrigins.includes(origin);
+    },
     allowMethods: ['GET', 'POST', 'OPTIONS'],
     allowHeaders: ['Content-Type', 'Authorization'],
+    credentials: true,
   }),
 );
 
