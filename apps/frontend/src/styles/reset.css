@@ -6,11 +6,26 @@
 }
 
 #portfolio-chatbot-root {
+  /* Ensure the root container doesn't affect page layout */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  z-index: 999998;
+
+  /* Typography for children */
   font-family: var(--chatbot-font-family);
   font-size: var(--chatbot-font-size-base);
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+#portfolio-chatbot-root > * {
+  /* Re-enable pointer events for children */
+  pointer-events: auto;
 }
 
 #portfolio-chatbot-root button {

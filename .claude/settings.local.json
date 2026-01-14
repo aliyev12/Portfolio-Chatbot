@@ -1,6 +1,9 @@
 {
   "permissions": {
     "allow": [
+      "Read(*)",
+      "Edit(*)",
+      "Bash(*)",
       "WebFetch(domain:tanstack.com)",
       "Bash(tree:*)",
       "Bash(bun --version:*)",
@@ -41,7 +44,8 @@
       "Bash(timeout 90 bun run test:e2e:*)",
       "Bash(git reset:*)",
       "Bash(bunx playwright test:*)",
-      "Bash(git push)"
+      "Bash(git push)",
+      "Bash(bun pm ls:*)"
     ]
   }
 }

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chatbot Widget Embed Test</title>
+  <style>
+    /* Your portfolio site styles */
+    body {
+      font-family: Arial, sans-serif;
+      padding: 2rem;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      font-size: 1.2rem;
+      line-height: 1.6;
+      max-width: 600px;
+    }
+
+    .content {
+      margin-bottom: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="content">
+    <h1>Portfolio Page Example</h1>
+    <p>This is a test page to demonstrate how the chatbot widget looks when embedded on your portfolio site.</p>
+    <p>The chatbot bubble should appear in the bottom-right corner. Click it to start chatting!</p>
+    <p>The widget is completely self-contained and won't interfere with your page layout or styles.</p>
+  </div>
+
+  <!--
+    CHATBOT WIDGET EMBED CODE
+    Copy this to your portfolio site to embed the chatbot
+  -->
+  <script>
+    // Optional: Set the API URL (if different from the script source)
+    window.CHATBOT_API_URL = 'http://localhost:3000';
+  </script>
+  <script src="/widget.js"></script>
+</body>
+</html>

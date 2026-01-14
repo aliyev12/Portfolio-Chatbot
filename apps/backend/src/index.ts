@@ -67,13 +67,12 @@ app.route('/api/health', healthRoutes);
 app.route('/api/status', statusRoutes);
 app.route('/api/chat', chatRoutes);
 
-// Serve frontend widget (placeholder for now)
+// Serve static files from public directory
 app.get('/widget.js', async (c) => {
-  // Try multiple possible paths for the widget file
   const possiblePaths = [
-    './apps/backend/public/widget.js', // When run from root
-    './public/widget.js', // When run from backend dir
-    '../backend/public/widget.js', // Alternative
+    './apps/backend/public/widget.js',
+    './public/widget.js',
+    '../backend/public/widget.js',
   ];
 
   let file;
@@ -93,6 +92,32 @@ app.get('/widget.js', async (c) => {
 
   return new Response(file, {
     headers: { 'Content-Type': 'application/javascript' },
+  });
+});
+
+// Serve test embed page
+app.get('/test-embed.html', async (c) => {
+  const possiblePaths = [
+    './apps/backend/public/test-embed.html',
+    './public/test-embed.html',
+    '../backend/public/test-embed.html',
+  ];
+
+  let file;
+  let exists = false;
+
+  for (const path of possiblePaths) {
+    file = Bun.file(path);
+    exists = await file.exists();
+    if (exists) break;
+  }
+
+  if (!exists) {
+    return c.text('Test embed page not found', 404);
+  }
+
+  return new Response(file, {
+    headers: { 'Content-Type': 'text/html' },
   });
 });
 
