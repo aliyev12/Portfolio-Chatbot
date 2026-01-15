@@ -1,5 +1,4 @@
 import type { ChangeEvent } from 'react';
-import './Input.css';
 
 interface InputProps {
   value: string;
@@ -12,7 +11,7 @@ export function Input({ value, onChange, placeholder, disabled }: InputProps) {
   return (
     <input
       type="text"
-      className="chatbot-input"
+      className="text-field flex-1"
       value={value}
       onChange={onChange}
       placeholder={placeholder}

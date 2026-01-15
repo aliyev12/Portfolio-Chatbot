@@ -1,10 +1,14 @@
 :root {
-  /* Colors - using light-dark() for automatic theme support */
-  --chatbot-color-primary: light-dark(#2563eb, #3b82f6);
-  --chatbot-color-primary-hover: light-dark(#1d4ed8, #60a5fa);
-  --chatbot-color-bg: light-dark(#ffffff, #1f2937);
+  --dark: #09090b;
+  --light: #ffffff;
+  --foreground: light-dark(var(--dark), var(--light));
+  --background: light-dark(var(--light), var(--dark));
+
+  --chatbot-color-primary: light-dark(var(--dark), var(--light));
+  --chatbot-color-primary-hover: light-dark(white, #60a5fa);
+  --chatbot-color-bg: light-dark(var(--light), var(--dark));
   --chatbot-color-bg-secondary: light-dark(#f3f4f6, #374151);
-  --chatbot-color-text: light-dark(#1f2937, #f9fafb);
+  --chatbot-color-text: light-dark(var(--dark), var(--light));
   --chatbot-color-text-secondary: light-dark(#6b7280, #9ca3af);
   --chatbot-color-border: light-dark(#e5e7eb, #4b5563);
   --chatbot-color-error: light-dark(#dc2626, #f87171);

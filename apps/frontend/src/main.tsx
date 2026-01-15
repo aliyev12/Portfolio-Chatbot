@@ -1,8 +1,6 @@
 import { createRoot } from 'react-dom/client';
 import App from './App';
-import './styles/reset.css';
-import './styles/variables.css';
-import './styles/utilities.css';
+import './styles/globals.css';
 
 // Extend Window interface for TypeScript
 declare global {

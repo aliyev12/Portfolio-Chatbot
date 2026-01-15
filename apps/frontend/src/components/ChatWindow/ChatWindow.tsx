@@ -1,8 +1,8 @@
 import React, { useRef, useEffect } from 'react';
+import { X, Send } from 'react-feather';
 import { useChat } from '../../hooks/useChat';
 import { Message } from '../Message/Message';
 import { Input } from '../Input/Input';
-import './ChatWindow.css';
 
 interface ChatWindowProps {
   onClose: () => void;
@@ -28,20 +28,25 @@ export function ChatWindow({ onClose, apiUrl, contactUrl }: ChatWindowProps) {
   };
 
   return (
-    <div className="chat-window" data-testid="chat-window">
-      <header className="chat-window__header">
-        <h2>Chat with Abdul</h2>
+    <div
+      className="fixed bottom-6 right-6 w-[380px] h-[520px] bg-card rounded-lg shadow-lg flex flex-col border border-border z-50"
+      data-testid="chat-window"
+    >
+      {/* Header */}
+      <header className="flex items-center justify-between px-4 py-3 border-b border-border bg-card rounded-t-lg">
+        <h2 className="text-lg font-semibold text-card-foreground">Chat with Abdul</h2>
         <button
           onClick={onClose}
           aria-label="Close chat"
-          className="chat-window__close"
+          className="h-8 w-8 rounded-md hover:bg-accent hover:text-accent-foreground transition-colors flex items-center justify-center"
           data-testid="close-button"
         >
-          &times;
+          <X size={20} />
         </button>
       </header>
 
-      <div className="chat-window__messages">
+      {/* Messages */}
+      <div className="flex-1 overflow-y-auto px-4 py-4 bg-background">
         <Message
           role="assistant"
           content="Hi! I'm Abdul's virtual assistant. Ask me anything about his professional background, skills, or experience!"
@@ -51,9 +56,14 @@ export function ChatWindow({ onClose, apiUrl, contactUrl }: ChatWindowProps) {
         ))}
         {isLoading && <Message role="assistant" content="" isLoading />}
         {error && (
-          <div className="chat-window__error">
+          <div className="p-3 mb-4 text-sm rounded-lg bg-red-50 dark:bg-gray-800 text-red-800 dark:text-red-400 border border-red-300 dark:border-red-800">
             {error} Please try again or{' '}
-            <a href={contactUrl} target="_blank" rel="noopener noreferrer">
+            <a
+              href={contactUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline hover:no-underline underline-offset-2"
+            >
               contact me directly
             </a>
             .
@@ -62,7 +72,12 @@ export function ChatWindow({ onClose, apiUrl, contactUrl }: ChatWindowProps) {
         <div ref={messagesEndRef} />
       </div>
 
-      <form onSubmit={handleSubmit} className="chat-window__form" data-testid="chat-form">
+      {/* Input Form */}
+      <form
+        onSubmit={handleSubmit}
+        className="flex gap-2 p-4 border-t border-border bg-card rounded-b-lg"
+        data-testid="chat-form"
+      >
         <Input
           value={input}
           onChange={(e) => setInput(e.target.value)}
@@ -72,10 +87,10 @@ export function ChatWindow({ onClose, apiUrl, contactUrl }: ChatWindowProps) {
         <button
           type="submit"
           disabled={isLoading || !input.trim()}
-          className="chat-window__send"
+          className="button flex items-center gap-2"
           data-testid="send-button"
         >
-          Send
+          <Send size={16} />
         </button>
       </form>
     </div>
