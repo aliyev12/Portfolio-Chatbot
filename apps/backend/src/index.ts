@@ -96,6 +96,34 @@ app.get('/widget.js', async (c) => {
   });
 });
 
+// Serve widget CSS file
+app.get('/widget.css', async (c) => {
+  const possiblePaths = [
+    './apps/backend/public/widget.css',
+    './public/widget.css',
+    '../backend/public/widget.css',
+  ];
+
+  let file;
+  let exists = false;
+
+  for (const path of possiblePaths) {
+    file = Bun.file(path);
+    exists = await file.exists();
+    if (exists) break;
+  }
+
+  if (!exists) {
+    return c.text('/* Widget CSS not yet built */', 200, {
+      'Content-Type': 'text/css',
+    });
+  }
+
+  return new Response(file, {
+    headers: { 'Content-Type': 'text/css' },
+  });
+});
+
 // Serve test embed page
 app.get('/test-embed.html', async (c) => {
   const possiblePaths = [

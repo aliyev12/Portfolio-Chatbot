@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shadow DOM Isolation Test - Portfolio Page</title>
+  <style>
+    /* Simulating portfolio page styles that could conflict */
+    :root {
+      --primary: 255 0 0; /* Red instead of chatbot's default */
+      --background: 240 240 255; /* Light blue */
+      --foreground: 0 0 128; /* Dark blue */
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Georgia', serif; /* Different from chatbot */
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 40px;
+      min-height: 100vh;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      color: #fff;
+    }
+
+    p {
+      font-size: 1.2rem;
+      line-height: 1.8;
+      margin-bottom: 1rem;
+    }
+
+    button {
+      /* This should NOT affect the chatbot button */
+      background: red !important;
+      color: yellow !important;
+      border: 5px solid green !important;
+      padding: 20px !important;
+      font-size: 20px !important;
+      cursor: pointer;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      padding: 30px;
+      margin-bottom: 20px;
+      backdrop-filter: blur(10px);
+    }
+
+    /* Aggressive global styles that would break the chatbot */
+    div {
+      border: 2px dashed orange;
+    }
+
+    input, textarea {
+      background: pink !important;
+      color: purple !important;
+      border: 3px solid brown !important;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>My Portfolio</h1>
+    <p>
+      This is a test page to verify that the chatbot widget is completely isolated
+      from the host page's styles using Shadow DOM.
+    </p>
+    <p>
+      <strong>What to check:</strong>
+    </p>
+    <ul>
+      <li>The chat bubble should appear in the bottom-right corner</li>
+      <li>It should NOT have orange borders from the aggressive div styling</li>
+      <li>The button should NOT be red/yellow/green</li>
+      <li>The chat window should use its own styles, not the portfolio styles</li>
+      <li>Input fields in the chat should NOT be pink with purple text</li>
+      <li>The chatbot should use its own font (Montserrat), not Georgia</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Portfolio host page button test</h2>
+    <p>This button should be red/yellow/green (affected by host styles):</p>
+    <button>Host Page Button</button>
+  </div>
+
+  <div class="card">
+    <h2>Portfolio host page input test</h2>
+    <p>This input should be pink with purple text (affected by host styles):</p>
+    <input type="text" placeholder="Host page input">
+  </div>
+
+  <!-- Load the chatbot widget -->
+  <script>
+    // Configure the chatbot API URL
+    window.CHATBOT_API_URL = 'http://localhost:3000';
+  </script>
+  <script src="http://localhost:3000/widget.js"></script>
+</body>
+</html>

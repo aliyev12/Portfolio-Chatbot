@@ -1,10 +1,9 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js';
 import { resolve } from 'path';
 
 export default defineConfig({
-  plugins: [react(), cssInjectedByJsPlugin()],
+  plugins: [react()],
   server: {
     // Listen on all interfaces in dev mode (required for Docker)
     host: '0.0.0.0',
@@ -25,8 +24,11 @@ export default defineConfig({
       output: {
         // All dependencies bundled into one file
         inlineDynamicImports: true,
-        // Ensure CSS is injected into JS
-        assetFileNames: 'widget.[ext]',
+        // Output CSS as separate file for Shadow DOM injection
+        assetFileNames: (assetInfo) => {
+          if (assetInfo.name === 'style.css') return 'widget.css';
+          return 'widget.[ext]';
+        },
       },
     },
     // Output to backend's public folder
