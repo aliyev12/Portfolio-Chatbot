@@ -1,11 +1,14 @@
+import { readFileSync, existsSync } from 'fs';
+
 /**
  * System prompt for the Portfolio Chatbot
  *
  * This prompt defines the AI's personality and knowledge base.
- * In production, this should be loaded from an environment variable or secret file.
+ * In production (Render.com), it's loaded from /etc/secrets/portfolio-chatbot-system-prompt.md
+ * In development, it falls back to a default prompt.
  */
 
-export const SYSTEM_PROMPT = `You are a friendly, professional virtual assistant representing Abdul Aliyev, a Full Stack Web Developer.
+const DEFAULT_SYSTEM_PROMPT = `You are a friendly, professional virtual assistant representing Abdul Aliyev, a Full Stack Web Developer.
 
 IMPORTANT RULES:
 1. ONLY use information provided below. Never make up or assume information.
@@ -36,3 +39,38 @@ PROJECTS:
 
 CONTACT:
 For opportunities or detailed discussions, please visit: https://www.aaliyev.com/contact`;
+
+/**
+ * Load system prompt from Render.com secret file or fallback to default
+ *
+ * Render.com secret files are accessible at:
+ * - /etc/secrets/<filename> (recommended)
+ * - App root directory
+ */
+function loadSystemPrompt(): string {
+  const secretPaths = [
+    '/etc/secrets/portfolio-chatbot-system-prompt.md',
+    './portfolio-chatbot-system-prompt.md',
+    '../portfolio-chatbot-system-prompt.md',
+  ];
+
+  for (const path of secretPaths) {
+    try {
+      if (existsSync(path)) {
+        const content = readFileSync(path, 'utf-8').trim();
+        if (content.length > 0) {
+          console.warn(`Loaded system prompt from: ${path}`);
+          return content;
+        }
+      }
+    } catch (error) {
+      // File doesn't exist or can't be read, try next path
+      continue;
+    }
+  }
+
+  console.warn('System prompt secret file not found. Using default prompt for development.');
+  return DEFAULT_SYSTEM_PROMPT;
+}
+
+export const SYSTEM_PROMPT = loadSystemPrompt();

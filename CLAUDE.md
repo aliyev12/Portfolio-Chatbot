@@ -142,8 +142,15 @@ The backend uses a service-oriented architecture:
 **AI Service** (`services/ai.ts`):
 - Integrates with OpenAI API (gpt-4o-mini)
 - Streams responses using async generators
-- Injects system prompt from `config/prompt.ts`
+- Injects system prompt from `config/prompt.ts` (loaded from Render.com secret file in production)
 - Limits responses to 500 tokens for cost control
+
+**System Prompt Management** (`config/prompt.ts`):
+- Production (Render.com): Automatically loads from `/etc/secrets/portfolio-chatbot-system-prompt.md`
+- Development: Falls back to default prompt if secret file not found
+- Secret file on Render.com: Create a secret file named "portfolio-chatbot-system-prompt.md"
+- The prompt is loaded synchronously at module initialization time using Node.js `fs.readFileSync()`
+- Tries multiple paths: `/etc/secrets/`, app root, and parent directory
 
 Both services share a single Upstash Redis instance initialized with REST credentials.
 
