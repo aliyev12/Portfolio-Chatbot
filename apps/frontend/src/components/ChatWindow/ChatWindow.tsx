@@ -1,19 +1,25 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { X, Send } from 'react-feather';
 import { useChat } from '../../hooks/useChat';
 import { Message } from '../Message/Message';
 import { Input } from '../Input/Input';
+import { Turnstile } from '../Turnstile/Turnstile';
+import type { AppConfig } from '../../types';
 
 interface ChatWindowProps {
   onClose: () => void;
-  apiUrl: string;
-  contactUrl: string;
+  config: AppConfig;
 }
 
-export function ChatWindow({ onClose, apiUrl, contactUrl }: ChatWindowProps) {
+export function ChatWindow({ onClose, config }: ChatWindowProps) {
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const [turnstileToken, setTurnstileToken] = useState<string>('');
   const { messages, input, setInput, sendMessage, isLoading, error } =
-    useChat(apiUrl);
+    useChat({
+      apiUrl: config.apiUrl,
+      apiToken: config.apiToken,
+      turnstileToken,
+    });
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -59,7 +65,7 @@ export function ChatWindow({ onClose, apiUrl, contactUrl }: ChatWindowProps) {
           <div className="p-3 mb-4 text-sm rounded-lg bg-red-50 dark:bg-gray-800 text-red-800 dark:text-red-400 border border-red-300 dark:border-red-800">
             {error} Please try again or{' '}
             <a
-              href={contactUrl}
+              href={config.contactUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="underline hover:no-underline underline-offset-2"
@@ -93,6 +99,16 @@ export function ChatWindow({ onClose, apiUrl, contactUrl }: ChatWindowProps) {
           <Send size={16} />
         </button>
       </form>
+
+      {/* Invisible Turnstile widget */}
+      {config.turnstileSiteKey && (
+        <Turnstile
+          siteKey={config.turnstileSiteKey}
+          onVerify={setTurnstileToken}
+          onError={() => console.error('Turnstile verification failed')}
+          onExpire={() => setTurnstileToken('')}
+        />
+      )}
     </div>
   );
 }

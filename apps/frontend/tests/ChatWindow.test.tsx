@@ -15,6 +15,11 @@ vi.mock('../src/hooks/useChat', () => ({
   })),
 }));
 
+// Mock the Turnstile component
+vi.mock('../src/components/Turnstile/Turnstile', () => ({
+  Turnstile: () => null,
+}));
+
 describe('ChatWindow Component', () => {
   beforeEach(() => {
     vi.clearAllMocks();
@@ -34,8 +39,12 @@ describe('ChatWindow Component', () => {
       render(
         <ChatWindow
           onClose={vi.fn()}
-          apiUrl="http://test.api"
-          contactUrl="http://contact.url"
+          config={{
+            apiUrl: 'http://test.api',
+            contactUrl: 'http://contact.url',
+            apiToken: 'test-api-token',
+            turnstileSiteKey: 'test-turnstile-site-key',
+          }}
         />,
       );
 
@@ -55,8 +64,12 @@ describe('ChatWindow Component', () => {
       render(
         <ChatWindow
           onClose={vi.fn()}
-          apiUrl="http://test.api"
-          contactUrl="http://contact.url"
+          config={{
+            apiUrl: 'http://test.api',
+            contactUrl: 'http://contact.url',
+            apiToken: 'test-api-token',
+            turnstileSiteKey: 'test-turnstile-site-key',
+          }}
         />,
       );
 
@@ -83,8 +96,12 @@ describe('ChatWindow Component', () => {
       render(
         <ChatWindow
           onClose={vi.fn()}
-          apiUrl="http://test.api"
-          contactUrl="http://contact.url"
+          config={{
+            apiUrl: 'http://test.api',
+            contactUrl: 'http://contact.url',
+            apiToken: 'test-api-token',
+            turnstileSiteKey: 'test-turnstile-site-key',
+          }}
         />,
       );
 
@@ -105,8 +122,12 @@ describe('ChatWindow Component', () => {
       render(
         <ChatWindow
           onClose={vi.fn()}
-          apiUrl="http://test.api"
-          contactUrl="http://contact.url"
+          config={{
+            apiUrl: 'http://test.api',
+            contactUrl: 'http://contact.url',
+            apiToken: 'test-api-token',
+            turnstileSiteKey: 'test-turnstile-site-key',
+          }}
         />,
       );
 
@@ -127,8 +148,12 @@ describe('ChatWindow Component', () => {
       render(
         <ChatWindow
           onClose={vi.fn()}
-          apiUrl="http://test.api"
-          contactUrl="http://contact.url"
+          config={{
+            apiUrl: 'http://test.api',
+            contactUrl: 'http://contact.url',
+            apiToken: 'test-api-token',
+            turnstileSiteKey: 'test-turnstile-site-key',
+          }}
         />,
       );
 
@@ -148,8 +173,12 @@ describe('ChatWindow Component', () => {
       render(
         <ChatWindow
           onClose={vi.fn()}
-          apiUrl="http://test.api"
-          contactUrl="http://contact.url"
+          config={{
+            apiUrl: 'http://test.api',
+            contactUrl: 'http://contact.url',
+            apiToken: 'test-api-token',
+            turnstileSiteKey: 'test-turnstile-site-key',
+          }}
         />,
       );
 
@@ -175,8 +204,12 @@ describe('ChatWindow Component', () => {
       render(
         <ChatWindow
           onClose={vi.fn()}
-          apiUrl="http://test.api"
-          contactUrl="http://contact.url"
+          config={{
+            apiUrl: 'http://test.api',
+            contactUrl: 'http://contact.url',
+            apiToken: 'test-api-token',
+            turnstileSiteKey: 'test-turnstile-site-key',
+          }}
         />,
       );
 
@@ -200,8 +233,12 @@ describe('ChatWindow Component', () => {
       render(
         <ChatWindow
           onClose={vi.fn()}
-          apiUrl="http://test.api"
-          contactUrl="http://contact.url"
+          config={{
+            apiUrl: 'http://test.api',
+            contactUrl: 'http://contact.url',
+            apiToken: 'test-api-token',
+            turnstileSiteKey: 'test-turnstile-site-key',
+          }}
         />,
       );
 
@@ -225,8 +262,12 @@ describe('ChatWindow Component', () => {
       render(
         <ChatWindow
           onClose={vi.fn()}
-          apiUrl="http://test.api"
-          contactUrl="http://contact.url"
+          config={{
+            apiUrl: 'http://test.api',
+            contactUrl: 'http://contact.url',
+            apiToken: 'test-api-token',
+            turnstileSiteKey: 'test-turnstile-site-key',
+          }}
         />,
       );
 
@@ -250,8 +291,12 @@ describe('ChatWindow Component', () => {
       render(
         <ChatWindow
           onClose={vi.fn()}
-          apiUrl="http://test.api"
-          contactUrl="http://contact.url"
+          config={{
+            apiUrl: 'http://test.api',
+            contactUrl: 'http://contact.url',
+            apiToken: 'test-api-token',
+            turnstileSiteKey: 'test-turnstile-site-key',
+          }}
         />,
       );
 
@@ -277,8 +322,12 @@ describe('ChatWindow Component', () => {
       render(
         <ChatWindow
           onClose={vi.fn()}
-          apiUrl="http://test.api"
-          contactUrl="http://contact.url"
+          config={{
+            apiUrl: 'http://test.api',
+            contactUrl: 'http://contact.url',
+            apiToken: 'test-api-token',
+            turnstileSiteKey: 'test-turnstile-site-key',
+          }}
         />,
       );
 
@@ -299,8 +348,12 @@ describe('ChatWindow Component', () => {
       render(
         <ChatWindow
           onClose={vi.fn()}
-          apiUrl="http://test.api"
-          contactUrl="http://contact.url"
+          config={{
+            apiUrl: 'http://test.api',
+            contactUrl: 'http://contact.url',
+            apiToken: 'test-api-token',
+            turnstileSiteKey: 'test-turnstile-site-key',
+          }}
         />,
       );
 
@@ -323,8 +376,12 @@ describe('ChatWindow Component', () => {
       render(
         <ChatWindow
           onClose={vi.fn()}
-          apiUrl="http://test.api"
-          contactUrl="http://contact.url"
+          config={{
+            apiUrl: 'http://test.api',
+            contactUrl: 'http://contact.url',
+            apiToken: 'test-api-token',
+            turnstileSiteKey: 'test-turnstile-site-key',
+          }}
         />,
       );
 
@@ -345,8 +402,12 @@ describe('ChatWindow Component', () => {
       render(
         <ChatWindow
           onClose={vi.fn()}
-          apiUrl="http://test.api"
-          contactUrl="http://contact.url"
+          config={{
+            apiUrl: 'http://test.api',
+            contactUrl: 'http://contact.url',
+            apiToken: 'test-api-token',
+            turnstileSiteKey: 'test-turnstile-site-key',
+          }}
         />,
       );
 
@@ -367,8 +428,12 @@ describe('ChatWindow Component', () => {
       render(
         <ChatWindow
           onClose={vi.fn()}
-          apiUrl="http://test.api"
-          contactUrl="http://contact.url"
+          config={{
+            apiUrl: 'http://test.api',
+            contactUrl: 'http://contact.url',
+            apiToken: 'test-api-token',
+            turnstileSiteKey: 'test-turnstile-site-key',
+          }}
         />,
       );
 
@@ -392,8 +457,12 @@ describe('ChatWindow Component', () => {
       render(
         <ChatWindow
           onClose={mockOnClose}
-          apiUrl="http://test.api"
-          contactUrl="http://contact.url"
+          config={{
+            apiUrl: 'http://test.api',
+            contactUrl: 'http://contact.url',
+            apiToken: 'test-api-token',
+            turnstileSiteKey: 'test-turnstile-site-key',
+          }}
         />,
       );
 
@@ -416,8 +485,12 @@ describe('ChatWindow Component', () => {
       render(
         <ChatWindow
           onClose={vi.fn()}
-          apiUrl="http://test.api"
-          contactUrl="http://contact.url"
+          config={{
+            apiUrl: 'http://test.api',
+            contactUrl: 'http://contact.url',
+            apiToken: 'test-api-token',
+            turnstileSiteKey: 'test-turnstile-site-key',
+          }}
         />,
       );
 

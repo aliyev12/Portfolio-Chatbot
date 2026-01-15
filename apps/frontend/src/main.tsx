@@ -10,8 +10,35 @@ declare global {
   }
 }
 
+// Load Cloudflare Turnstile script
+function loadTurnstileScript(): Promise<void> {
+  return new Promise((resolve, reject) => {
+    // Check if script is already loaded
+    if (document.querySelector('script[src*="turnstile"]')) {
+      resolve();
+      return;
+    }
+
+    const script = document.createElement('script');
+    script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
+    script.async = true;
+    script.defer = true;
+    script.onload = () => resolve();
+    script.onerror = () => reject(new Error('Failed to load Turnstile script'));
+    document.head.appendChild(script);
+  });
+}
+
 // Widget initialization with Shadow DOM for complete style isolation
 async function initChatWidget() {
+  // Load Turnstile script first
+  try {
+    await loadTurnstileScript();
+  } catch (error) {
+    console.error('Failed to load Turnstile:', error);
+    // Continue anyway - will show error in UI
+  }
+
   // Create host container for Shadow DOM
   const hostContainer = document.createElement('div');
   hostContainer.id = 'portfolio-chatbot-host';
@@ -54,6 +81,8 @@ async function initChatWidget() {
   const config = {
     apiUrl,
     contactUrl: 'https://www.aaliyev.com/contact',
+    apiToken: import.meta.env.VITE_API_TOKEN || '',
+    turnstileSiteKey: import.meta.env.VITE_TURNSTILE_SITE_KEY || '',
   };
 
   // Render React app into Shadow DOM

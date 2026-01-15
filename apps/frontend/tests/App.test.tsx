@@ -32,6 +32,8 @@ vi.mock('../src/components/ChatWindow/ChatWindow', () => ({
 const mockConfig = {
   apiUrl: 'http://test.api',
   contactUrl: 'http://contact.url',
+  apiToken: 'test-api-token',
+  turnstileSiteKey: 'test-turnstile-site-key',
 };
 
 describe('App Component', () => {
@@ -171,6 +173,8 @@ describe('App Component', () => {
       const config = {
         apiUrl: 'http://my-api.com',
         contactUrl: 'http://contact.com',
+        apiToken: 'test-api-token',
+        turnstileSiteKey: 'test-turnstile-site-key',
       };
 
       render(<App config={config} />);
@@ -192,6 +196,8 @@ describe('App Component', () => {
       const config = {
         apiUrl: 'http://api.com',
         contactUrl: 'http://my-contact.com',
+        apiToken: 'test-api-token',
+        turnstileSiteKey: 'test-turnstile-site-key',
       };
 
       render(<App config={config} />);

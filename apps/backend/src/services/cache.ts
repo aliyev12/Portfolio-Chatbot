@@ -1,10 +1,4 @@
-import { Redis } from '@upstash/redis';
-import { config } from '../config';
-
-const redis = new Redis({
-  url: config.UPSTASH_REDIS_URL,
-  token: config.UPSTASH_REDIS_TOKEN,
-});
+import { redis } from './redis';
 
 const CACHE_PREFIX = 'chatbot:cache:';
 const CACHE_TTL = 60 * 60 * 24 * 7; // 7 days in seconds

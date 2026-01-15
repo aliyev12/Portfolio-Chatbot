@@ -1,10 +1,5 @@
-import { Redis } from '@upstash/redis';
+import { redis } from './redis';
 import { config } from '../config';
-
-const redis = new Redis({
-  url: config.UPSTASH_REDIS_URL,
-  token: config.UPSTASH_REDIS_TOKEN,
-});
 
 const USAGE_KEY = 'chatbot:usage:count';
 const USAGE_RESET_KEY = 'chatbot:usage:reset_at';

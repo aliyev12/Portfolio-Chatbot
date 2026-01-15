@@ -63,7 +63,7 @@ function loadSystemPrompt(): string {
           return content;
         }
       }
-    } catch (error) {
+    } catch {
       // File doesn't exist or can't be read, try next path
       continue;
     }

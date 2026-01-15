@@ -58,7 +58,7 @@ app.use(
       return '';
     },
     allowMethods: ['GET', 'POST', 'OPTIONS'],
-    allowHeaders: ['Content-Type', 'Authorization'],
+    allowHeaders: ['Content-Type', 'Authorization', 'X-API-Token', 'X-Turnstile-Token'],
     credentials: true,
   }),
 );

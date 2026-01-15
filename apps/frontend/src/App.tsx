@@ -40,8 +40,7 @@ export default function App({ config }: AppProps) {
       {isOpen && (
         <ChatWindow
           onClose={() => setIsOpen(false)}
-          apiUrl={config.apiUrl}
-          contactUrl={config.contactUrl}
+          config={config}
         />
       )}
     </>

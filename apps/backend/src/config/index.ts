@@ -12,6 +12,12 @@ export const config = {
   ALLOWED_ORIGINS: (process.env.ALLOWED_ORIGINS || 'http://localhost:4321')
     .split(',')
     .map(origin => origin.trim().replace(/\/$/, '')),
+  // Security tokens
+  API_TOKEN: process.env.API_TOKEN || '',
+  TURNSTILE_SECRET_KEY: process.env.TURNSTILE_SECRET_KEY || '',
+  // Rate limiting
+  RATE_LIMIT_REQUESTS: parseInt(process.env.RATE_LIMIT_REQUESTS || '10'),
+  RATE_LIMIT_WINDOW_MS: parseInt(process.env.RATE_LIMIT_WINDOW_MS || '60000'), // 1 minute default
 };
 
 // Log parsed origins for debugging
@@ -25,6 +31,8 @@ const requiredForProduction = [
   'UPSTASH_REDIS_URL',
   'UPSTASH_REDIS_TOKEN',
   'ADMIN_SECRET',
+  'API_TOKEN',
+  'TURNSTILE_SECRET_KEY',
 ];
 
 // Only validate in production or if NODE_ENV is set

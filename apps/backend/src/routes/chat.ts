@@ -4,9 +4,17 @@ import { z } from 'zod';
 import { aiService } from '../services/ai';
 import { usageService } from '../services/usage';
 import { cacheService } from '../services/cache';
+import { apiTokenMiddleware } from '../middleware/apiToken';
+import { turnstileMiddleware } from '../middleware/turnstile';
+import { rateLimitMiddleware } from '../middleware/rateLimit';
 import type { ChatMessage } from '@portfolio-chatbot/shared';
 
 export const chatRoutes = new Hono();
+
+// Apply security middleware to all chat routes
+chatRoutes.use('*', rateLimitMiddleware);
+chatRoutes.use('*', apiTokenMiddleware);
+chatRoutes.use('*', turnstileMiddleware);
 
 // Zod schema for request validation
 const ChatRequestSchema = z.object({

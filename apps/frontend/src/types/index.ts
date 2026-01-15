@@ -6,4 +6,6 @@ export interface Message {
 export interface AppConfig {
   apiUrl: string;
   contactUrl: string;
+  apiToken: string;
+  turnstileSiteKey: string;
 }
