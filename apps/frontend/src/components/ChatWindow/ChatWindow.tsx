@@ -12,14 +12,43 @@ interface ChatWindowProps {
 
 export function ChatWindow({ onClose, config }: ChatWindowProps) {
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const messagesContainerRef = useRef<HTMLDivElement>(null);
   const { messages, input, setInput, sendMessage, isLoading, error } = useChat({
     apiUrl: config.apiUrl,
     apiToken: config.apiToken,
   });
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    // Scroll messages container to bottom
+    if (messagesContainerRef.current) {
+      messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
+    }
   }, [messages]);
+
+  // Prevent viewport scroll on input focus (iOS issue)
+  useEffect(() => {
+    const preventScroll = (e: Event) => {
+      const target = e.target as HTMLElement;
+      if (target.tagName === 'INPUT') {
+        // Don't prevent default, but ensure no window scroll happens
+        document.documentElement.style.overflow = 'hidden';
+      }
+    };
+
+    const enableScroll = () => {
+      if (document.body.style.overflow === 'hidden') {
+        document.documentElement.style.overflow = '';
+      }
+    };
+
+    document.addEventListener('focusin', preventScroll);
+    document.addEventListener('focusout', enableScroll);
+
+    return () => {
+      document.removeEventListener('focusin', preventScroll);
+      document.removeEventListener('focusout', enableScroll);
+    };
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -31,7 +60,7 @@ export function ChatWindow({ onClose, config }: ChatWindowProps) {
 
   return (
     <div
-      className="fixed bottom-0 right-0 left-0 w-full h-svh bg-card rounded-lg shadow-lg flex flex-col border border-border z-50 max-sm:rounded-none"
+      className="fixed bottom-0 right-0 w-[380px] min-h-[230px] max-h-[520px] h-[calc(100vh-3rem)] bg-card rounded-lg shadow-lg flex flex-col border border-border z-50 max-sm:bottom-0 max-sm:right-0 max-sm:left-0 max-sm:top-0 max-sm:w-full max-sm:h-full max-sm:rounded-none"
       data-testid="chat-window"
     >
       {/* Header */}
@@ -48,7 +77,10 @@ export function ChatWindow({ onClose, config }: ChatWindowProps) {
       </header>
 
       {/* Messages */}
-      <div className="flex-1 overflow-y-auto px-4 py-4 max-sm:px-2 max-sm:py-2 bg-background">
+      <div
+        ref={messagesContainerRef}
+        className="flex-1 overflow-y-auto px-4 py-4 max-sm:px-2 max-sm:py-2 bg-background"
+      >
         <Message
           role="assistant"
           content="Hi! Ask me anything about his professional background, skills, or experience!"

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ChatBubble } from './components/ChatBubble/ChatBubble';
 import { ChatWindow } from './components/ChatWindow/ChatWindow';
 import { ProactiveGreeting } from './components/ProactiveGreeting/ProactiveGreeting';
@@ -18,6 +18,24 @@ export default function App({ config }: AppProps) {
     isLoading,
     isOpen,
   });
+
+  // Prevent body scroll when chat is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.width = '100%';
+    } else {
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
+    };
+  }, [isOpen]);
 
   // Don't render anything if chatbot is not available or still loading
   if (isLoading) return null;

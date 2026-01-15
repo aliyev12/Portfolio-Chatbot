@@ -15,6 +15,7 @@
 
 .chatbot-input:focus {
   border-color: var(--chatbot-color-primary);
+  scroll-behavior: auto;
 }
 
 .chatbot-input:disabled {
