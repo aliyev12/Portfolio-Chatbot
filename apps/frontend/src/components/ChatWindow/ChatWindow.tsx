@@ -31,11 +31,11 @@ export function ChatWindow({ onClose, config }: ChatWindowProps) {
 
   return (
     <div
-      className="fixed bottom-6 right-6 w-[380px] min-h-[230px] max-h-[520px] h-[calc(100vh-3rem)] bg-card rounded-lg shadow-lg flex flex-col border border-border z-50 max-sm:right-4 max-sm:left-4 max-sm:w-auto max-sm:mx-auto max-sm:max-w-[380px]"
+      className="fixed bottom-0 right-0 left-0 w-full h-svh bg-card rounded-lg shadow-lg flex flex-col border border-border z-50 max-sm:rounded-none"
       data-testid="chat-window"
     >
       {/* Header */}
-      <header className="flex items-center justify-between px-4 py-3 border-b border-border bg-card rounded-t-lg">
+      <header className="flex items-center justify-between px-4 py-3 max-sm:px-3 max-sm:py-2 border-b border-border bg-card rounded-t-lg">
         <h2 className="text-lg font-semibold text-card-foreground">Let&apos;s chat</h2>
         <button
           onClick={onClose}
@@ -48,7 +48,7 @@ export function ChatWindow({ onClose, config }: ChatWindowProps) {
       </header>
 
       {/* Messages */}
-      <div className="flex-1 overflow-y-auto px-4 py-4 bg-background">
+      <div className="flex-1 overflow-y-auto px-4 py-4 max-sm:px-2 max-sm:py-2 bg-background">
         <Message
           role="assistant"
           content="Hi! Ask me anything about his professional background, skills, or experience!"
@@ -77,7 +77,7 @@ export function ChatWindow({ onClose, config }: ChatWindowProps) {
       {/* Input Form */}
       <form
         onSubmit={handleSubmit}
-        className="flex gap-2 p-4 border-t border-border bg-card rounded-b-lg"
+        className="flex gap-2 p-2 max-sm:p-2 max-sm:gap-1 border-t border-border bg-card max-sm:rounded-none flex-shrink-0"
         data-testid="chat-form"
       >
         <Input
@@ -89,7 +89,7 @@ export function ChatWindow({ onClose, config }: ChatWindowProps) {
         <button
           type="submit"
           disabled={isLoading || !input.trim()}
-          className="button flex items-center gap-2"
+          className="button flex items-center gap-2 flex-shrink-0 max-sm:p-2"
           data-testid="send-button"
         >
           <Send size={16} />
