@@ -1,9 +1,8 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { X, Send } from 'react-feather';
 import { useChat } from '../../hooks/useChat';
 import { Message } from '../Message/Message';
 import { Input } from '../Input/Input';
-import { Turnstile } from '../Turnstile/Turnstile';
 import type { AppConfig } from '../../types';
 
 interface ChatWindowProps {
@@ -13,13 +12,10 @@ interface ChatWindowProps {
 
 export function ChatWindow({ onClose, config }: ChatWindowProps) {
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const [turnstileToken, setTurnstileToken] = useState<string>('');
-  const { messages, input, setInput, sendMessage, isLoading, error } =
-    useChat({
-      apiUrl: config.apiUrl,
-      apiToken: config.apiToken,
-      turnstileToken,
-    });
+  const { messages, input, setInput, sendMessage, isLoading, error } = useChat({
+    apiUrl: config.apiUrl,
+    apiToken: config.apiToken,
+  });
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -40,7 +36,7 @@ export function ChatWindow({ onClose, config }: ChatWindowProps) {
     >
       {/* Header */}
       <header className="flex items-center justify-between px-4 py-3 border-b border-border bg-card rounded-t-lg">
-        <h2 className="text-lg font-semibold text-card-foreground">Chat with Abdul</h2>
+        <h2 className="text-lg font-semibold text-card-foreground">Let&apos;s chat</h2>
         <button
           onClick={onClose}
           aria-label="Close chat"
@@ -55,7 +51,7 @@ export function ChatWindow({ onClose, config }: ChatWindowProps) {
       <div className="flex-1 overflow-y-auto px-4 py-4 bg-background">
         <Message
           role="assistant"
-          content="Hi! I'm Abdul's virtual assistant. Ask me anything about his professional background, skills, or experience!"
+          content="Hi! Ask me anything about his professional background, skills, or experience!"
         />
         {messages.map((msg, index) => (
           <Message key={index} role={msg.role} content={msg.content} />
@@ -99,16 +95,6 @@ export function ChatWindow({ onClose, config }: ChatWindowProps) {
           <Send size={16} />
         </button>
       </form>
-
-      {/* Invisible Turnstile widget */}
-      {config.turnstileSiteKey && (
-        <Turnstile
-          siteKey={config.turnstileSiteKey}
-          onVerify={setTurnstileToken}
-          onError={() => console.error('Turnstile verification failed')}
-          onExpire={() => setTurnstileToken('')}
-        />
-      )}
     </div>
   );
 }

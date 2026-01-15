@@ -2,6 +2,11 @@ import { describe, test, expect, vi, beforeEach } from 'vitest';
 import { renderHook, waitFor, act } from '@testing-library/react';
 import { useChat } from '../src/hooks/useChat';
 
+// Mock getTurnstileToken
+vi.mock('../src/main', () => ({
+  getTurnstileToken: vi.fn(() => 'test-turnstile-token'),
+}));
+
 // Helper to create mock SSE stream
 function createMockSSEStream(chunks: string[]) {
   let chunkIndex = 0;
@@ -32,25 +37,25 @@ describe('useChat', () => {
 
   describe('Initial State', () => {
     test('starts with empty messages', () => {
-      const { result } = renderHook(() => useChat({ apiUrl: 'http://test.api', apiToken: 'test-api-token', turnstileToken: 'test-turnstile-token' }));
+      const { result } = renderHook(() => useChat({ apiUrl: 'http://test.api', apiToken: 'test-api-token' }));
 
       expect(result.current.messages).toEqual([]);
     });
 
     test('starts with empty input', () => {
-      const { result } = renderHook(() => useChat({ apiUrl: 'http://test.api', apiToken: 'test-api-token', turnstileToken: 'test-turnstile-token' }));
+      const { result } = renderHook(() => useChat({ apiUrl: 'http://test.api', apiToken: 'test-api-token' }));
 
       expect(result.current.input).toBe('');
     });
 
     test('starts with isLoading false', () => {
-      const { result } = renderHook(() => useChat({ apiUrl: 'http://test.api', apiToken: 'test-api-token', turnstileToken: 'test-turnstile-token' }));
+      const { result } = renderHook(() => useChat({ apiUrl: 'http://test.api', apiToken: 'test-api-token' }));
 
       expect(result.current.isLoading).toBe(false);
     });
 
     test('starts with no error', () => {
-      const { result } = renderHook(() => useChat({ apiUrl: 'http://test.api', apiToken: 'test-api-token', turnstileToken: 'test-turnstile-token' }));
+      const { result } = renderHook(() => useChat({ apiUrl: 'http://test.api', apiToken: 'test-api-token' }));
 
       expect(result.current.error).toBeNull();
     });
@@ -63,7 +68,7 @@ describe('useChat', () => {
         body: createMockSSEStream(['Hello']),
       });
 
-      const { result } = renderHook(() => useChat({ apiUrl: 'http://test.api', apiToken: 'test-api-token', turnstileToken: 'test-turnstile-token' }));
+      const { result } = renderHook(() => useChat({ apiUrl: 'http://test.api', apiToken: 'test-api-token' }));
 
       await act(async () => {
         await result.current.sendMessage('test message');
@@ -81,7 +86,7 @@ describe('useChat', () => {
         body: createMockSSEStream(['Hello']),
       });
 
-      const { result } = renderHook(() => useChat({ apiUrl: 'http://test.api', apiToken: 'test-api-token', turnstileToken: 'test-turnstile-token' }));
+      const { result } = renderHook(() => useChat({ apiUrl: 'http://test.api', apiToken: 'test-api-token' }));
 
       await act(async () => {
         await result.current.sendMessage('test');
@@ -101,7 +106,7 @@ describe('useChat', () => {
         body: createMockSSEStream(['Hello', ' ', 'world']),
       });
 
-      const { result } = renderHook(() => useChat({ apiUrl: 'http://test.api', apiToken: 'test-api-token', turnstileToken: 'test-turnstile-token' }));
+      const { result } = renderHook(() => useChat({ apiUrl: 'http://test.api', apiToken: 'test-api-token' }));
 
       await act(async () => {
         await result.current.sendMessage('test');
@@ -120,7 +125,7 @@ describe('useChat', () => {
         body: createMockSSEStream(['Hello']),
       });
 
-      const { result } = renderHook(() => useChat({ apiUrl: 'http://test.api', apiToken: 'test-api-token', turnstileToken: 'test-turnstile-token' }));
+      const { result } = renderHook(() => useChat({ apiUrl: 'http://test.api', apiToken: 'test-api-token' }));
 
       await act(async () => {
         await result.current.sendMessage('test');
@@ -139,7 +144,7 @@ describe('useChat', () => {
         body: createMockSSEStream(['Hello', ' ', 'world', '!']),
       });
 
-      const { result } = renderHook(() => useChat({ apiUrl: 'http://test.api', apiToken: 'test-api-token', turnstileToken: 'test-turnstile-token' }));
+      const { result } = renderHook(() => useChat({ apiUrl: 'http://test.api', apiToken: 'test-api-token' }));
 
       await act(async () => {
         await result.current.sendMessage('test');
@@ -161,7 +166,7 @@ describe('useChat', () => {
           }),
       );
 
-      const { result } = renderHook(() => useChat({ apiUrl: 'http://test.api', apiToken: 'test-api-token', turnstileToken: 'test-turnstile-token' }));
+      const { result } = renderHook(() => useChat({ apiUrl: 'http://test.api', apiToken: 'test-api-token' }));
 
       act(() => {
         result.current.sendMessage('test');
@@ -185,7 +190,7 @@ describe('useChat', () => {
         body: createMockSSEStream(['Hello']),
       });
 
-      const { result } = renderHook(() => useChat({ apiUrl: 'http://test.api', apiToken: 'test-api-token', turnstileToken: 'test-turnstile-token' }));
+      const { result } = renderHook(() => useChat({ apiUrl: 'http://test.api', apiToken: 'test-api-token' }));
 
       await act(async () => {
         await result.current.sendMessage('test');
@@ -199,7 +204,7 @@ describe('useChat', () => {
     test('isLoading false on error', async () => {
       global.fetch = vi.fn().mockRejectedValue(new Error('Network error'));
 
-      const { result } = renderHook(() => useChat({ apiUrl: 'http://test.api', apiToken: 'test-api-token', turnstileToken: 'test-turnstile-token' }));
+      const { result } = renderHook(() => useChat({ apiUrl: 'http://test.api', apiToken: 'test-api-token' }));
 
       await act(async () => {
         await result.current.sendMessage('test');
@@ -215,7 +220,7 @@ describe('useChat', () => {
     test('sets error on fetch failure', async () => {
       global.fetch = vi.fn().mockRejectedValue(new Error('Network error'));
 
-      const { result } = renderHook(() => useChat({ apiUrl: 'http://test.api', apiToken: 'test-api-token', turnstileToken: 'test-turnstile-token' }));
+      const { result } = renderHook(() => useChat({ apiUrl: 'http://test.api', apiToken: 'test-api-token' }));
 
       await act(async () => {
         await result.current.sendMessage('test');
@@ -232,7 +237,7 @@ describe('useChat', () => {
         status: 503,
       });
 
-      const { result } = renderHook(() => useChat({ apiUrl: 'http://test.api', apiToken: 'test-api-token', turnstileToken: 'test-turnstile-token' }));
+      const { result } = renderHook(() => useChat({ apiUrl: 'http://test.api', apiToken: 'test-api-token' }));
 
       await act(async () => {
         await result.current.sendMessage('test');
@@ -249,7 +254,7 @@ describe('useChat', () => {
         status: 429,
       });
 
-      const { result } = renderHook(() => useChat({ apiUrl: 'http://test.api', apiToken: 'test-api-token', turnstileToken: 'test-turnstile-token' }));
+      const { result } = renderHook(() => useChat({ apiUrl: 'http://test.api', apiToken: 'test-api-token' }));
 
       await act(async () => {
         await result.current.sendMessage('test');
@@ -266,7 +271,7 @@ describe('useChat', () => {
         body: null,
       });
 
-      const { result } = renderHook(() => useChat({ apiUrl: 'http://test.api', apiToken: 'test-api-token', turnstileToken: 'test-turnstile-token' }));
+      const { result } = renderHook(() => useChat({ apiUrl: 'http://test.api', apiToken: 'test-api-token' }));
 
       await act(async () => {
         await result.current.sendMessage('test');
@@ -285,7 +290,7 @@ describe('useChat', () => {
           body: createMockSSEStream(['Hello']),
         });
 
-      const { result } = renderHook(() => useChat({ apiUrl: 'http://test.api', apiToken: 'test-api-token', turnstileToken: 'test-turnstile-token' }));
+      const { result } = renderHook(() => useChat({ apiUrl: 'http://test.api', apiToken: 'test-api-token' }));
 
       await act(async () => {
         await result.current.sendMessage('first');
@@ -307,7 +312,7 @@ describe('useChat', () => {
 
   describe('Input Management', () => {
     test('setInput updates input value', () => {
-      const { result } = renderHook(() => useChat({ apiUrl: 'http://test.api', apiToken: 'test-api-token', turnstileToken: 'test-turnstile-token' }));
+      const { result } = renderHook(() => useChat({ apiUrl: 'http://test.api', apiToken: 'test-api-token' }));
 
       act(() => {
         result.current.setInput('new input');
@@ -322,7 +327,7 @@ describe('useChat', () => {
         body: createMockSSEStream(['Hello']),
       });
 
-      const { result } = renderHook(() => useChat({ apiUrl: 'http://test.api', apiToken: 'test-api-token', turnstileToken: 'test-turnstile-token' }));
+      const { result } = renderHook(() => useChat({ apiUrl: 'http://test.api', apiToken: 'test-api-token' }));
 
       act(() => {
         result.current.setInput('test');
@@ -341,7 +346,7 @@ describe('useChat', () => {
         body: createMockSSEStream(['Hello']),
       });
 
-      const { result } = renderHook(() => useChat({ apiUrl: 'http://test.api', apiToken: 'test-api-token', turnstileToken: 'test-turnstile-token' }));
+      const { result } = renderHook(() => useChat({ apiUrl: 'http://test.api', apiToken: 'test-api-token' }));
 
       await act(async () => {
         await result.current.sendMessage('test');
@@ -359,7 +364,7 @@ describe('useChat', () => {
         body: createMockSSEStream(['Hello']),
       });
 
-      const { result } = renderHook(() => useChat({ apiUrl: 'http://test.api', apiToken: 'test-api-token', turnstileToken: 'test-turnstile-token' }));
+      const { result } = renderHook(() => useChat({ apiUrl: 'http://test.api', apiToken: 'test-api-token' }));
 
       await act(async () => {
         await result.current.sendMessage('test');
@@ -375,7 +380,7 @@ describe('useChat', () => {
         body: createMockSSEStream(['Hello']),
       });
 
-      const { result } = renderHook(() => useChat({ apiUrl: 'http://test.api', apiToken: 'test-api-token', turnstileToken: 'test-turnstile-token' }));
+      const { result } = renderHook(() => useChat({ apiUrl: 'http://test.api', apiToken: 'test-api-token' }));
 
       await act(async () => {
         await result.current.sendMessage('test');

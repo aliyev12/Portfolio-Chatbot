@@ -12,8 +12,10 @@ interface UseProactiveGreetingReturn {
 }
 
 const GREETING_DISMISSED_KEY = 'chatbot_greeting_dismissed';
-const INITIAL_DELAY_MS = 10000; // 10 seconds
-const AUTO_DISMISS_DELAY_MS = 8000; // 8 seconds after showing
+// const INITIAL_DELAY_MS = 10000; // 10 seconds
+const INITIAL_DELAY_MS = 1; // 10 seconds
+const AUTO_DISMISS_DELAY_MS = 8000000; // 8 seconds after showing
+// const AUTO_DISMISS_DELAY_MS = 8000; // 8 seconds after showing
 
 export function useProactiveGreeting({
   isAvailable,

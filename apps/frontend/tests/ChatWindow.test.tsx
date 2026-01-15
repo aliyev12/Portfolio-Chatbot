@@ -15,11 +15,6 @@ vi.mock('../src/hooks/useChat', () => ({
   })),
 }));
 
-// Mock the Turnstile component
-vi.mock('../src/components/Turnstile/Turnstile', () => ({
-  Turnstile: () => null,
-}));
-
 describe('ChatWindow Component', () => {
   beforeEach(() => {
     vi.clearAllMocks();

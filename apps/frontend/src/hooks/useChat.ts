@@ -1,10 +1,10 @@
 import { useState, useCallback } from 'react';
 import type { Message } from '../types';
+import { getTurnstileToken } from '../main';
 
 interface UseChatParams {
   apiUrl: string;
   apiToken: string;
-  turnstileToken: string;
 }
 
 interface UseChatReturn {
@@ -16,7 +16,7 @@ interface UseChatReturn {
   error: string | null;
 }
 
-export function useChat({ apiUrl, apiToken, turnstileToken }: UseChatParams): UseChatReturn {
+export function useChat({ apiUrl, apiToken }: UseChatParams): UseChatReturn {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -30,6 +30,9 @@ export function useChat({ apiUrl, apiToken, turnstileToken }: UseChatParams): Us
       setError(null);
 
       try {
+        // Get fresh Turnstile token
+        const turnstileToken = getTurnstileToken();
+
         const response = await fetch(`${apiUrl}/api/chat`, {
           method: 'POST',
           headers: {
@@ -91,7 +94,7 @@ export function useChat({ apiUrl, apiToken, turnstileToken }: UseChatParams): Us
         setIsLoading(false);
       }
     },
-    [apiUrl, apiToken, turnstileToken]
+    [apiUrl, apiToken]
   );
 
   return { messages, input, setInput, sendMessage, isLoading, error };

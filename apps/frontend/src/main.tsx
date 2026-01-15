@@ -9,6 +9,19 @@ declare global {
     CHATBOT_API_URL?: string;
     CHATBOT_API_TOKEN?: string;
     CHATBOT_TURNSTILE_SITE_KEY?: string;
+    turnstile?: {
+      render: (container: HTMLElement, options: {
+        sitekey: string;
+        callback: (token: string) => void;
+        'error-callback'?: () => void;
+        'expired-callback'?: () => void;
+        theme?: 'light' | 'dark' | 'auto';
+        size?: 'normal' | 'invisible' | 'compact';
+      }) => string;
+      remove: (widgetId: string) => void;
+      reset: (widgetId: string) => void;
+      getResponse: (widgetId: string) => string;
+    };
   }
 }
 
@@ -31,11 +44,76 @@ function loadTurnstileScript(): Promise<void> {
   });
 }
 
+// Global Turnstile token management
+let turnstileToken = '';
+
+// Initialize Turnstile in main document (outside Shadow DOM)
+async function initTurnstile(siteKey: string): Promise<void> {
+  if (!siteKey) {
+    console.warn('Turnstile site key not provided');
+    return;
+  }
+
+  // Create Turnstile container in main document (NOT in Shadow DOM)
+  const turnstileContainer = document.createElement('div');
+  turnstileContainer.id = 'portfolio-chatbot-turnstile';
+  turnstileContainer.style.cssText = 'position: fixed; top: -9999px; left: -9999px;'; // Hidden
+  document.body.appendChild(turnstileContainer);
+
+  // Wait for Turnstile API to be ready
+  const waitForTurnstile = (): Promise<void> => {
+    return new Promise((resolve) => {
+      const checkTurnstile = () => {
+        if (window.turnstile) {
+          resolve();
+        } else {
+          setTimeout(checkTurnstile, 100);
+        }
+      };
+      checkTurnstile();
+    });
+  };
+
+  await waitForTurnstile();
+
+  // Render invisible Turnstile widget
+  try {
+    window.turnstile!.render(turnstileContainer, {
+      sitekey: siteKey,
+      callback: (token: string) => {
+        turnstileToken = token;
+        console.warn('✓ Turnstile token obtained');
+      },
+      'error-callback': () => {
+        console.error('Turnstile verification failed');
+        turnstileToken = '';
+      },
+      'expired-callback': () => {
+        console.warn('Turnstile token expired, refreshing...');
+        turnstileToken = '';
+      },
+      theme: 'light',
+      size: 'invisible',
+    });
+  } catch (error) {
+    console.error('Failed to initialize Turnstile:', error);
+  }
+}
+
+// Export function to get current Turnstile token
+export function getTurnstileToken(): string {
+  return turnstileToken;
+}
+
 // Widget initialization with Shadow DOM for complete style isolation
 async function initChatWidget() {
   // Load Turnstile script first
+  const turnstileSiteKey = window.CHATBOT_TURNSTILE_SITE_KEY || import.meta.env.VITE_TURNSTILE_SITE_KEY || '';
+
   try {
     await loadTurnstileScript();
+    // Initialize Turnstile in main document (outside Shadow DOM)
+    await initTurnstile(turnstileSiteKey);
   } catch (error) {
     console.error('Failed to load Turnstile:', error);
     // Continue anyway - will show error in UI
