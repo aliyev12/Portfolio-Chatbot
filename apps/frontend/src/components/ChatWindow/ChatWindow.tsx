@@ -13,6 +13,7 @@ interface ChatWindowProps {
 export function ChatWindow({ onClose, config }: ChatWindowProps) {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const messagesContainerRef = useRef<HTMLDivElement>(null);
+  const chatWindowRef = useRef<HTMLDivElement>(null);
   const { messages, input, setInput, sendMessage, isLoading, error } = useChat({
     apiUrl: config.apiUrl,
     apiToken: config.apiToken,
@@ -25,6 +26,65 @@ export function ChatWindow({ onClose, config }: ChatWindowProps) {
     }
   }, [messages]);
 
+  // Handle iOS viewport resize and prevent scroll
+  useEffect(() => {
+    // Use Visual Viewport API to handle keyboard appearance on iOS
+    const visualViewport = window.visualViewport;
+
+    const handleViewportResize = () => {
+      if (chatWindowRef.current && visualViewport) {
+        // Update chat window height to match visual viewport
+        const height = visualViewport.height;
+        chatWindowRef.current.style.height = `${height}px`;
+
+        // Keep window at top
+        window.scrollTo(0, 0);
+      }
+    };
+
+    const handleScroll = () => {
+      // Always reset scroll to prevent iOS from scrolling the page
+      window.scrollTo(0, 0);
+    };
+
+    const handleFocus = () => {
+      // Prevent any scroll on focus
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        if (chatWindowRef.current) {
+          chatWindowRef.current.style.top = '0';
+        }
+      }, 100);
+    };
+
+    // Listen for viewport changes (keyboard open/close)
+    if (visualViewport) {
+      visualViewport.addEventListener('resize', handleViewportResize);
+      visualViewport.addEventListener('scroll', handleScroll);
+    }
+
+    // Listen for input focus
+    window.addEventListener('focusin', handleFocus);
+    window.addEventListener('scroll', handleScroll, { passive: false });
+
+    // Initial setup
+    handleViewportResize();
+
+    return () => {
+      if (visualViewport) {
+        visualViewport.removeEventListener('resize', handleViewportResize);
+        visualViewport.removeEventListener('scroll', handleScroll);
+      }
+      window.removeEventListener('focusin', handleFocus);
+      window.removeEventListener('scroll', handleScroll);
+
+      // Reset height
+      if (chatWindowRef.current) {
+        chatWindowRef.current.style.height = '';
+      }
+    };
+  }, []);
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (input.trim() && !isLoading) {
@@ -35,7 +95,8 @@ export function ChatWindow({ onClose, config }: ChatWindowProps) {
 
   return (
     <div
-      className="chatbot-window fixed bottom-0 right-0 w-[380px] min-h-[230px] max-h-[520px] h-[calc(100vh-3rem)] bg-card rounded-lg shadow-lg flex flex-col border border-border z-50 max-sm:inset-0 max-sm:w-full max-sm:rounded-none"
+      ref={chatWindowRef}
+      className="chatbot-window fixed bottom-0 right-0 w-[380px] min-h-[230px] max-h-[520px] h-[calc(100vh-3rem)] bg-card rounded-lg shadow-lg flex flex-col border border-border z-50 max-sm:inset-0 max-sm:w-full max-sm:h-screen max-sm:max-h-none max-sm:rounded-none"
       data-testid="chat-window"
     >
       {/* Header */}
