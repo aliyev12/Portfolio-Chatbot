@@ -1,0 +1,119 @@
+.proactive-greeting {
+  position: fixed;
+  bottom: 88px; /* Above the chat bubble (56px + 32px spacing) */
+  right: 24px;
+  z-index: 50;
+  animation: slideInUp 0.3s ease-out;
+  cursor: pointer;
+}
+
+.proactive-greeting-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  max-width: 280px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.proactive-greeting:hover .proactive-greeting-content {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+.proactive-greeting:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+  border-radius: 12px;
+}
+
+.proactive-greeting-emoji {
+  font-size: 24px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.proactive-greeting-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.proactive-greeting-text strong {
+  display: block;
+  color: var(--card-foreground);
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.proactive-greeting-text p {
+  color: var(--muted-foreground);
+  font-size: 13px;
+  margin: 0;
+}
+
+.proactive-greeting-close {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+  color: var(--muted-foreground);
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  padding: 0;
+}
+
+.proactive-greeting-close:hover {
+  background: var(--accent);
+  color: var(--accent-foreground);
+}
+
+.proactive-greeting-close:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+/* Animations */
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .proactive-greeting {
+    animation: none;
+  }
+
+  .proactive-greeting:hover .proactive-greeting-content {
+    transform: none;
+  }
+}
+
+/* Mobile responsive */
+@media (max-width: 640px) {
+  .proactive-greeting {
+    right: 16px;
+    left: 16px;
+    width: auto;
+  }
+
+  .proactive-greeting-content {
+    max-width: none;
+  }
+}

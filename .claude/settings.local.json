@@ -46,7 +46,9 @@
       "Bash(bunx playwright test:*)",
       "Bash(git push)",
       "Bash(bun pm ls:*)",
-      "Bash(bun build:*)"
+      "Bash(bun build:*)",
+      "WebSearch",
+      "Bash(timeout 20 bun test:*)"
     ]
   }
 }
