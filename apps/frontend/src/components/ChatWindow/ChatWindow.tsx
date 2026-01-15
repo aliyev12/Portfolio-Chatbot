@@ -29,7 +29,7 @@ export function ChatWindow({ onClose, apiUrl, contactUrl }: ChatWindowProps) {
 
   return (
     <div
-      className="fixed bottom-6 right-6 w-[380px] h-[520px] bg-card rounded-lg shadow-lg flex flex-col border border-border z-50"
+      className="fixed bottom-6 right-6 w-[380px] min-h-[230px] max-h-[520px] h-[calc(100vh-3rem)] bg-card rounded-lg shadow-lg flex flex-col border border-border z-50 max-sm:right-4 max-sm:left-4 max-sm:w-auto max-sm:mx-auto max-sm:max-w-[380px]"
       data-testid="chat-window"
     >
       {/* Header */}
