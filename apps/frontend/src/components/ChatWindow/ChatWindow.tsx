@@ -25,31 +25,6 @@ export function ChatWindow({ onClose, config }: ChatWindowProps) {
     }
   }, [messages]);
 
-  // Prevent viewport scroll on input focus (iOS issue)
-  useEffect(() => {
-    const preventScroll = (e: Event) => {
-      const target = e.target as HTMLElement;
-      if (target.tagName === 'INPUT') {
-        // Don't prevent default, but ensure no window scroll happens
-        document.documentElement.style.overflow = 'hidden';
-      }
-    };
-
-    const enableScroll = () => {
-      if (document.body.style.overflow === 'hidden') {
-        document.documentElement.style.overflow = '';
-      }
-    };
-
-    document.addEventListener('focusin', preventScroll);
-    document.addEventListener('focusout', enableScroll);
-
-    return () => {
-      document.removeEventListener('focusin', preventScroll);
-      document.removeEventListener('focusout', enableScroll);
-    };
-  }, []);
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (input.trim() && !isLoading) {
@@ -60,7 +35,7 @@ export function ChatWindow({ onClose, config }: ChatWindowProps) {
 
   return (
     <div
-      className="fixed bottom-0 right-0 w-[380px] min-h-[230px] max-h-[520px] h-[calc(100vh-3rem)] bg-card rounded-lg shadow-lg flex flex-col border border-border z-50 max-sm:bottom-0 max-sm:right-0 max-sm:left-0 max-sm:top-0 max-sm:w-full max-sm:h-full max-sm:rounded-none"
+      className="chatbot-window fixed bottom-0 right-0 w-[380px] min-h-[230px] max-h-[520px] h-[calc(100vh-3rem)] bg-card rounded-lg shadow-lg flex flex-col border border-border z-50 max-sm:inset-0 max-sm:w-full max-sm:rounded-none"
       data-testid="chat-window"
     >
       {/* Header */}
