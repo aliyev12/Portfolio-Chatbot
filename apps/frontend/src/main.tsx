@@ -7,6 +7,8 @@ import './styles/globals.css';
 declare global {
   interface Window {
     CHATBOT_API_URL?: string;
+    CHATBOT_API_TOKEN?: string;
+    CHATBOT_TURNSTILE_SITE_KEY?: string;
   }
 }
 
@@ -81,8 +83,9 @@ async function initChatWidget() {
   const config = {
     apiUrl,
     contactUrl: 'https://www.aaliyev.com/contact',
-    apiToken: import.meta.env.VITE_API_TOKEN || '',
-    turnstileSiteKey: import.meta.env.VITE_TURNSTILE_SITE_KEY || '',
+    // Runtime configuration takes precedence over build-time env vars
+    apiToken: window.CHATBOT_API_TOKEN || import.meta.env.VITE_API_TOKEN || '',
+    turnstileSiteKey: window.CHATBOT_TURNSTILE_SITE_KEY || import.meta.env.VITE_TURNSTILE_SITE_KEY || '',
   };
 
   // Render React app into Shadow DOM

@@ -206,6 +206,11 @@ app.get('/', (c) => {
         }
       };
     }
+
+    // Configure chatbot with your security credentials
+    // IMPORTANT: Replace these with your actual values in production!
+    window.CHATBOT_API_TOKEN = '${config.API_TOKEN}';
+    window.CHATBOT_TURNSTILE_SITE_KEY = '${config.TURNSTILE_SITE_KEY}';
   </script>
   <script src="/widget.js"></script>
 </body>

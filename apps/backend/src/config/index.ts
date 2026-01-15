@@ -15,6 +15,7 @@ export const config = {
   // Security tokens
   API_TOKEN: process.env.API_TOKEN || '',
   TURNSTILE_SECRET_KEY: process.env.TURNSTILE_SECRET_KEY || '',
+  TURNSTILE_SITE_KEY: process.env.TURNSTILE_SITE_KEY || '', // Public site key for demo page
   // Rate limiting
   RATE_LIMIT_REQUESTS: parseInt(process.env.RATE_LIMIT_REQUESTS || '10'),
   RATE_LIMIT_WINDOW_MS: parseInt(process.env.RATE_LIMIT_WINDOW_MS || '60000'), // 1 minute default
