@@ -48,7 +48,9 @@
       "Bash(bun pm ls:*)",
       "Bash(bun build:*)",
       "WebSearch",
-      "Bash(timeout 20 bun test:*)"
+      "Bash(timeout 20 bun test:*)",
+      "WebFetch(domain:www.aaliyev.com)",
+      "WebFetch(domain:www.linkedin.com)"
     ]
   }
 }

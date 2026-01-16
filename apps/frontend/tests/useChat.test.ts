@@ -2,9 +2,10 @@ import { describe, test, expect, vi, beforeEach } from 'vitest';
 import { renderHook, waitFor, act } from '@testing-library/react';
 import { useChat } from '../src/hooks/useChat';
 
-// Mock getTurnstileToken
+// Mock Turnstile functions
 vi.mock('../src/main', () => ({
-  getTurnstileToken: vi.fn(() => 'test-turnstile-token'),
+  waitForTurnstileToken: vi.fn(async () => 'test-turnstile-token'),
+  resetTurnstile: vi.fn(),
 }));
 
 // Helper to create mock SSE stream

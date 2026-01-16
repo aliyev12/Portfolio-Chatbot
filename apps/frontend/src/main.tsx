@@ -46,6 +46,9 @@ function loadTurnstileScript(): Promise<void> {
 
 // Global Turnstile token management
 let turnstileToken = '';
+let turnstileWidgetId = '';
+let isTokenReady = false;
+let tokenReadyResolvers: Array<() => void> = [];
 
 // Initialize Turnstile in main document (outside Shadow DOM)
 async function initTurnstile(siteKey: string): Promise<void> {
@@ -78,19 +81,28 @@ async function initTurnstile(siteKey: string): Promise<void> {
 
   // Render invisible Turnstile widget
   try {
-    window.turnstile!.render(turnstileContainer, {
+    turnstileWidgetId = window.turnstile!.render(turnstileContainer, {
       sitekey: siteKey,
       callback: (token: string) => {
         turnstileToken = token;
+        isTokenReady = true;
         console.warn('✓ Turnstile token obtained');
+
+        // Resolve any pending promises waiting for token
+        tokenReadyResolvers.forEach(resolve => resolve());
+        tokenReadyResolvers = [];
       },
       'error-callback': () => {
         console.error('Turnstile verification failed');
         turnstileToken = '';
+        isTokenReady = false;
       },
       'expired-callback': () => {
         console.warn('Turnstile token expired, refreshing...');
         turnstileToken = '';
+        isTokenReady = false;
+        // Automatically reset to get new token
+        resetTurnstile();
       },
       theme: 'light',
       size: 'invisible',
@@ -103,6 +115,38 @@ async function initTurnstile(siteKey: string): Promise<void> {
 // Export function to get current Turnstile token
 export function getTurnstileToken(): string {
   return turnstileToken;
+}
+
+// Export function to reset Turnstile widget (generates new token)
+export function resetTurnstile(): void {
+  if (window.turnstile && turnstileWidgetId) {
+    console.warn('Resetting Turnstile widget...');
+    isTokenReady = false;
+    turnstileToken = '';
+    window.turnstile.reset(turnstileWidgetId);
+  }
+}
+
+// Export function to wait for token to be ready
+export function waitForTurnstileToken(timeoutMs = 10000): Promise<string> {
+  return new Promise((resolve, reject) => {
+    // If token is already ready, resolve immediately
+    if (isTokenReady && turnstileToken) {
+      resolve(turnstileToken);
+      return;
+    }
+
+    // Set up timeout
+    const timeoutId = setTimeout(() => {
+      reject(new Error('Turnstile token generation timeout'));
+    }, timeoutMs);
+
+    // Add resolver to queue
+    tokenReadyResolvers.push(() => {
+      clearTimeout(timeoutId);
+      resolve(turnstileToken);
+    });
+  });
 }
 
 // Widget initialization with Shadow DOM for complete style isolation
