@@ -26,8 +26,12 @@ export function ChatWindow({ onClose, config }: ChatWindowProps) {
     }
   }, [messages]);
 
-  // Handle iOS viewport resize and prevent scroll
+  // Handle iOS viewport resize and prevent scroll (mobile only)
   useEffect(() => {
+    // Only apply iOS fixes on mobile devices
+    const isMobile = window.innerWidth <= 640;
+    if (!isMobile) return;
+
     // Use Visual Viewport API to handle keyboard appearance on iOS
     const visualViewport = window.visualViewport;
 
@@ -96,7 +100,7 @@ export function ChatWindow({ onClose, config }: ChatWindowProps) {
   return (
     <div
       ref={chatWindowRef}
-      className="chatbot-window fixed bottom-0 right-0 w-[380px] min-h-[230px] max-h-[520px] h-[calc(100vh-3rem)] bg-card rounded-lg shadow-lg flex flex-col border border-border z-50 max-sm:inset-0 max-sm:w-full max-sm:h-screen max-sm:max-h-none max-sm:rounded-none"
+      className="chatbot-window fixed bottom-4 right-4 w-[380px] min-h-[230px] max-h-[520px] h-[calc(100vh-3rem)] bg-card rounded-lg shadow-lg flex flex-col border border-border z-50 max-sm:inset-0 max-sm:w-full max-sm:h-screen max-sm:max-h-none max-sm:rounded-none max-sm:bottom-0 max-sm:right-0"
       data-testid="chat-window"
     >
       {/* Header */}

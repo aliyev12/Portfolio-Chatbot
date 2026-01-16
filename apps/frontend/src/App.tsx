@@ -19,9 +19,12 @@ export default function App({ config }: AppProps) {
     isOpen,
   });
 
-  // Prevent body scroll when chat is open
+  // Prevent body scroll when chat is open (mobile only)
   useEffect(() => {
-    if (isOpen) {
+    // Only apply scroll prevention on mobile devices
+    const isMobile = window.innerWidth <= 640;
+
+    if (isOpen && isMobile) {
       document.body.style.overflow = 'hidden';
       document.body.style.position = 'fixed';
       document.body.style.width = '100%';
