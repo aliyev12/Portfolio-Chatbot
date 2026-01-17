@@ -2184,3 +2184,59 @@ The plan emphasizes:
 - **Usage caps** to prevent unexpected costs
 
 Next steps: Start with Phase 1 (Project Setup) and work through each phase systematically. Each phase should be a separate branch with a pull request for clean version control.
+
+
+To view conversation traces grouped by session ID on OpenAI's platform:                                                                                                               
+                                                                                                                                                                                        
+  📊 Accessing Session Traces                                                                                                                                                           
+                                                                                                                                                                                        
+  Option 1: Usage Dashboard (Primary Method)                                                                                                                                            
+                                                                                                                                                                                        
+  1. Go to OpenAI Platform: https://platform.openai.com/                                                                                                                                
+  2. Navigate to Usage: Click on "Usage" in the left sidebar                                                                                                                            
+  3. View Activity: Click on the "Activity" tab                                                                                                                                         
+  4. Filter by User: You'll see a table with columns including:                                                                                                                         
+    - Date/Time                                                                                                                                                                         
+    - User (this is your session ID!)                                                                                                                                                   
+    - Model                                                                                                                                                                             
+    - Tokens                                                                                                                                                                            
+    - Cost                                                                                                                                                                              
+  5. Search/Filter: Use the search box to find specific session IDs                                                                                                                     
+    - Example: Search for session_ to see all your chatbot sessions                                                                                                                     
+    - Click on a specific User/Session ID to see all requests from that session                                                                                                         
+                                                                                                                                                                                        
+  Option 2: API Logs (More Detailed)                                                                                                                                                    
+                                                                                                                                                                                        
+  1. Go to: https://platform.openai.com/usage                                                                                                                                           
+  2. Click "Logs" tab (if available for your account tier)                                                                                                                              
+  3. Here you can see detailed request/response logs                                                                                                                                    
+  4. Filter by the "user" field to group by session                                                                                                                                     
+                                                                                                                                                                                        
+  What You'll See:                                                                                                                                                                      
+                                                                                                                                                                                        
+  For each session ID, you can view:                                                                                                                                                    
+  - All API calls made during that session                                                                                                                                              
+  - Timestamp of each call                                                                                                                                                              
+  - Token usage per call                                                                                                                                                                
+  - Model used                                                                                                                                                                          
+  - Total cost per session                                                                                                                                                              
+  - Request/response details (on some plans)                                                                                                                                            
+                                                                                                                                                                                        
+  Important Notes:                                                                                                                                                                      
+                                                                                                                                                                                        
+  ⚠️ The user parameter shows as "End User" or "User" in the dashboard - it won't explicitly say "session" or "conversation group", but each unique session ID will be listed           
+  separately.                                                                                                                                                                           
+                                                                                                                                                                                        
+  💡 Pro Tip: Your session IDs follow the format session_<timestamp>_<random>, so they'll be easy to identify in the logs.                                                              
+                                                                                                                                                                                        
+  Example Session ID:                                                                                                                                                                   
+                                                                                                                                                                                        
+  session_1705512345678_abc123def456                                                                                                                                                    
+                                                                                                                                                                                        
+  In the Usage dashboard, this will appear in the "User" column, and you can click on it to see all API calls from that specific visitor's conversation.                                
+                                                                                                                                                                                        
+  ---                                                                                                                                                                                   
+  If you don't see detailed logs, you may need to:                                                                                                                                      
+  - Have the OpenAI platform open during a conversation                                                                                                                                 
+  - Wait a few minutes for logs to populate                                                                                                                                             
+  - Check your OpenAI account tier (some detailed logging features require paid plans)   

@@ -86,8 +86,16 @@ export const aiService = {
       tools: TOOLS,
       tool_choice: 'auto',
       stream: true,
+      // Enable conversation storage in OpenAI dashboard for 30 days
+      store: true,
       // Use 'user' parameter for OpenAI dashboard tracking (shows as "End User" in dashboard)
       user: sessionId,
+      // Add metadata for better tracking and analytics
+      metadata: {
+        session_id: sessionId || 'anonymous',
+        app_name: 'portfolio-chatbot',
+        timestamp: new Date().toISOString(),
+      },
     });
 
     // Track tool calls across chunks

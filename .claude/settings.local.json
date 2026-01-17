@@ -50,7 +50,8 @@
       "WebSearch",
       "Bash(timeout 20 bun test:*)",
       "WebFetch(domain:www.aaliyev.com)",
-      "WebFetch(domain:www.linkedin.com)"
+      "WebFetch(domain:www.linkedin.com)",
+      "WebFetch(domain:platform.openai.com)"
     ]
   }
 }
