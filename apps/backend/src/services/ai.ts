@@ -86,8 +86,8 @@ export const aiService = {
       tools: TOOLS,
       tool_choice: 'auto',
       stream: true,
-      // Include session metadata for OpenAI dashboard tracking
-      metadata: sessionId ? { conversation: sessionId } : undefined,
+      // Use 'user' parameter for OpenAI dashboard tracking (shows as "End User" in dashboard)
+      user: sessionId,
     });
 
     // Track tool calls across chunks

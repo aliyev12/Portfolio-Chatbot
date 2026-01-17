@@ -60,9 +60,14 @@ export function Message({
             {toolCall && (
               <button
                 onClick={() => handleToolCallClick(toolCall.name)}
-                className="mt-3 px-4 py-2 bg-accent text-accent-foreground rounded-md text-sm font-medium hover:opacity-90 transition-opacity w-full"
+                className="button mt-3 block mx-auto"
+                style={{
+                  display: 'block',
+                  marginLeft: 'auto',
+                  marginRight: 'auto',
+                }}
               >
-                {toolCall.name === 'contact_me' ? 'Contact Me' : 'Visit LinkedIn'}
+                {toolCall.name === 'contact_me' ? 'Get in touch' : 'Visit LinkedIn'}
               </button>
             )}
 
@@ -70,9 +75,14 @@ export function Message({
             {isSessionLimit && (
               <button
                 onClick={() => handleToolCallClick('contact_me')}
-                className="mt-3 px-4 py-2 bg-accent text-accent-foreground rounded-md text-sm font-medium hover:opacity-90 transition-opacity w-full"
+                className="button mt-3 block mx-auto"
+                style={{
+                  display: 'block',
+                  marginLeft: 'auto',
+                  marginRight: 'auto',
+                }}
               >
-                Contact Me
+                Get in touch
               </button>
             )}
           </>
