@@ -38,6 +38,21 @@ function getOrCreateSessionId(): string {
   return sessionId;
 }
 
+/**
+ * Get default message when AI calls a tool without providing text content
+ */
+function getDefaultToolMessage(toolCall?: ToolCall): string {
+  if (!toolCall) return '';
+
+  if (toolCall.name === 'contact_me') {
+    return "I'd be happy to help you get in touch! Click the button below to contact Abdul.";
+  } else if (toolCall.name === 'visit_linkedin') {
+    return "You can view Abdul's professional profile on LinkedIn. Click the button below to visit.";
+  }
+
+  return '';
+}
+
 export function useChat({ apiUrl, apiToken }: UseChatParams): UseChatReturn {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
@@ -111,51 +126,52 @@ export function useChat({ apiUrl, apiToken }: UseChatParams): UseChatReturn {
             const chunk = decoder.decode(value);
             const lines = chunk.split('\n');
 
-            for (const line of lines) {
+            // Parse SSE events more robustly by tracking current event type
+            let currentEvent = 'message';
+            for (let i = 0; i < lines.length; i++) {
+              const line = lines[i];
+              if (!line) continue;
+
               if (line.startsWith('event: ')) {
-                const eventType = line.slice(7).trim();
-
-                // Find the data line that follows
-                const dataLineIndex = lines.indexOf(line) + 1;
-                if (dataLineIndex < lines.length) {
-                  const dataLine = lines[dataLineIndex];
-                  if (dataLine && dataLine.startsWith('data: ')) {
-                    const data = dataLine.slice(6);
-
-                    if (eventType === 'tool_call') {
-                      try {
-                        currentToolCall = JSON.parse(data) as ToolCall;
-                      } catch (e) {
-                        console.error('Failed to parse tool call:', e);
-                      }
-                    } else if (eventType === 'session_limit') {
-                      try {
-                        const limitData = JSON.parse(data);
-                        assistantContent = limitData.message || assistantContent;
-                        isSessionLimit = true;
-                      } catch (e) {
-                        console.error('Failed to parse session limit:', e);
-                      }
-                    }
-                  }
-                }
+                currentEvent = line.slice(7).trim();
               } else if (line.startsWith('data: ')) {
                 const data = line.slice(6);
-                if (data === '[DONE]') continue;
 
-                // Only accumulate content if not a JSON object (regular message event)
-                if (!data.startsWith('{')) {
-                  assistantContent += data;
-                  setMessages((prev) => {
-                    const updated = [...prev];
-                    updated[updated.length - 1] = {
-                      role: 'assistant',
-                      content: assistantContent,
-                      toolCall: currentToolCall,
-                      isSessionLimit,
-                    };
-                    return updated;
-                  });
+                if (data === '[DONE]') {
+                  continue;
+                }
+
+                // Handle different event types
+                if (currentEvent === 'tool_call') {
+                  try {
+                    currentToolCall = JSON.parse(data) as ToolCall;
+                  } catch (e) {
+                    console.error('Failed to parse tool call:', e);
+                  }
+                } else if (currentEvent === 'session_limit') {
+                  try {
+                    const limitData = JSON.parse(data);
+                    assistantContent = limitData.message || assistantContent;
+                    isSessionLimit = true;
+                  } catch (e) {
+                    console.error('Failed to parse session limit:', e);
+                  }
+                } else if (currentEvent === 'message') {
+                  // Regular message content - only accumulate if not JSON
+                  if (!data.startsWith('{')) {
+                    assistantContent += data;
+                    setMessages((prev) => {
+                      const updated = [...prev];
+                      const messageContent = assistantContent || getDefaultToolMessage(currentToolCall);
+                      updated[updated.length - 1] = {
+                        role: 'assistant',
+                        content: messageContent,
+                        toolCall: currentToolCall,
+                        isSessionLimit,
+                      };
+                      return updated;
+                    });
+                  }
                 }
               }
             }
@@ -164,9 +180,10 @@ export function useChat({ apiUrl, apiToken }: UseChatParams): UseChatReturn {
           // Final update with complete message
           setMessages((prev) => {
             const updated = [...prev];
+            const finalContent = assistantContent || getDefaultToolMessage(currentToolCall);
             updated[updated.length - 1] = {
               role: 'assistant',
-              content: assistantContent,
+              content: finalContent,
               toolCall: currentToolCall,
               isSessionLimit,
             };

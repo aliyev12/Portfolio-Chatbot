@@ -123,7 +123,7 @@ export function ChatWindow({ onClose, config }: ChatWindowProps) {
       >
         <Message
           role="assistant"
-          content="Hi! Ask me anything about his professional background, skills, or experience!"
+          content="Hi! Ask me anything: professional background, skills, or experience!"
         />
         {messages.map((msg, index) => (
           <Message
