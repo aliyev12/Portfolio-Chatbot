@@ -4,6 +4,7 @@ import { z } from 'zod';
 import { aiService } from '../services/ai';
 import { usageService } from '../services/usage';
 import { cacheService } from '../services/cache';
+import { sessionService } from '../services/session';
 import { apiTokenMiddleware } from '../middleware/apiToken';
 import { turnstileMiddleware } from '../middleware/turnstile';
 import { rateLimitMiddleware } from '../middleware/rateLimit';
@@ -19,6 +20,7 @@ chatRoutes.use('*', turnstileMiddleware);
 // Zod schema for request validation
 const ChatRequestSchema = z.object({
   message: z.string().min(1, 'Message cannot be empty').max(1000, 'Message too long'),
+  sessionId: z.string().optional(),
 });
 
 /**
@@ -52,12 +54,39 @@ chatRoutes.post('/', async (c) => {
       );
     }
 
-    const { message } = validation.data;
+    const { message, sessionId } = validation.data;
+
+    // Check session limit if sessionId is provided
+    if (sessionId) {
+      const hasExceeded = await sessionService.hasExceededLimit(sessionId);
+      if (hasExceeded) {
+        return streamSSE(c, async (stream) => {
+          await stream.writeSSE({
+            data: JSON.stringify({
+              type: 'limit_reached',
+              message:
+                "We've reached the conversation limit for this session. If you'd like to continue our discussion or have any questions, feel free to reach out!",
+            }),
+            event: 'session_limit',
+          });
+
+          await stream.writeSSE({
+            data: '[DONE]',
+            event: 'done',
+          });
+        });
+      }
+    }
 
     // Check cache first
     const cachedResponse = await cacheService.get(message);
 
     if (cachedResponse) {
+      // Increment session message count even for cached responses
+      if (sessionId) {
+        await sessionService.incrementMessageCount(sessionId);
+      }
+
       // Stream cached response
       return streamSSE(c, async (stream) => {
         // Split cached response into chunks for a more natural streaming effect
@@ -99,22 +128,37 @@ chatRoutes.post('/', async (c) => {
         // Create a simple message array (stateless - only current message)
         const messages: ChatMessage[] = [{ role: 'user', content: message }];
 
-        const aiStream = await aiService.chat(messages);
+        const aiStream = aiService.chat(messages, sessionId);
 
         // Stream chunks to client and collect full response
         for await (const chunk of aiStream) {
-          fullResponse += chunk;
-          await stream.writeSSE({
-            data: chunk,
-            event: 'message',
-          });
+          if (chunk.type === 'content' && chunk.content) {
+            fullResponse += chunk.content;
+            await stream.writeSSE({
+              data: chunk.content,
+              event: 'message',
+            });
+          } else if (chunk.type === 'tool_call' && chunk.toolCall) {
+            // Send tool call to frontend
+            await stream.writeSSE({
+              data: JSON.stringify(chunk.toolCall),
+              event: 'tool_call',
+            });
+          }
         }
 
-        // Cache the complete response
-        await cacheService.set(message, fullResponse);
+        // Cache the complete response (only text content, not tool calls)
+        if (fullResponse) {
+          await cacheService.set(message, fullResponse);
+        }
 
         // Increment usage counter
         await usageService.increment();
+
+        // Increment session message count
+        if (sessionId) {
+          await sessionService.incrementMessageCount(sessionId);
+        }
 
         // Send done event
         await stream.writeSSE({

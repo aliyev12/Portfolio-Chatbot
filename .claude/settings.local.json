@@ -3,7 +3,7 @@
     "allow": [
       "Read(*)",
       "Edit(*)",
-      "Bash(*)",
+      "Bash",
       "WebFetch(domain:tanstack.com)",
       "Bash(tree:*)",
       "Bash(bun --version:*)",

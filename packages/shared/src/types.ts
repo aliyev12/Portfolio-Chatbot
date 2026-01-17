@@ -10,6 +10,20 @@ export interface ChatMessage {
 
 export interface ChatRequest {
   messages: ChatMessage[];
+  sessionId?: string;
+}
+
+export interface ToolCall {
+  id: string;
+  name: 'contact_me' | 'visit_linkedin';
+  arguments: Record<string, unknown>;
+}
+
+export interface SessionInfo {
+  sessionId: string;
+  messageCount: number;
+  createdAt: string;
+  lastActivityAt: string;
 }
 
 export interface ChatStatusResponse {

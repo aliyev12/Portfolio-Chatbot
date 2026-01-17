@@ -1,6 +1,14 @@
+export interface ToolCall {
+  id: string;
+  name: 'contact_me' | 'visit_linkedin';
+  arguments: Record<string, unknown>;
+}
+
 export interface Message {
   role: 'user' | 'assistant';
   content: string;
+  toolCall?: ToolCall;
+  isSessionLimit?: boolean;
 }
 
 export interface AppConfig {

@@ -1,5 +1,5 @@
-import { useState, useCallback } from 'react';
-import type { Message } from '../types';
+import { useState, useCallback, useRef } from 'react';
+import type { Message, ToolCall } from '../types';
 import { waitForTurnstileToken, resetTurnstile } from '../main';
 
 interface UseChatParams {
@@ -16,11 +16,34 @@ interface UseChatReturn {
   error: string | null;
 }
 
+/**
+ * Generate a simple session ID using current timestamp and random values
+ */
+function generateSessionId(): string {
+  return `session_${Date.now()}_${Math.random().toString(36).substring(2, 15)}`;
+}
+
+/**
+ * Get or create session ID from localStorage
+ */
+function getOrCreateSessionId(): string {
+  const storageKey = 'portfolio_chatbot_session_id';
+  let sessionId = localStorage.getItem(storageKey);
+
+  if (!sessionId) {
+    sessionId = generateSessionId();
+    localStorage.setItem(storageKey, sessionId);
+  }
+
+  return sessionId;
+}
+
 export function useChat({ apiUrl, apiToken }: UseChatParams): UseChatReturn {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const sessionIdRef = useRef<string>(getOrCreateSessionId());
 
   const sendMessage = useCallback(
     async (content: string) => {
@@ -42,7 +65,7 @@ export function useChat({ apiUrl, apiToken }: UseChatParams): UseChatReturn {
               'X-API-Token': apiToken,
               'X-Turnstile-Token': turnstileToken,
             },
-            body: JSON.stringify({ message: content }),
+            body: JSON.stringify({ message: content, sessionId: sessionIdRef.current }),
           });
 
           if (!response.ok) {
@@ -75,6 +98,8 @@ export function useChat({ apiUrl, apiToken }: UseChatParams): UseChatReturn {
 
           const decoder = new TextDecoder();
           let assistantContent = '';
+          let currentToolCall: ToolCall | undefined;
+          let isSessionLimit = false;
 
           // Add empty assistant message that will be updated
           setMessages((prev) => [...prev, { role: 'assistant', content: '' }]);
@@ -87,22 +112,66 @@ export function useChat({ apiUrl, apiToken }: UseChatParams): UseChatReturn {
             const lines = chunk.split('\n');
 
             for (const line of lines) {
-              if (line.startsWith('data: ')) {
+              if (line.startsWith('event: ')) {
+                const eventType = line.slice(7).trim();
+
+                // Find the data line that follows
+                const dataLineIndex = lines.indexOf(line) + 1;
+                if (dataLineIndex < lines.length) {
+                  const dataLine = lines[dataLineIndex];
+                  if (dataLine && dataLine.startsWith('data: ')) {
+                    const data = dataLine.slice(6);
+
+                    if (eventType === 'tool_call') {
+                      try {
+                        currentToolCall = JSON.parse(data) as ToolCall;
+                      } catch (e) {
+                        console.error('Failed to parse tool call:', e);
+                      }
+                    } else if (eventType === 'session_limit') {
+                      try {
+                        const limitData = JSON.parse(data);
+                        assistantContent = limitData.message || assistantContent;
+                        isSessionLimit = true;
+                      } catch (e) {
+                        console.error('Failed to parse session limit:', e);
+                      }
+                    }
+                  }
+                }
+              } else if (line.startsWith('data: ')) {
                 const data = line.slice(6);
                 if (data === '[DONE]') continue;
 
-                assistantContent += data;
-                setMessages((prev) => {
-                  const updated = [...prev];
-                  updated[updated.length - 1] = {
-                    role: 'assistant',
-                    content: assistantContent,
-                  };
-                  return updated;
-                });
+                // Only accumulate content if not a JSON object (regular message event)
+                if (!data.startsWith('{')) {
+                  assistantContent += data;
+                  setMessages((prev) => {
+                    const updated = [...prev];
+                    updated[updated.length - 1] = {
+                      role: 'assistant',
+                      content: assistantContent,
+                      toolCall: currentToolCall,
+                      isSessionLimit,
+                    };
+                    return updated;
+                  });
+                }
               }
             }
           }
+
+          // Final update with complete message
+          setMessages((prev) => {
+            const updated = [...prev];
+            updated[updated.length - 1] = {
+              role: 'assistant',
+              content: assistantContent,
+              toolCall: currentToolCall,
+              isSessionLimit,
+            };
+            return updated;
+          });
 
           // SUCCESS: Reset Turnstile to prepare for next message
           resetTurnstile();

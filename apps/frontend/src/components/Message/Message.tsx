@@ -1,11 +1,31 @@
+import type { ToolCall } from '../../types';
+
 interface MessageProps {
   role: 'user' | 'assistant';
   content: string;
   isLoading?: boolean;
+  toolCall?: ToolCall;
+  isSessionLimit?: boolean;
+  contactUrl?: string;
 }
 
-export function Message({ role, content, isLoading = false }: MessageProps) {
+export function Message({
+  role,
+  content,
+  isLoading = false,
+  toolCall,
+  isSessionLimit,
+  contactUrl = 'https://www.aaliyev.com/contact'
+}: MessageProps) {
   const isUser = role === 'user';
+
+  const handleToolCallClick = (toolName: string) => {
+    if (toolName === 'contact_me') {
+      window.open(contactUrl, '_blank');
+    } else if (toolName === 'visit_linkedin') {
+      window.open('https://www.linkedin.com/in/abdul-aliyev/', '_blank');
+    }
+  };
 
   return (
     <div
@@ -26,7 +46,29 @@ export function Message({ role, content, isLoading = false }: MessageProps) {
             <span className="w-2 h-2 bg-current rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></span>
           </div>
         ) : (
-          <p className="text-sm whitespace-pre-wrap break-words">{content}</p>
+          <>
+            <p className="text-sm whitespace-pre-wrap break-words">{content}</p>
+
+            {/* Render tool call button */}
+            {toolCall && (
+              <button
+                onClick={() => handleToolCallClick(toolCall.name)}
+                className="mt-3 px-4 py-2 bg-accent text-accent-foreground rounded-md text-sm font-medium hover:opacity-90 transition-opacity w-full"
+              >
+                {toolCall.name === 'contact_me' ? 'Contact Me' : 'Visit LinkedIn'}
+              </button>
+            )}
+
+            {/* Render contact button for session limit */}
+            {isSessionLimit && (
+              <button
+                onClick={() => handleToolCallClick('contact_me')}
+                className="mt-3 px-4 py-2 bg-accent text-accent-foreground rounded-md text-sm font-medium hover:opacity-90 transition-opacity w-full"
+              >
+                Contact Me
+              </button>
+            )}
+          </>
         )}
       </div>
     </div>

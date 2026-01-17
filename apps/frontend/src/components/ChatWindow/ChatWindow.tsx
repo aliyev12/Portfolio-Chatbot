@@ -126,7 +126,14 @@ export function ChatWindow({ onClose, config }: ChatWindowProps) {
           content="Hi! Ask me anything about his professional background, skills, or experience!"
         />
         {messages.map((msg, index) => (
-          <Message key={index} role={msg.role} content={msg.content} />
+          <Message
+            key={index}
+            role={msg.role}
+            content={msg.content}
+            toolCall={msg.toolCall}
+            isSessionLimit={msg.isSessionLimit}
+            contactUrl={config.contactUrl}
+          />
         ))}
         {isLoading && <Message role="assistant" content="" isLoading />}
         {error && (
