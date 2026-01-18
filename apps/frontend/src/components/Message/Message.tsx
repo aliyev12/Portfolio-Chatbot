@@ -20,11 +20,29 @@ export function Message({
 }: MessageProps) {
   const isUser = role === 'user';
 
-  const handleToolCallClick = (toolName: string) => {
+  const handleToolCallClick = async (toolName: string) => {
     if (toolName === 'contact_me') {
       window.open(contactUrl, '_blank');
     } else if (toolName === 'visit_linkedin') {
       window.open('https://www.linkedin.com/in/abdul-aliyev/', '_blank');
+    } else if (toolName === 'download_resume') {
+      // Trigger file download instead of opening in new tab
+      try {
+        const response = await fetch('https://resume.aaliyev.com/resumeAbdulAliyev.pdf');
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'resumeAbdulAliyev.pdf';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+      } catch (error) {
+        console.error('Failed to download resume:', error);
+        // Fallback to opening in new tab if download fails
+        window.open('https://resume.aaliyev.com/resumeAbdulAliyev.pdf', '_blank');
+      }
     }
   };
 
@@ -59,7 +77,7 @@ export function Message({
               <ReactMarkdown
                 components={{
                   // Open links in new tab with security attributes
-                  a: ({ node, ...props }) => (
+                  a: ({ node: _node, ...props }) => (
                     <a
                       {...props}
                       target="_blank"
@@ -68,7 +86,7 @@ export function Message({
                     />
                   ),
                   // Preserve paragraph styling
-                  p: ({ node, ...props }) => <p {...props} className="mb-0" />,
+                  p: ({ node: _node, ...props }) => <p {...props} className="mb-0" />,
                 }}
               >
                 {content}
@@ -86,7 +104,11 @@ export function Message({
                   marginRight: 'auto',
                 }}
               >
-                {toolCall.name === 'contact_me' ? 'Get in touch' : 'Visit LinkedIn'}
+                {toolCall.name === 'contact_me'
+                  ? 'Get in touch'
+                  : toolCall.name === 'visit_linkedin'
+                    ? 'Visit LinkedIn'
+                    : 'Download Resume'}
               </button>
             )}
 

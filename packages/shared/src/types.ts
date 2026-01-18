@@ -6,6 +6,7 @@
 export interface ChatMessage {
   role: 'user' | 'assistant' | 'system';
   content: string;
+  tool_calls?: ToolCall[];
 }
 
 export interface ChatRequest {
@@ -15,7 +16,7 @@ export interface ChatRequest {
 
 export interface ToolCall {
   id: string;
-  name: 'contact_me' | 'visit_linkedin';
+  name: 'contact_me' | 'visit_linkedin' | 'download_resume';
   arguments: Record<string, unknown>;
 }
 

@@ -34,6 +34,8 @@ function getDefaultToolMessage(toolCall?: ToolCall): string {
     return "I'd be happy to help you get in touch! Click the button below to contact Abdul.";
   } else if (toolCall.name === 'visit_linkedin') {
     return "You can view Abdul's professional profile on LinkedIn. Click the button below to visit.";
+  } else if (toolCall.name === 'download_resume') {
+    return "You can download Abdul's resume using the button below.";
   }
 
   return '';

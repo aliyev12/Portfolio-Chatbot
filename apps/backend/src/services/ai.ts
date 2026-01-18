@@ -52,6 +52,24 @@ const TOOLS: OpenAI.Chat.Completions.ChatCompletionTool[] = [
       },
     },
   },
+  {
+    type: 'function',
+    function: {
+      name: 'download_resume',
+      description: 'Triggers a resume download button when the user expresses intent to view, download, or access the resume/CV. Use this when users ask about qualifications, experience, credentials, or request the resume.',
+      parameters: {
+        type: 'object',
+        properties: {
+          format: {
+            type: 'string',
+            description: 'The format the user wants (e.g., PDF)',
+            enum: ['pdf'],
+          },
+        },
+        required: [],
+      },
+    },
+  },
 ];
 
 export interface ChatStreamChunk {
@@ -149,7 +167,7 @@ export const aiService = {
           type: 'tool_call',
           toolCall: {
             id: toolCall.id,
-            name: toolCall.function.name as 'contact_me' | 'visit_linkedin',
+            name: toolCall.function.name as 'contact_me' | 'visit_linkedin' | 'download_resume',
             arguments: parsedArgs,
           },
         };
