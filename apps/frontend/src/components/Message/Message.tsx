@@ -1,4 +1,5 @@
 import ReactMarkdown from 'react-markdown';
+import rehypeSanitize from 'rehype-sanitize';
 import type { ToolCall } from '../../types';
 
 interface MessageProps {
@@ -24,7 +25,7 @@ export function Message({
     if (toolName === 'contact_me') {
       window.open(contactUrl, '_blank');
     } else if (toolName === 'visit_linkedin') {
-      window.open('https://www.linkedin.com/in/abdul-aliyev/', '_blank');
+      window.open('https://www.linkedin.com/in/aliyevabdul/', '_blank');
     } else if (toolName === 'download_resume') {
       // Trigger file download instead of opening in new tab
       try {
@@ -75,6 +76,7 @@ export function Message({
           <>
             <div className="text-sm whitespace-pre-wrap break-words">
               <ReactMarkdown
+                rehypePlugins={[rehypeSanitize]}
                 components={{
                   // Open links in new tab with security attributes
                   a: ({ node: _node, ...props }) => (
