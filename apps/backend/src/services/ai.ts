@@ -1,6 +1,7 @@
 import OpenAI from 'openai';
 import { config } from '../config';
 import { SYSTEM_PROMPT } from '../config/prompt';
+import { validateToolCall } from '../utils/toolValidation';
 import type { ChatMessage, ToolCall } from '@portfolio-chatbot/shared';
 
 /**
@@ -15,6 +16,13 @@ import type { ChatMessage, ToolCall } from '@portfolio-chatbot/shared';
 const openai = new OpenAI({
   apiKey: config.OPENAI_API_KEY,
 });
+
+/**
+ * Critical scope reminder injected before every user message
+ * to prevent prompt injection attacks
+ */
+const CRITICAL_SCOPE_REMINDER = `VERY IMPORTANT CRITICAL DO NOT EVER answer any questions that are not related to Abdul Aliyev's professional experience, skills, and career journey!
+This chatbot is ONLY designed to answer users' questions about Abdul Aliyev's professional experience, skills, and career journey.`;
 
 // Define available tools
 const TOOLS: OpenAI.Chat.Completions.ChatCompletionTool[] = [
@@ -88,13 +96,23 @@ export const aiService = {
    */
   async *chat(messages: ChatMessage[], sessionId?: string): AsyncGenerator<ChatStreamChunk> {
     // Inject system prompt as the first message
-    const messagesWithSystem = [
+    const messagesWithSystem: OpenAI.Chat.Completions.ChatCompletionMessageParam[] = [
       { role: 'system' as const, content: SYSTEM_PROMPT },
-      ...messages.map(m => ({
-        role: m.role as 'user' | 'assistant' | 'system',
-        content: m.content,
-      })),
     ];
+
+    // Inject critical scope reminder before each user message to prevent prompt injection
+    for (const msg of messages) {
+      if (msg.role === 'user') {
+        messagesWithSystem.push({
+          role: 'system' as const,
+          content: CRITICAL_SCOPE_REMINDER,
+        });
+      }
+      messagesWithSystem.push({
+        role: msg.role as 'user' | 'assistant' | 'system',
+        content: msg.content,
+      });
+    }
 
     const stream = await openai.chat.completions.create({
       model: 'gpt-4o-mini',
@@ -159,18 +177,34 @@ export const aiService = {
     // Emit completed tool calls
     for (const toolCall of toolCalls.values()) {
       if (toolCall.id && toolCall.function?.name) {
-        const parsedArgs = toolCall.function.arguments
-          ? JSON.parse(toolCall.function.arguments)
-          : {};
+        try {
+          const parsedArgs = toolCall.function.arguments
+            ? JSON.parse(toolCall.function.arguments)
+            : {};
 
-        yield {
-          type: 'tool_call',
-          toolCall: {
+          const unvalidatedToolCall: ToolCall = {
             id: toolCall.id,
             name: toolCall.function.name as 'contact_me' | 'visit_linkedin' | 'download_resume',
             arguments: parsedArgs,
-          },
-        };
+          };
+
+          // Validate and sanitize tool call parameters
+          const validationResult = validateToolCall(unvalidatedToolCall);
+
+          if (validationResult.isValid && validationResult.sanitized) {
+            yield {
+              type: 'tool_call',
+              toolCall: validationResult.sanitized,
+            };
+          } else {
+            // Log validation error but don't crash
+            console.error('Tool call validation failed:', validationResult.error);
+            // Optionally, you could yield an error event here
+          }
+        } catch (error) {
+          console.error('Error processing tool call:', error);
+          // Continue processing other tool calls
+        }
       }
     }
   },

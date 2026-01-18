@@ -8,6 +8,7 @@ import { sessionService } from '../services/session';
 import { apiTokenMiddleware } from '../middleware/apiToken';
 import { turnstileMiddleware } from '../middleware/turnstile';
 import { rateLimitMiddleware } from '../middleware/rateLimit';
+import { validateAndSanitizeMessage } from '../utils/validation';
 import type { ChatMessage } from '@portfolio-chatbot/shared';
 
 export const chatRoutes = new Hono();
@@ -56,6 +57,22 @@ chatRoutes.post('/', async (c) => {
 
     const { message, sessionId } = validation.data;
 
+    // Validate and sanitize the message content
+    const validationResult = validateAndSanitizeMessage(message);
+
+    if (!validationResult.isValid) {
+      return c.json(
+        {
+          error: validationResult.error || 'Invalid message content',
+          code: 'INVALID_CONTENT',
+        },
+        400,
+      );
+    }
+
+    // Use the sanitized message for all further processing
+    const sanitizedMessage = validationResult.sanitized!;
+
     // Validate session if sessionId is provided
     if (sessionId) {
       try {
@@ -99,7 +116,7 @@ chatRoutes.post('/', async (c) => {
     }
 
     // Check cache first
-    const cachedResponse = await cacheService.get(message);
+    const cachedResponse = await cacheService.get(sanitizedMessage);
 
     if (cachedResponse) {
       // Increment session message count even for cached responses
@@ -146,7 +163,7 @@ chatRoutes.post('/', async (c) => {
 
       try {
         // Create a simple message array (stateless - only current message)
-        const messages: ChatMessage[] = [{ role: 'user', content: message }];
+        const messages: ChatMessage[] = [{ role: 'user', content: sanitizedMessage }];
 
         const aiStream = aiService.chat(messages, sessionId);
 
@@ -169,7 +186,7 @@ chatRoutes.post('/', async (c) => {
 
         // Cache the complete response (only text content, not tool calls)
         if (fullResponse) {
-          await cacheService.set(message, fullResponse);
+          await cacheService.set(sanitizedMessage, fullResponse);
         }
 
         // Increment usage counter

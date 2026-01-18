@@ -194,9 +194,12 @@ export function useChat({ apiUrl, apiToken }: UseChatParams): UseChatReturn {
         await attemptSend(false);
       } catch (err) {
         setError(err instanceof Error ? err.message : 'An error occurred');
-        // Remove the empty assistant message if there was an error
+        // Remove the failed message from UI
+        // For validation errors (400): removes the user message that failed to send
+        // For streaming errors: removes the empty/partial assistant message
+        // This prevents empty boxes or partial messages from appearing in the chat
         setMessages((prev) => {
-          const filtered = prev.filter((msg) => msg.content !== '');
+          const filtered = prev.slice(0, -1).filter((msg) => msg.content !== '');
           return filtered;
         });
       } finally {
