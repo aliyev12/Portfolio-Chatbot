@@ -539,3 +539,10 @@ When you open http://localhost:5173 in your browser:
 - No need to rebuild or restart containers
 
 When implementing new phases, follow the patterns established in existing code (service layer, route structure, type safety).
+
+## Development Workflow
+3. **Validation**: Before finishing any task if possible use the Playwright MCP to:
+   - Navigate to the affected pages on localhost.
+   - Interact with the modified components to verify functionality.
+   - Check the browser console for any errors or warnings.
+4. **Verification**: Only mark the task as complete if the UI behaves as expected and the console is clean.

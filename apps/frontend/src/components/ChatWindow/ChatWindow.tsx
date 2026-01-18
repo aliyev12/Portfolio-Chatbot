@@ -1,6 +1,7 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState, useCallback } from 'react';
 import { X, Send } from 'react-feather';
 import { useChat } from '../../hooks/useChat';
+import { useSessionTimers } from '../../hooks/useSessionTimers';
 import { Message } from '../Message/Message';
 import { Input } from '../Input/Input';
 import type { AppConfig } from '../../types';
@@ -14,9 +15,44 @@ export function ChatWindow({ onClose, config }: ChatWindowProps) {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const messagesContainerRef = useRef<HTMLDivElement>(null);
   const chatWindowRef = useRef<HTMLDivElement>(null);
-  const { messages, input, setInput, sendMessage, isLoading, error } = useChat({
-    apiUrl: config.apiUrl,
-    apiToken: config.apiToken,
+  const [systemMessage, setSystemMessage] = useState<string | null>(null);
+  const [isExpiring, setIsExpiring] = useState(false);
+
+  const { messages, input, setInput, sendMessage, isLoading, error, lastUserMessageTime } = useChat(
+    {
+      apiUrl: config.apiUrl,
+      apiToken: config.apiToken,
+    },
+  );
+
+  // Session timer callbacks
+  const handleInactivityWarning = useCallback(() => {
+    setSystemMessage('Are you still there? 👋');
+  }, []);
+
+  const handleInactivityTimeout = useCallback(() => {
+    setSystemMessage('Chat closed due to inactivity. Feel free to reach out anytime!');
+    setTimeout(() => {
+      onClose();
+    }, 3000); // Close after 3 seconds
+  }, [onClose]);
+
+  const handleSessionExpired = useCallback(() => {
+    setIsExpiring(true);
+    setSystemMessage(
+      "Your chat session has reached the 20-minute limit. Thanks for chatting! If you'd like to continue, feel free to reach out.",
+    );
+    setTimeout(() => {
+      onClose();
+    }, 5000); // Close after 5 seconds
+  }, [onClose]);
+
+  // Initialize session timers
+  useSessionTimers({
+    lastUserMessageTime,
+    onInactivityWarning: handleInactivityWarning,
+    onInactivityTimeout: handleInactivityTimeout,
+    onSessionExpired: handleSessionExpired,
   });
 
   useEffect(() => {
@@ -136,6 +172,23 @@ export function ChatWindow({ onClose, config }: ChatWindowProps) {
           />
         ))}
         {isLoading && <Message role="assistant" content="" isLoading />}
+        {systemMessage && (
+          <div className="p-3 mb-4 text-sm rounded-lg bg-blue-50 dark:bg-blue-900/20 text-blue-800 dark:text-blue-300 border border-blue-300 dark:border-blue-800">
+            {systemMessage}
+            {isExpiring && (
+              <div className="mt-3">
+                <a
+                  href={config.contactUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors"
+                >
+                  Get in touch
+                </a>
+              </div>
+            )}
+          </div>
+        )}
         {error && (
           <div className="p-3 mb-4 text-sm rounded-lg bg-red-50 dark:bg-gray-800 text-red-800 dark:text-red-400 border border-red-300 dark:border-red-800">
             {error} Please try again or{' '}

@@ -36,7 +36,18 @@ export interface UsageResponse {
   resetAt: string;
 }
 
+export interface SessionMetadata {
+  sessionId: string;
+  createdAt: number; // Unix timestamp
+  messageCount: number;
+}
+
 export interface ErrorResponse {
   error: string;
   code?: string;
 }
+
+export type SessionErrorCode =
+  | 'SESSION_EXPIRED'
+  | 'SESSION_NOT_FOUND'
+  | 'SESSION_TOO_OLD';

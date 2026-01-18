@@ -56,8 +56,28 @@ chatRoutes.post('/', async (c) => {
 
     const { message, sessionId } = validation.data;
 
-    // Check session limit if sessionId is provided
+    // Validate session if sessionId is provided
     if (sessionId) {
+      try {
+        await sessionService.validateSession(sessionId);
+      } catch (error) {
+        const errorMessage = error instanceof Error ? error.message : 'UNKNOWN_ERROR';
+
+        if (errorMessage === 'SESSION_EXPIRED') {
+          return c.json(
+            {
+              error: 'Your chat session has expired. Please start a new conversation.',
+              code: errorMessage,
+            },
+            410, // 410 Gone - resource no longer available
+          );
+        }
+
+        // Unknown error, let it propagate
+        throw error;
+      }
+
+      // Check session message limit
       const hasExceeded = await sessionService.hasExceededLimit(sessionId);
       if (hasExceeded) {
         return streamSSE(c, async (stream) => {

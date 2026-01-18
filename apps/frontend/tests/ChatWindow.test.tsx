@@ -12,7 +12,13 @@ vi.mock('../src/hooks/useChat', () => ({
     sendMessage: vi.fn(),
     isLoading: false,
     error: null,
+    lastUserMessageTime: null,
   })),
+}));
+
+// Mock the useSessionTimers hook
+vi.mock('../src/hooks/useSessionTimers', () => ({
+  useSessionTimers: vi.fn(),
 }));
 
 describe('ChatWindow Component', () => {
@@ -29,6 +35,7 @@ describe('ChatWindow Component', () => {
         sendMessage: vi.fn(),
         isLoading: false,
         error: null,
+        lastUserMessageTime: null,
       });
 
       render(
@@ -43,7 +50,7 @@ describe('ChatWindow Component', () => {
         />,
       );
 
-      expect(screen.getByText(/Chat with Abdul/i)).toBeInTheDocument();
+      expect(screen.getByText(/Let's chat/i)).toBeInTheDocument();
     });
 
     test('renders greeting message on load', () => {
@@ -54,6 +61,7 @@ describe('ChatWindow Component', () => {
         sendMessage: vi.fn(),
         isLoading: false,
         error: null,
+        lastUserMessageTime: null,
       });
 
       render(
@@ -69,7 +77,7 @@ describe('ChatWindow Component', () => {
       );
 
       expect(
-        screen.getByText(/Hi! I'm Abdul's virtual assistant/i),
+        screen.getByText(/Hi! Ask me anything: professional background, skills, or experience!/i),
       ).toBeInTheDocument();
     });
   });
@@ -86,6 +94,7 @@ describe('ChatWindow Component', () => {
         sendMessage: vi.fn(),
         isLoading: false,
         error: null,
+        lastUserMessageTime: null,
       });
 
       render(
@@ -112,6 +121,7 @@ describe('ChatWindow Component', () => {
         sendMessage: vi.fn(),
         isLoading: true,
         error: null,
+        lastUserMessageTime: null,
       });
 
       render(
@@ -138,6 +148,7 @@ describe('ChatWindow Component', () => {
         sendMessage: vi.fn(),
         isLoading: false,
         error: 'Something went wrong',
+        lastUserMessageTime: null,
       });
 
       render(
@@ -163,6 +174,7 @@ describe('ChatWindow Component', () => {
         sendMessage: vi.fn(),
         isLoading: false,
         error: 'Error occurred',
+        lastUserMessageTime: null,
       });
 
       render(
@@ -194,6 +206,7 @@ describe('ChatWindow Component', () => {
         sendMessage: mockSendMessage,
         isLoading: false,
         error: null,
+        lastUserMessageTime: null,
       });
 
       render(
@@ -223,6 +236,7 @@ describe('ChatWindow Component', () => {
         sendMessage: mockSendMessage,
         isLoading: false,
         error: null,
+        lastUserMessageTime: null,
       });
 
       render(
@@ -252,6 +266,7 @@ describe('ChatWindow Component', () => {
         sendMessage: mockSendMessage,
         isLoading: true,
         error: null,
+        lastUserMessageTime: null,
       });
 
       render(
@@ -281,6 +296,7 @@ describe('ChatWindow Component', () => {
         sendMessage: vi.fn(),
         isLoading: false,
         error: null,
+        lastUserMessageTime: null,
       });
 
       render(
@@ -312,6 +328,7 @@ describe('ChatWindow Component', () => {
         sendMessage: vi.fn(),
         isLoading: false,
         error: null,
+        lastUserMessageTime: null,
       });
 
       render(
@@ -338,6 +355,7 @@ describe('ChatWindow Component', () => {
         sendMessage: vi.fn(),
         isLoading: true,
         error: null,
+        lastUserMessageTime: null,
       });
 
       render(
@@ -366,6 +384,7 @@ describe('ChatWindow Component', () => {
         sendMessage: vi.fn(),
         isLoading: false,
         error: null,
+        lastUserMessageTime: null,
       });
 
       render(
@@ -392,6 +411,7 @@ describe('ChatWindow Component', () => {
         sendMessage: vi.fn(),
         isLoading: true,
         error: null,
+        lastUserMessageTime: null,
       });
 
       render(
@@ -418,6 +438,7 @@ describe('ChatWindow Component', () => {
         sendMessage: vi.fn(),
         isLoading: false,
         error: null,
+        lastUserMessageTime: null,
       });
 
       render(
@@ -447,6 +468,7 @@ describe('ChatWindow Component', () => {
         sendMessage: vi.fn(),
         isLoading: false,
         error: null,
+        lastUserMessageTime: null,
       });
 
       render(
@@ -475,6 +497,7 @@ describe('ChatWindow Component', () => {
         sendMessage: vi.fn(),
         isLoading: false,
         error: null,
+        lastUserMessageTime: null,
       });
 
       render(
