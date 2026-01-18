@@ -1,3 +1,4 @@
+import ReactMarkdown from 'react-markdown';
 import type { ToolCall } from '../../types';
 
 interface MessageProps {
@@ -54,7 +55,25 @@ export function Message({
           </div>
         ) : (
           <>
-            <p className="text-sm whitespace-pre-wrap break-words">{content}</p>
+            <div className="text-sm whitespace-pre-wrap break-words">
+              <ReactMarkdown
+                components={{
+                  // Open links in new tab with security attributes
+                  a: ({ node, ...props }) => (
+                    <a
+                      {...props}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-400 hover:text-blue-300 underline"
+                    />
+                  ),
+                  // Preserve paragraph styling
+                  p: ({ node, ...props }) => <p {...props} className="mb-0" />,
+                }}
+              >
+                {content}
+              </ReactMarkdown>
+            </div>
 
             {/* Render tool call button */}
             {toolCall && (
