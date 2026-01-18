@@ -5,12 +5,17 @@ import { healthRoutes } from './routes/health';
 import { statusRoutes } from './routes/status';
 import { chatRoutes } from './routes/chat';
 import { config } from './config';
+import { securityHeaders } from './middleware/security';
 
 const app = new Hono();
 
 // Middleware
 app.use('*', logger());
 
+// Security headers middleware - apply to all routes
+app.use('*', securityHeaders);
+
+console.warn('[INFO] config.ALLOWED_ORIGINS = ', config.ALLOWED_ORIGINS);
 // Determine CORS origins based on environment
 const allowedOrigins =
   process.env.NODE_ENV === 'development'
@@ -32,8 +37,15 @@ app.use(
   '*',
   cors({
     origin: (origin) => {
-      // Allow requests with no origin (e.g., mobile apps, curl)
-      if (!origin) return '*';
+      // In production, be more restrictive with requests without origin
+      if (!origin) {
+        // Allow server-to-server requests in development, deny in production
+        if (process.env.NODE_ENV === 'production') {
+          console.warn('CORS: ✗ Denying request with no origin in production');
+          return '';
+        }
+        return '*';
+      }
 
       // Debug: log the comparison
       console.warn(`CORS check - Incoming: "${origin}", Allowed list:`, allowedOrigins);
@@ -60,6 +72,8 @@ app.use(
     allowMethods: ['GET', 'POST', 'OPTIONS'],
     allowHeaders: ['Content-Type', 'Authorization', 'X-API-Token', 'X-Turnstile-Token'],
     credentials: true,
+    maxAge: 86400, // Cache preflight requests for 24 hours
+    exposeHeaders: ['Content-Length', 'X-Request-Id'], // Allow client to read these headers
   }),
 );
 

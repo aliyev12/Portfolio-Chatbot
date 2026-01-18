@@ -123,6 +123,30 @@ All configuration is centralized in `apps/backend/src/config/index.ts` and loade
 
 See `.env.example` for all configuration options.
 
+### Security
+The backend implements comprehensive security measures through middleware (`middleware/security.ts`):
+
+**Security Headers** (OWASP recommended):
+- `X-Content-Type-Options: nosniff` - Prevents MIME type sniffing attacks
+- `X-Frame-Options: DENY` - Prevents clickjacking by blocking iframe embedding
+- `X-XSS-Protection: 1; mode=block` - Enables browser XSS protection (legacy browsers)
+- `Referrer-Policy: strict-origin-when-cross-origin` - Controls referrer information leakage
+- `Permissions-Policy` - Disables unnecessary browser features (geolocation, camera, microphone, etc.)
+- `Strict-Transport-Security` - Forces HTTPS in production (max-age=31536000, includeSubDomains, preload)
+
+**Content Security Policy (CSP)**:
+- API routes (`/api/*`): Restrictive policy blocking all content sources except self
+- Widget routes: Permissive policy allowing inline scripts for widget initialization and Cloudflare Turnstile
+- Frame ancestors limited to allowed origins from `ALLOWED_ORIGINS` config
+
+**CORS Configuration**:
+- Development: Allows localhost origins for testing
+- Production: Strict origin validation against `ALLOWED_ORIGINS` whitelist
+- Requests without origin header are rejected in production
+- Preflight requests cached for 24 hours (`maxAge: 86400`)
+- Credentials enabled for authenticated requests
+- Only allows GET, POST, OPTIONS methods
+
 ### Services Layer
 The backend uses a service-oriented architecture:
 

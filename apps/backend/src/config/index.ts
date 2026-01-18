@@ -1,5 +1,5 @@
 // Log environment variable for debugging
-console.warn('Raw ALLOWED_ORIGINS env var:', process.env.ALLOWED_ORIGINS);
+console.warn('[INFO]Raw ALLOWED_ORIGINS env var:', process.env.ALLOWED_ORIGINS);
 
 export const config = {
   PORT: parseInt(process.env.PORT || '3000'),
@@ -11,7 +11,7 @@ export const config = {
   ADMIN_SECRET: process.env.ADMIN_SECRET || '',
   ALLOWED_ORIGINS: (process.env.ALLOWED_ORIGINS || 'http://localhost:4321')
     .split(',')
-    .map(origin => origin.trim().replace(/\/$/, '')),
+    .map((origin) => origin.trim().replace(/\/$/, '')),
   // Security tokens
   API_TOKEN: process.env.API_TOKEN || '',
   TURNSTILE_SECRET_KEY: process.env.TURNSTILE_SECRET_KEY || '',
